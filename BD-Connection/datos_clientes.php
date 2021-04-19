@@ -245,6 +245,16 @@ VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inic
             return "error";
         }
     }
+    public static function buscar($indclientes,$mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `clientes` WHERE indcliente= '$indclientes'");
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row)) {
+            return $row;
+        }else{
+            return "error";
+        }
+    }
     public static function nombre_apellido_cliente($indcliente,$indsucursal,$mysqli)
     {
         $result = $mysqli->query("SELECT *  FROM `clientes` WHERE  indsucursal= '$indsucursal'");
