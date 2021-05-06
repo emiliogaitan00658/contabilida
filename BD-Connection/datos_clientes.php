@@ -47,6 +47,12 @@ class datos_clientes
         $fecha = date("j-n-Y");
         return $fecha;
     }
+    public static function fecha_get_pc_formulario()
+    {
+        date_default_timezone_set('America/Managua');
+        $fecha = date("j/n/Y");
+        return $fecha;
+    }
 
     public static function fecha_get_pc_MYSQL()
     {
@@ -147,8 +153,8 @@ class datos_clientes
 
     public static function datos_clientes_generales_actualizar($indcliente, $direccion1, $direccion2, $telefono, $sucursale, $mysqli)
     {
-        $insert1 = "UPDATE `clientes` SET `direccion1` = '$direccion1',`direccion2` = '$direccion2',
- `telefono` = '$telefono',`sucursal` = '$sucursale' WHERE `clientes`.`indcliente` = '$indcliente'";
+        $insert1 = "UPDATE `clientes`
+SET `direccion1` = '$direccion1 ', `direccion2` = '$direccion2', `telefono` = '$telefono ', `indsucursal` = '$sucursale' WHERE `clientes`.`indcliente` = '$indcliente';";
         $query = mysqli_query($mysqli, $insert1);
         return true;
     }
@@ -264,6 +270,38 @@ VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inic
         }else{
             return "error";
         }
+    }
+
+    public static function nombre_sucursal($indsucursal)
+    {
+        if ($_SESSION['sucursal'] == "1") {
+            return "Managua";
+        }
+        if ($_SESSION['sucursal'] == "2") {
+            return  "Masaya";
+        }
+        if ($_SESSION['sucursal'] == "3") {
+            return  "Chontales";
+        }
+        if ($_SESSION['sucursal'] == "6") {
+            return  "Esteli";
+        }
+        if ($_SESSION['sucursal'] == "5") {
+            return  "Leon";
+        }
+        if ($_SESSION['sucursal'] == "9") {
+            return  "Matagalpa";
+        }
+        if ($_SESSION['sucursal'] == "4") {
+            return  "Chinandega";
+        }
+        if ($_SESSION['sucursal'] == "7") {
+            return  "Managua Bolonia";
+        }
+        if ($_SESSION['sucursal'] == "8") {
+            return  "Managua Villa Fontana";
+        }
+        return 0;
     }
 
     public static function cambio_talonario($indsucursal,$notalonario,$mysqli)

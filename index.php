@@ -30,7 +30,7 @@ if ($_POST) {
  })
  .then((willDelete) => {
    if (willDelete) {
-     location.href="index.php";
+     location.href="crear_factura.php?indcliente='.$indusuario.'";
    }else {
       location.href="index.php";
    }

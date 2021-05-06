@@ -3,17 +3,61 @@
 if (!$_SESSION) {
     echo '<script> location.href="login" </script>';
 }
-if ($_POST) {
-    $nombre = strtoupper(filter_var($_POST['textnombre'], FILTER_SANITIZE_STRING));
-}
 ?>
 <div class="container white rounded z-depth-1">
     <div style="padding: 1em">
         <h5>Factura </h5>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <section class="row">
-                <div class="control-pares col-md-4">
-                    <input type="date" name="textnombre" class="form-control" placeholder="Fecha" required>
+                <div class="control-pares col-md-3">
+                    <input type="date" name="textfecha" class="form-control" placeholder="Fecha" value="<?php
+                    $fcha = date("Y-m-d");
+                    echo $fcha; ?>" required>
+                </div>
+                <div class="control-pares col-md-3">
+                    <select name="textsucursal" class="form-control" required>
+                        <option class="form-control" value="<?php
+                        echo $_SESSION['sucursal']; ?>" selected><?php
+
+                            if ($_SESSION['sucursal'] == "1") {
+                                echo "Managua";
+                            }
+                            if ($_SESSION['sucursal'] == "2") {
+                                echo "Masaya";
+                            }
+                            if ($_SESSION['sucursal'] == "3") {
+                                echo "Chontales";
+                            }
+                            if ($_SESSION['sucursal'] == "6") {
+                                echo "Esteli";
+                            }
+                            if ($_SESSION['sucursal'] == "5") {
+                                echo "Leon";
+                            }
+                            if ($_SESSION['sucursal'] == "9") {
+                                echo "Matagalpa";
+                            }
+                            if ($_SESSION['sucursal'] == "4") {
+                                echo "Chinandega";
+                            }
+                            if ($_SESSION['sucursal'] == "7") {
+                                echo "Managua Bolonia";
+                            }
+                            if ($_SESSION['sucursal'] == "8") {
+                                echo "Managua Villa Fontana";
+                            }
+
+                            ?></option>
+                        <option class="form-control" value="1">Managua</option>
+                        <option class="form-control" value="2">Masaya</option>
+                        <option class="form-control" value="3">Chontales</option>
+                        <option class="form-control" value="6">Esteli</option>
+                        <option class="form-control" value="5">Leon</option>
+                        <option class="form-control" value="9">Matagalpa</option>
+                        <option class="form-control" value="4">Chinandega</option>
+                        <option class="form-control" value="7">Managua Bolonia</option>
+                        <option class="form-control" value="8">Managua Villa Fontana</option>
+                    </select>
                 </div>
                 <div class="control-pares col-md-4">
                     <input type="submit" value="Buscar" class="btn white-text blue-grey btn-primary"/>
@@ -21,7 +65,6 @@ if ($_POST) {
             </section>
         </form>
         <br>
-        <a class="btn btn-dark" href="factura">Crear Nueva Facuración</a>
     </div>
 </div>
 <hr>
@@ -39,20 +82,20 @@ if ($_POST) {
         </thead>
         <tbody>
         <?php
-        $result4 = $mysqli->query("SELECT * FROM `factura` WHERE indsucursal='$indsucursal' ORDER by indfactura DESC");
-
-        /* $result4 = $mysqli->query("SELECT * FROM clientes
-      WHERE nombre LIKE _utf8  '%%$nombre%%'
-      OR apellido LIKE _utf8  '%%$nombre%%' ORDER BY nombre");*/
+        if ($_POST) {
+            $result4 = $mysqli->query("SELECT * FROM `factura` WHERE indsucursal='$indsucursal' ORDER by indfactura DESC");
+        } else {
+            $result4 = $mysqli->query("SELECT * FROM `factura` WHERE indsucursal='$indsucursal' ORDER by indfactura DESC");
+        }
 
         while ($resultado = $result4->fetch_assoc()) {
-            $indcliente=$resultado['indcliente'];
-            $nombre_apelido=datos_clientes::nombre_apellido_cliente($indcliente, $indsucursal, $mysqli);
+            $indcliente = $resultado['indcliente'];
+            $nombre_apelido = datos_clientes::nombre_apellido_cliente($indcliente, $indsucursal, $mysqli);
             ?>
             <tr>
                 <td><?php echo $resultado["indtalonario"]; ?></td>
                 <td><?php echo $nombre_apelido; ?></td>
-                <td><?php echo "C$ ".$total=($resultado['unidad']*$resultado['precio']*$resultado['cordoba'])?></td>
+                <td><?php echo "C$ " . $total = ($resultado['unidad'] * $resultado['precio'] * $resultado['cordoba']) ?></td>
                 <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                        class="btn btn-success">Imprimir</a></td>
                 <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"

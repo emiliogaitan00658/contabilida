@@ -11,7 +11,7 @@ if ($_GET) {
 }
 
 if ($_POST) {
-    $sucursale = strtoupper(filter_var($_POST['textsucursal'], FILTER_SANITIZE_STRING));
+    echo $sucursale = strtoupper(filter_var($_POST['textsucursal'], FILTER_SANITIZE_STRING));
     $direccion1 = filter_var($_POST['textdireccion1'], FILTER_SANITIZE_STRING);
     $direccion2 = filter_var($_POST['textdireccion2'], FILTER_SANITIZE_STRING);
     $telefono = strtoupper(filter_var($_POST['texttelefono'], FILTER_SANITIZE_STRING));
@@ -60,21 +60,28 @@ $datos = datos_clientes::datos_clientes_generales($indcliente, $mysqli);
         <section class="row">
             <div class="control-pares col-md-3">
                 <label>Seleccionar Sucursal: *</label>
-                <select name="textsucursal" class="form-control" required>
+                <select name="textsucursal" class="form-control">
                     <option class="form-control" value="<?php
-                    echo $_SESSION['sucursal']; ?>" selected><?php
-
-                        if($_SESSION['sucursal']=="1"){echo "Managua";}
-                        if($_SESSION['sucursal']=="2"){echo "Masaya";}
-                        if($_SESSION['sucursal']=="3"){echo "Chontales";}
-                        if($_SESSION['sucursal']=="6"){echo "Esteli";}
-                        if($_SESSION['sucursal']=="5"){echo "Leon";}
-                        if($_SESSION['sucursal']=="9"){echo "Matagalpa";}
-                        if($_SESSION['sucursal']=="4"){echo "Chinandega";}
-                        if($_SESSION['sucursal']=="7"){echo "Managua Bolonia";}
-                        if($_SESSION['sucursal']=="8"){echo "Managua Villa Fontana";}
-
-                        ?></option>
+                    if($datos['indsucursal']=="Managua"){echo "Managua";}
+                    if($datos['indsucursal']=="Masaya"){echo "2";}
+                    if($datos['indsucursal']=="Chontales"){echo "3";}
+                    if($datos['indsucursal']=="Esteli"){echo "6";}
+                    if($datos['indsucursal']=="Leon"){echo "5";}
+                    if($datos['indsucursal']=="Matagalpa"){echo "9";}
+                    if($datos['indsucursal']=="Chinandega"){echo "4";}
+                    if($datos['indsucursal']=="Managua Bolonia"){echo "7";}
+                    if($datos['indsucursal']=="Managua Villa Fontana"){echo "8";}
+                    ?>" selected hidden><?php
+                    if($datos['indsucursal']=="1"){echo "Managua";}
+                    if($datos['indsucursal']=="2"){echo "Masaya";}
+                    if($datos['indsucursal']=="3"){echo "Chontales";}
+                    if($datos['indsucursal']=="6"){echo "Esteli";}
+                    if($datos['indsucursal']=="5"){echo "Leon";}
+                    if($datos['indsucursal']=="9"){echo "Matagalpa";}
+                    if($datos['indsucursal']=="4"){echo "Chinandega";}
+                    if($datos['indsucursal']=="7"){echo "Managua Bolonia";}
+                    if($datos['indsucursal']=="8"){echo "Managua Villa Fontana";}
+                    ?></option>
                     <option class="form-control" value="1">Managua</option>
                     <option class="form-control" value="2">Masaya</option>
                     <option class="form-control" value="3">Chontales</option>
@@ -112,7 +119,8 @@ $datos = datos_clientes::datos_clientes_generales($indcliente, $mysqli);
         </section>
         <br>
         <div class="modal-footer">
-            <input type="submit" value="Actualizar Datos" class="btn blue-grey btn-primary"/>
+            <a href="" class="btn white-text red btn-primary">Eliminar usuario</a>
+            <input type="submit" value="Actualizar Datos" class="btn white-text blue-grey btn-primary"/>
         </div>
     </form>
 </div>

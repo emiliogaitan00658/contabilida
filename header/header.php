@@ -28,16 +28,28 @@
 session_start();
 include_once 'BD-Connection/conection.php';
 include_once 'BD-Connection/datos_clientes.php';
+if(!empty($_SESSION)){
+    $idsucursal=$_SESSION['sucursal'];
+}
 ?>
 
 <div class="white rounded container-fluid">
    <div style="padding: 1em " class="container">
        <ul class="nav nav-tabs">
+           <li class="nav-item text-uppercase">
+               <a class="nav-link text-uppercase" href="#">Sucursal <b class="text-uppercase">
+                       <?php if(!empty($_SESSION)){
+                           echo datos_clientes::nombre_sucursal($idsucursal);
+                       } ?></b></a>
+           </li>
            <li class="nav-item">
                <a class="nav-link" href="factura_dia">Facuración</a>
            </li>
            <li class="nav-item">
-               <a class="nav-link" href="index"> <i class="icon-user-plus"> </i> Nuevo Cliente</a>
+               <a class="nav-link" href="factura">Crear Factura</a>
+           </li>
+           <li class="nav-item">
+               <a class="nav-link" href="productos">Productos</a>
            </li>
            <li class="nav-item">
                <a class="nav-link bg-red" href="#"><i class="icon-coin-dollar"> </i> <?php echo datos_clientes::cambio_dolar($mysqli); ?> Cordobas</a>

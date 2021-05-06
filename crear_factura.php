@@ -18,35 +18,37 @@ if ($_POST) {
     }
 }
 ?>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" name="myapp">
+    <div class="container z-depth-1 rounded white center-block">
+        <div class="modal-header white rounded right">
+            <h4 class="modal-title blue-grey-text unoem right"><i class="red-text"><b>No Factura:</b></i> <b><input
+                            type="text" class="form-control"
+                            value="<?php
+                            try {
+                                if (!empty($_SESSION['sucursal'])) {
+                                    $indsucursal = $_SESSION['sucursal'];
+                                    echo datos_clientes::cambio_do($indsucursal, $mysqli);
+                                }
+                            } catch (Exception $e) {
 
-<div class="container z-depth-1 rounded white center-block">
-    <div class="modal-header white rounded right">
-        <h4 class="modal-title blue-grey-text unoem right">Factura: <b><?php
-                try {
-                    if (!empty($_SESSION['sucursal'])) {
-                        $indsucursal = $_SESSION['sucursal'];
-                        echo datos_clientes::cambio_do($indsucursal, $mysqli);
-                    }
-                } catch (Exception $e) {
-
-                }
-                ?></b></h4>
-    </div>
-    <br>
-    <br>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                            }
+                            ?>">
+                </b></h4>
+        </div>
+        <br>
+        <br>
         <section class="row">
-            <div class="control-pares col-md-3">
+            <div class="control-pares col-md-4">
                 <label for="" class="control-label">Nombres: *</label>
                 <input type="text" name="textnombre" class="form-control"
                        value="<?php echo $row["nombre"] ?>" placeholder="Nombres" required>
             </div>
-            <div class="control-pares col-md-3">
+            <div class="control-pares col-md-4">
                 <label for="" class="control-label">Apellidos: *</label>
                 <input type="text" name="textapellido" class="form-control"
                        value="<?php echo $row["apellido"] ?>" placeholder="Apellidos" required>
             </div>
-            <div class="control-pares col-md-3">
+            <div class="control-pares col-md-2">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
                     <label class="form-check-label" for="flexCheckChecked">
@@ -54,20 +56,20 @@ if ($_POST) {
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
                     <label class="form-check-label" for="flexCheckChecked">
                         Targeta
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
                     <label class="form-check-label" for="flexCheckChecked">
                         Credito
                     </label>
                 </div>
             </div>
 
-            <div class="control-pares col-md-3">
+            <div class="control-pares col-md-2">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
                     <label class="form-check-label" for="flexCheckChecked">
@@ -81,59 +83,97 @@ if ($_POST) {
                     </label>
                 </div>
             </div>
+
         </section>
         <br>
         <div class="modal-footer">
-            <input type="submit" value="Nuevo Cliente" class="btn white-text blue-grey btn-primary"/>
+            <a class="btn white-text blue-grey btn-primary" href="">Buscar Producto</a>
         </div>
-    </form>
-</div>
-<div class="container z-depth-1 rounded white">
-    <table class="table table-borderless" style="padding: 1em;">
-        <thead>
-        <tr style="border-bottom: 1px solid black">
-            <th scope="col"># ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
-            <th scope="col">Sucursal</th>
-            <th scope="col">Detalles</th>
-            <th scope="col">Creditos</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        if ($_POST) {
-            $result4 = $mysqli->query("SELECT * FROM clientes 
-         WHERE nombre LIKE _utf8  '%%$nombre%%' 
-         OR apellido LIKE _utf8  '%%$nombre%%' ORDER BY nombre");
-            while ($resultado = $result4->fetch_assoc()) {
-                ?>
-                <tr>
-                    <th scope="row"><?php echo $resultado['indcliente']; ?></th>
-                    <td><?php echo $resultado['nombre']; ?></td>
-                    <td><?php echo $resultado['apellido']; ?></td>
-                    <td><?php
-                        if($resultado['indsucursal']=="1"){echo "Managua";}
-                        if($resultado['indsucursal']=="2"){echo "Masaya";}
-                        if($resultado['indsucursal']=="3"){echo "Chontales";}
-                        if($resultado['indsucursal']=="6"){echo "Esteli";}
-                        if($resultado['indsucursal']=="5"){echo "Leon";}
-                        if($resultado['indsucursal']=="9"){echo "Matagalpa";}
-                        if($resultado['indsucursal']=="4"){echo "Chinandega";}
-                        if($resultado['indsucursal']=="7"){echo "Managua Bolonia";}
-                        if($resultado['indsucursal']=="8"){echo "Managua Villa Fontana";}
-                        ?></td>
-                    <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
-                           class="btn btn-success">Detalles</a></td>
-                    <td><a href="crear_factura.php?indcliente=<?php echo $resultado['indcliente']; ?>"
-                           class="btn btn-primary">Crear Factura</a></td>
-                </tr>
-            <?php }
 
-        } ?>
+    </div>
+    <div class="container z-depth-1 rounded white">
+        <table class="table table-bordered table-dark table ">
+            <thead>
+            <tr>
+                <th style="width:15%;">No Codigo</th>
+                <th style="width:8%;" scope="col">Cantidad</th>
+                <th scope="col">Decripcion Producto</th>
+                <th scope="col">Descuento</th>
+                <th style="width:20px;" scope="col">P/Unidad</th>
+                <th style="width:15%;" scope="col">Precio/Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th style="width:15%;" scope="row">CAVEX-100</th>
+                <td style="width:20px;"><input type="text" class="form-control" id="textcantidad" name="textcantidad"
+                                               value="2" onkeyup="suma()"></td>
+                <td>ALGINATO CREAM</td>
+                <td style="width:20px;"><input type="text" class="form-control" id="textdescuento" name="textdescuento"
+                                               value=""></td>
+                <td style="width:20px;"><input type="text" class="form-control" id="textprecio" name="textprecio"
+                                               value="34.23" disabled></td>
+                <td style="width:20px;"><input type="text" class="form-control" id="texttotal" name="texttotal"
+                                               value="2" disabled></td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+    </div>
 
-        </tbody>
-    </table>
-</div>
+
+    <div class="container z-depth-1 rounded white">
+        <br>
+        <section class="row">
+            <div class="control-pares col-md-3">
+                <label for="" class="control-label"><b>Pago Dolar:</b></label>
+                <input type="text" name="textapellido" class="form-control"
+                       value="" placeholder="Pago en dolar" required>
+            </div>
+            <div class="control-pares col-md-3">
+                <label for="" class="control-label"><b>Pago Cordobas:</b></label>
+                <input type="text" name="textnombre" class="form-control"
+                       value="" placeholder="Pago en cordobas" required>
+            </div>
+            <div class="control-pares col-md-3">
+                <label for="" class="control-label"><b>Sub Total:</b></label>
+                <input type="text" name="textnombre" disabled class="form-control"
+                       value="" placeholder="Sub total" required>
+            </div>
+            <div class="control-pares col-md-3">
+                <label for="" class="control-label"><b>Total:</b></label>
+                <input type="text" name="textapellido" class="form-control"
+                       value="" placeholder="Sub total" disabled required>
+            </div>
+            <br>
+            <div class="control-pares col-md-3" style="padding-top: 2em;">
+                <input type="submit" value="Pagadar" class="btn white-text btn-danger"/>
+            </div>
+        </section>
+        <br>
+    </div>
+</form>
+
+
+<script>
+    function suma() {
+        var cantidad = document.myapp.textcantidad.value;
+        var precio = document.myapp.textprecio.value;
+        try {
+            if (parseInt(cantidad)) {
+                var total = cantidad * precio;
+                document.myapp.texttotal.value = dosdecimales(total);
+            } else {
+                document.myapp.textvalor1.value = "";
+            }
+
+            function dosdecimales(x) {
+                return Number.parseFloat(x).toFixed(2);
+            }
+        } catch (e) {
+            document.myapp.textvalor1.value = "";
+        }
+    }
+</script>
 <?php include "header/footer.php" ?>
 

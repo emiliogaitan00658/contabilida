@@ -22,6 +22,10 @@ if (!empty($_POST["textnombre"])) {
                 </div>
             </section>
         </form>
+        <hr>
+        <a class="btn btn-dark blue-grey right" href="index">Nuevo Cliente</a>
+        <br>
+        <br>
     </div>
 </div>
 <hr>

@@ -45,7 +45,7 @@ if ($_POST){
                 </div>
             </section>
             <div class="modal-footer">
-                <input type="submit" value="Ingresar" class="btn blue-grey btn-primary"/>
+                <input type="submit" value="Ingresar" class="btn white-text blue-grey btn-primary"/>
             </div>
         </form>
     </section>
