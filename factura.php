@@ -18,12 +18,12 @@ if (!empty($_POST["textnombre"])) {
                     <input type="text" name="textnombre" class="form-control" placeholder="Buscar ....." required>
                 </div>
                 <div class="control-pares col-md-4">
-                    <input type="submit" value="Buscar" class="btn white-text blue-grey btn-primary"/>
+                    <input type="submit" value="Buscar" class="btn  white-text blue-grey btn-primary"/>
                 </div>
             </section>
         </form>
         <hr>
-        <a class="btn btn-dark blue-grey right" href="index">Nuevo Cliente</a>
+        <a class="btn btn-dark blue-grey right" href="index"><i class="icon-user-plus white-text"></i> Nuevo Cliente</a>
         <br>
         <br>
     </div>

@@ -20,56 +20,20 @@ if ($_POST) {
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" name="myapp">
     <div class="container z-depth-1 rounded white center-block">
-        <div class="modal-header white rounded right">
-            <h4 class="modal-title blue-grey-text unoem right"><i class="red-text"><b>No Factura:</b></i> <b><input
-                            type="text" class="form-control"
-                            value="<?php
-                            try {
-                                if (!empty($_SESSION['sucursal'])) {
-                                    $indsucursal = $_SESSION['sucursal'];
-                                    echo datos_clientes::cambio_do($indsucursal, $mysqli);
-                                }
-                            } catch (Exception $e) {
-
-                            }
-                            ?>">
-                </b></h4>
-        </div>
         <br>
         <br>
         <section class="row">
-            <div class="control-pares col-md-4">
+            <div class="control-pares col-md-3">
                 <label for="" class="control-label">Nombres: *</label>
                 <input type="text" name="textnombre" class="form-control"
                        value="<?php echo $row["nombre"] ?>" placeholder="Nombres" required>
             </div>
-            <div class="control-pares col-md-4">
+            <div class="control-pares col-md-3">
                 <label for="" class="control-label">Apellidos: *</label>
                 <input type="text" name="textapellido" class="form-control"
                        value="<?php echo $row["apellido"] ?>" placeholder="Apellidos" required>
             </div>
-            <div class="control-pares col-md-2">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label" for="flexCheckChecked">
-                        Efectivo
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                    <label class="form-check-label" for="flexCheckChecked">
-                        Targeta
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                    <label class="form-check-label" for="flexCheckChecked">
-                        Credito
-                    </label>
-                </div>
-            </div>
-
-            <div class="control-pares col-md-2">
+            <div class="control-pares col-md-3">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
                     <label class="form-check-label" for="flexCheckChecked">
@@ -82,8 +46,34 @@ if ($_POST) {
                         Dolar
                     </label>
                 </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Targeta
+                    </label>
+                </div>
             </div>
 
+            <div class="control-pares col-md-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Trasferencia
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        BAC
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        LaFise
+                    </label>
+                </div>
+            </div>
         </section>
         <br>
         <div class="modal-footer">

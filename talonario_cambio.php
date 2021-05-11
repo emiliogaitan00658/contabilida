@@ -57,6 +57,8 @@ if ($_POST){
             <input type="submit" value="Agregar Talonario" class="btn white-text blue-grey btn-primary"/>
         </div>
     </form>
+    <p> Este Cambio no aplica en las sucursale de Managua, Leon, Esteli</p>
+    <br>
 </div>
 
 <?php include "header/footer.php" ?>

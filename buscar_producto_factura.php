@@ -43,19 +43,20 @@ if (!$_SESSION){
         }else{
             $result4 = $mysqli->query("SELECT * FROM `producto` ORDER by nombre_producto ASC limit 30");
         }
-            while ($resultado = $result4->fetch_assoc()) {
-                ?>
-                <tr>
-                    <th scope="row"><?php echo $resultado['codigo_producto']; ?></th>
-                    <td><?php echo $resultado['nombre_producto']; ?></td>
-                    <td>$ <?php echo $resultado['precio1']; ?></td>
-                    <td>$ <?php echo $resultado['precio2']; ?></td>
-                    <td>$ <?php echo $resultado['precio3']; ?></td>
-                </tr>
-            <?php } ?>
+        while ($resultado = $result4->fetch_assoc()) {
+            ?>
+            <tr>
+                <th scope="row"><?php echo $resultado['codigo_producto']; ?></th>
+                <td><?php echo $resultado['nombre_producto']; ?></td>
+                <td>$ <?php echo $resultado['precio1']; ?></td>
+                <td>$ <?php echo $resultado['precio2']; ?></td>
+                <td>$ <?php echo $resultado['precio3']; ?></td>
+            </tr>
+        <?php } ?>
 
         </tbody>
     </table>
 </div>
 <?php include "header/footer.php" ?>
+
 
