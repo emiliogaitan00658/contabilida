@@ -37,8 +37,9 @@ if (!empty($_POST["textnombre"])) {
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
             <th scope="col">Sucursal</th>
+            <th scope="col">No Deudas</th>
             <th scope="col">Detalles</th>
-            <th scope="col">Creditos</th>
+            <th scope="col">Crear Factura</th>
         </tr>
         </thead>
         <tbody>
@@ -64,9 +65,10 @@ if (!empty($_POST["textnombre"])) {
                         if($resultado['indsucursal']=="7"){echo "Managua Bolonia";}
                         if($resultado['indsucursal']=="8"){echo "Managua Villa Fontana";}
                         ?></td>
-                    <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
+                    <td><?php echo "15"; ?></td>
+                    <td><a href="temporal/indcliente.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-success">Detalles</a></td>
-                    <td><a href="crear_factura.php?indcliente=<?php echo $resultado['indcliente']; ?>"
+                    <td><a href="temporal/indcliente.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-primary">Crear Factura</a></td>
                 </tr>
             <?php }

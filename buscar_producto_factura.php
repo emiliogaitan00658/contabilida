@@ -3,6 +3,11 @@
 if (!$_SESSION){
     echo '<script> location.href="login" </script>';
 }
+if ($_GET){
+    $_GET['codigo'];
+    $_GET['precio'];
+}
+
 ?>
 <div class="container white rounded z-depth-2" style="border-radius: 6px;">
     <div style="padding: 1em">
@@ -18,7 +23,7 @@ if (!$_SESSION){
             </section>
         </form>
         <hr>
-        <a class="btn btn-dark blue-grey right" href="index">Nuevo Cliente</a>
+        <a class="btn btn-dark light-blue right" href="index"><i class="icon-arrow-left2"></i> Regresar</a>
         <br>
         <br>
     </div>
@@ -28,8 +33,8 @@ if (!$_SESSION){
     <table class="table table-borderless" style="padding: 1em;">
         <thead>
         <tr style="border-bottom: 1px solid black">
-            <th scope="col">#Codigo</th>
-            <th scope="col">Producto</th>
+            <th scope="col">No# Codigo</th>
+            <th scope="col">Detalles Producto</th>
             <th scope="col">Precio 1</th>
             <th scope="col">Precio 2</th>
             <th scope="col">Precio 3</th>
@@ -38,7 +43,7 @@ if (!$_SESSION){
         <tbody>
         <?php
         if(!empty($_POST["textproducto"])){
-            echo $producto=$_POST["textproducto"];
+            $producto=$_POST["textproducto"];
             $result4 = $mysqli->query("SELECT * FROM `producto` WHERE `nombre_producto` LIKE '%%$producto%%' ORDER by nombre_producto ASC");
         }else{
             $result4 = $mysqli->query("SELECT * FROM `producto` ORDER by nombre_producto ASC limit 30");
@@ -48,9 +53,9 @@ if (!$_SESSION){
             <tr>
                 <th scope="row"><?php echo $resultado['codigo_producto']; ?></th>
                 <td><?php echo $resultado['nombre_producto']; ?></td>
-                <td>$ <?php echo $resultado['precio1']; ?></td>
-                <td>$ <?php echo $resultado['precio2']; ?></td>
-                <td>$ <?php echo $resultado['precio3']; ?></td>
+                <td><a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'].'&precio='.$resultado['precio1']; ?>">$ <?php echo $resultado['precio1']; ?></a></td>
+                <td><a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'].'&precio='.$resultado['precio2']; ?>">$ <?php echo $resultado['precio2']; ?></a></td>
+                <td><a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'].'&precio='.$resultado['precio3']; ?>">$ <?php echo $resultado['precio3']; ?></a></td>
             </tr>
         <?php } ?>
 

@@ -47,6 +47,7 @@ class datos_clientes
         $fecha = date("j-n-Y");
         return $fecha;
     }
+
     public static function fecha_get_pc_formulario()
     {
         date_default_timezone_set('America/Managua');
@@ -160,7 +161,7 @@ SET `direccion1` = '$direccion1 ', `direccion2` = '$direccion2', `telefono` = '$
     }
 
 
-    public static function pago_actualizar($indcredito,$factura, $fecha, $mysqli)
+    public static function pago_actualizar($indcredito, $factura, $fecha, $mysqli)
     {
         $insert1 = "UPDATE `creditos_pago` SET `indfactura` = '$factura',status='true' WHERE creditos_pago.indcredito = '$indcredito' AND fechapago='$fecha'";
         $query = mysqli_query($mysqli, $insert1);
@@ -168,7 +169,7 @@ SET `direccion1` = '$direccion1 ', `direccion2` = '$direccion2', `telefono` = '$
     }
 
 
-    public static function nuevo_usuario($indusuario, $nombre,  $direccion1,$direccion2, $cedula, $telefono, $sucursale, $apellido, $mysqli)
+    public static function nuevo_usuario($indusuario, $nombre, $direccion1, $direccion2, $cedula, $telefono, $sucursale, $apellido, $mysqli)
     {
         $insert1 = "INSERT INTO `clientes` (`indcliente`, `nombre`, `apellido`, `direccion1`, `direccion2`, `cedula`, `telefono`, `indsucursal`, `status`) 
 VALUES ( '$indusuario', '$nombre', '$apellido', '$direccion1', '$direccion2', '$cedula', '$telefono', '$sucursale', '1');";
@@ -193,7 +194,7 @@ VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inic
         $m + 1;
 
         $pago_cu = $monto / $cuotas;
-        $pago_cuatos= round($pago_cu, 2);
+        $pago_cuatos = round($pago_cu, 2);
 
         for ($i = 1; $i <= $cuotas; $i++) {
             if ($i == $cuotas) {
@@ -219,13 +220,13 @@ VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inic
         return true;
     }
 
-    public static function login_empleado($user,$pass, $mysqli)
+    public static function login_empleado($user, $pass, $mysqli)
     {
         $result = $mysqli->query("SELECT * FROM `empleado` WHERE `user` = '$user' AND `pass` = '$pass'");
         $row = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row)) {
             return $row["indsucursal"];
-        }else{
+        } else {
             return "indsucursal";
         }
         return "indsucursal";
@@ -237,37 +238,40 @@ VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inic
         $row = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row)) {
             return $row["dolar"];
-        }else{
+        } else {
             return "error";
         }
     }
-    public static function cambio_do($indsucursal,$mysqli)
+
+    public static function cambio_do($indsucursal, $mysqli)
     {
         $result = $mysqli->query("SELECT * FROM `talonario` WHERE `indsucursal` = '$indsucursal'");
         $row = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row)) {
             return $row["numero"];
-        }else{
+        } else {
             return "error";
         }
     }
-    public static function buscar($indclientes,$mysqli)
+
+    public static function buscar($indclientes, $mysqli)
     {
         $result = $mysqli->query("SELECT * FROM `clientes` WHERE indcliente= '$indclientes'");
         $row = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row)) {
             return $row;
-        }else{
+        } else {
             return "error";
         }
     }
-    public static function nombre_apellido_cliente($indcliente,$indsucursal,$mysqli)
+
+    public static function nombre_apellido_cliente($indcliente, $indsucursal, $mysqli)
     {
         $result = $mysqli->query("SELECT *  FROM `clientes` WHERE  indsucursal= '$indsucursal'");
         $row = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row)) {
-            return $row["nombre"]. $row["apellido"];
-        }else{
+            return $row["nombre"] . $row["apellido"];
+        } else {
             return "error";
         }
     }
@@ -278,33 +282,33 @@ VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inic
             return "Managua";
         }
         if ($_SESSION['sucursal'] == "2") {
-            return  "Masaya";
+            return "Masaya";
         }
         if ($_SESSION['sucursal'] == "3") {
-            return  "Chontales";
+            return "Chontales";
         }
         if ($_SESSION['sucursal'] == "6") {
-            return  "Esteli";
+            return "Esteli";
         }
         if ($_SESSION['sucursal'] == "5") {
-            return  "Leon";
+            return "Leon";
         }
         if ($_SESSION['sucursal'] == "9") {
-            return  "Matagalpa";
+            return "Matagalpa";
         }
         if ($_SESSION['sucursal'] == "4") {
-            return  "Chinandega";
+            return "Chinandega";
         }
         if ($_SESSION['sucursal'] == "7") {
-            return  "Managua Bolonia";
+            return "Managua Bolonia";
         }
         if ($_SESSION['sucursal'] == "8") {
-            return  "Managua Villa Fontana";
+            return "Managua Villa Fontana";
         }
         return 0;
     }
 
-    public static function cambio_talonario($indsucursal,$notalonario,$mysqli)
+    public static function cambio_talonario($indsucursal, $notalonario, $mysqli)
     {
         $indsucursal;
         $notalonario;
@@ -312,5 +316,21 @@ VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inic
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
+    public static function Verificar_generador_codigo($mysqli)
+    {
+        $longitud = 100;
+        $key = '';
+        $pattern = '1234567890abcdefghijklmnopqrstuvwxyz';
+        $max = strlen($pattern) - 1;
+        for ($i = 0; $i < $longitud; $i++) $key .= $pattern{mt_rand(0, $max)};
 
+        $result = $mysqli->query(" SELECT * FROM `factura` WHERE indtemp='$key'");
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row)) {
+            return "true";
+            self::Verificar_generador_codigo($mysqli);
+        } else {
+            return $key;
+        }
+    }
 }

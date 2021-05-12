@@ -1,9 +1,11 @@
 <?php include "header/header.php";
-$indcliente = $_GET["indcliente"];
+$indcliente = $_SESSION["indcliente"];
+$Key= $_SESSION["Key"];
 $row = datos_clientes::buscar($indcliente, $mysqli);
 if (!$_SESSION) {
     echo '<script> location.href="login" </script>';
 }
+
 
 if ($_POST) {
 
@@ -77,7 +79,7 @@ if ($_POST) {
         </section>
         <br>
         <div class="modal-footer">
-            <a class="btn white-text blue-grey btn-primary" href="">Buscar Producto</a>
+            <a class="btn white-text blue-grey btn-primary" href="buscar_producto_factura.php">Buscar Producto</a>
         </div>
 
     </div>
