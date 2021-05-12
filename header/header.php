@@ -31,6 +31,7 @@ include_once 'BD-Connection/datos_clientes.php';
 if (!empty($_SESSION)) {
     $idsucursal = $_SESSION['sucursal'];
 }
+$dolar=datos_clientes::cambio_dolar($mysqli);
 ?>
 
 <div class="white rounded container-fluid">
@@ -53,7 +54,7 @@ if (!empty($_SESSION)) {
             </li>
             <li class="nav-item">
                 <a class="nav-link bg-red" href="#"><i
-                            class="icon-coin-dollar"> </i> <?php echo datos_clientes::cambio_dolar($mysqli); ?> Cordobas</a>
+                            class="icon-coin-dollar"> </i> <?php echo $dolar?> Cordobas</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link bg-red" href="talonario_cambio"> <?php

@@ -316,6 +316,7 @@ VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inic
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
+
     public static function Verificar_generador_codigo($mysqli)
     {
         $longitud = 100;
@@ -332,5 +333,33 @@ VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inic
         } else {
             return $key;
         }
+    }
+
+/* Creacion dela factura todos los datos integrados */
+
+    public static function facturagenerada_filtro1($indtemp,$dolar,$indsucursal,$precio,$producto,$indproducto, $mysqli)
+    {
+        $insert = "INSERT INTO `factura` (`indfactura`, `indtalonario`, `codigo_producto`, `nombre_producto`, `unidad`, `precio`, `cordoba`, `descuento`, `bandera`, `indcliente`, `indsucursal`, `anular`, `indtemp`) 
+VALUES (NULL, NULL, '$indproducto', '$producto', NULL, '$precio', '$dolar', NULL, '1', NULL, '$indsucursal', '', '$indtemp');";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+    public static function eliminar_producto_factura($indproducto, $key, $mysqli)
+    {
+        $insert = "DELETE FROM `factura` WHERE `factura`.`indtemp` = '$key' AND codigo_producto='$indproducto'";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+    public static function eliminar_todo_factura($key, $mysqli)
+    {
+        $insert = "DELETE FROM `factura` WHERE `factura`.`indtemp` = '$key'";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+    public static function sumatotal_factursa($key,$mysqli)
+    {
+        $result = $mysqli->query("SELECT SUM(precio) as total FROM `factura` WHERE factura.indtemp='$key'");
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        return $row['total'];
     }
 }

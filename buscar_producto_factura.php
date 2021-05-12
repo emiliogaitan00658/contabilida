@@ -1,13 +1,22 @@
 <?php include "header/header.php";
 //session_start();
-if (!$_SESSION){
+if (!$_SESSION) {
     echo '<script> location.href="login" </script>';
 }
-if ($_GET){
-    $_GET['codigo'];
-    $_GET['precio'];
+if ($_GET) {
+    $indproducto = $_GET['codigo'];
+    $precio = $_GET['precio'];
+    $producto = $_GET['producto'];
+    $indtemp = $_SESSION['Key'];
+    $indsucursal = $_SESSION['sucursal'];
+    datos_clientes::facturagenerada_filtro1($indtemp, $dolar, $indsucursal, $precio, $producto, $indproducto, $mysqli);
+ echo '<script>
+    swal("Exito Registor Producto.")
+.then((value) => {
+  location.href="crear_factura.php";
+});
+</script>';
 }
-
 ?>
 <div class="container white rounded z-depth-2" style="border-radius: 6px;">
     <div style="padding: 1em">
@@ -42,10 +51,10 @@ if ($_GET){
         </thead>
         <tbody>
         <?php
-        if(!empty($_POST["textproducto"])){
-            $producto=$_POST["textproducto"];
+        if (!empty($_POST["textproducto"])) {
+            $producto = $_POST["textproducto"];
             $result4 = $mysqli->query("SELECT * FROM `producto` WHERE `nombre_producto` LIKE '%%$producto%%' ORDER by nombre_producto ASC");
-        }else{
+        } else {
             $result4 = $mysqli->query("SELECT * FROM `producto` ORDER by nombre_producto ASC limit 30");
         }
         while ($resultado = $result4->fetch_assoc()) {
@@ -53,9 +62,15 @@ if ($_GET){
             <tr>
                 <th scope="row"><?php echo $resultado['codigo_producto']; ?></th>
                 <td><?php echo $resultado['nombre_producto']; ?></td>
-                <td><a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'].'&precio='.$resultado['precio1']; ?>">$ <?php echo $resultado['precio1']; ?></a></td>
-                <td><a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'].'&precio='.$resultado['precio2']; ?>">$ <?php echo $resultado['precio2']; ?></a></td>
-                <td><a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'].'&precio='.$resultado['precio3']; ?>">$ <?php echo $resultado['precio3']; ?></a></td>
+                <td>
+                    <a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'] . '&precio=' . $resultado['precio1'] . '&producto=' . $resultado['nombre_producto']; ?>">$ <?php echo $resultado['precio1'] . ' (' . $dolar * $resultado['precio1'] . ')'; ?></a>
+                </td>
+                <td>
+                    <a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'] . '&precio=' . $resultado['precio2'] . '&producto=' . $resultado['nombre_producto']; ?>">$ <?php echo $resultado['precio2']; ?></a>
+                </td>
+                <td>
+                    <a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'] . '&precio=' . $resultado['precio3'] . '&producto=' . $resultado['nombre_producto']; ?>">$ <?php echo $resultado['precio3']; ?></a>
+                </td>
             </tr>
         <?php } ?>
 

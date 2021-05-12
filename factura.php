@@ -3,6 +3,13 @@
 if (!$_SESSION){
     echo '<script> location.href="login" </script>';
 }
+
+if($_SESSION["Key"]==""){
+
+}else{
+    echo '<script> location.href="crear_factura.php" </script>';
+}
+
 if (!empty($_POST["textnombre"])) {
     $nombre = strtoupper(filter_var($_POST['textnombre'], FILTER_SANITIZE_STRING));
 }else{
