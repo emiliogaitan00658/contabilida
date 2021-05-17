@@ -238,10 +238,9 @@ if ($_SESSION["Key"] == "") {
         xhr.onreadystatechange = function(){
             if(xhr.readyState == 4 && xhr.status == 200){
                 c = parseFloat(xhr.responseText);
-                //alert(xhr.responseText);
+                textotal33.value = xhr.responseText;
             }
         }
-        document.myapp.textotal33.value = dosdecimales(xhr.responseText);
     }
     /////////////////////////////////////////////////////////////////////////////////
 
