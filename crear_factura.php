@@ -13,7 +13,7 @@ if ($_POST) {
     }
 }
 
-if($_SESSION["Key"]==""){
+if ($_SESSION["Key"] == "") {
     echo '<script> location.href="factura.php" </script>';
 }
 
@@ -77,8 +77,11 @@ if($_SESSION["Key"]==""){
         </section>
         <br>
         <div class="modal-footer">
-            <a class="btn white-text black btn-primary" href="temporal/cancelar_factura.php?indtemp=<?php echo $Key;?>"><i class="icon-bin"></i> Eliminar Factura</a>
-            <a class="btn white-text blue-grey btn-primary" href="buscar_producto_factura.php"><i class="icon-search"> </i> Buscar Producto</a>
+            <a class="btn white-text black btn-primary"
+               href="temporal/cancelar_factura.php?indtemp=<?php echo $Key; ?>"><i class="icon-bin"></i> Eliminar
+                Factura</a>
+            <a class="btn white-text blue-grey btn-primary" href="buscar_producto_factura.php"><i
+                        class="icon-search"> </i> Buscar Producto</a>
         </div>
     </div>
 
@@ -99,29 +102,39 @@ if($_SESSION["Key"]==""){
             <?php
             $result4 = $mysqli->query("SELECT * FROM `factura` WHERE `indtemp`='$Key'");
             //$result4 = $mysqli->query("SELECT * FROM `factura`");
-            $contador=0;
+            $contador = 0;
             while ($resultado = $result4->fetch_assoc()) {
-                $contador=$contador+1;
+                $contador = $contador + 1;
                 ?>
                 <tr>
-                    <td style="width:15px;" scope="row"><input type="text" class="form-control" id='textcodigo<?php echo $contador;?>'
-                                                   name="textcodigo<?php echo $contador;?>"
-                                                   value="<?php echo $resultado['codigo_producto'];?>"  readonly=readonly></td>
+                    <td style="width:15px;" scope="row"><input type="text" class="form-control"
+                                                               id='textcodigo<?php echo $contador; ?>'
+                                                               name="textcodigo<?php echo $contador; ?>"
+                                                               value="<?php echo $resultado['codigo_producto']; ?>"
+                                                               readonly=readonly></td>
 
-                    <td style="width:20px;"><input type="text" class="form-control" id='textcantidad<?php echo $contador;?>'
-                                                   name="textcantidad<?php echo $contador;?>"
-                                                   value="1" onkeyup="suma<?php echo $contador;?>()"></td>
-                    <td><?php echo $resultado['nombre_producto'];?></td>
+                    <td style="width:20px;"><input type="text" class="form-control"
+                                                   id='textcantidad<?php echo $contador; ?>'
+                                                   name="textcantidad<?php echo $contador; ?>"
+                                                   value="<?php echo $resultado['unidad']; ?>" onkeyup="suma<?php echo $contador; ?>()"></td>
+                    <td><?php echo $resultado['nombre_producto']; ?></td>
 
-                    <td style="width:20px;"><input type="text" class="form-control" id="textdescuento<?php echo $contador;?>"
-                                                   name="textdescuento<?php echo $contador;?>"
-                                                   value="" onkeyup="descuento<?php echo $contador;?>()"></td>
+                    <td style="width:20px;"><input type="text" class="form-control"
+                                                   id="textdescuento<?php echo $contador; ?>"
+                                                   name="textdescuento<?php echo $contador; ?>"
+                                                   value="<?php echo $resultado['descuento']; ?>" onkeyup="descuento<?php echo $contador; ?>()"></td>
 
-                    <td style="width:20px;"><input type="text" class="form-control" id="textprecio<?php echo $contador;?>" name="textprecio<?php echo $contador;?>"
-                                                   value="<?php echo $resultado['precio'];?>" readonly=readonly></td>
-                    <td style="width:20px;"><input type="text" class="form-control" id="texttotal<?php echo $contador;?>" name="texttotal<?php echo $contador;?>"
-                                                   value="2" readonly=readonly></td>
-                    <td style="width:20px;"><a class="btn btn-danger" href="temporal/eliminar_producto.php?indproducto=<?php echo $resultado['codigo_producto'];?>&indtemp=<?php echo $Key;?>"><i class="icon-bin"></i></a></td>
+                    <td style="width:20px;"><input type="text" class="form-control"
+                                                   id="textprecio<?php echo $contador; ?>"
+                                                   name="textprecio<?php echo $contador; ?>"
+                                                   value="<?php echo $resultado['precio_unidad']; ?>" readonly=readonly></td>
+                    <td style="width:20px;"><input type="text" class="form-control"
+                                                   id="texttotal<?php echo $contador; ?>"
+                                                   name="texttotal<?php echo $contador; ?>"
+                                                   value="<?php echo $resultado['precio_total']; ?>" readonly=readonly></td>
+                    <td style="width:20px;"><a class="btn btn-danger"
+                                               href="temporal/eliminar_producto.php?indproducto=<?php echo $resultado['codigo_producto']; ?>&indtemp=<?php echo $Key; ?>"><i
+                                    class="icon-bin"></i></a></td>
                 </tr>
                 <?php
             } ?>
@@ -129,6 +142,7 @@ if($_SESSION["Key"]==""){
         </table>
         <br>
     </div>
+
     <div class="container z-depth-1 rounded white">
         <br>
         <section class="row">
@@ -145,12 +159,14 @@ if($_SESSION["Key"]==""){
             <div class="control-pares col-md-3">
                 <label for="" class="control-label"><b>Sub Total:</b></label>
                 <input type="text" name="textsubtotal" id="textsubtotal" disabled class="form-control"
-                       value="<?php echo datos_clientes::sumatotal_factursa($Key,$mysqli); ?>" placeholder="Sub total" readonly=readonly>
+                       value="<?php echo datos_clientes::sumatotal_factursa_subfactura($Key, $mysqli); ?>" placeholder="Sub total"
+                       readonly=readonly>
             </div>
             <div class="control-pares col-md-3">
                 <label for="" class="control-label"><b>Total:</b></label>
                 <input type="text" name="textotal33" id="textotal33" class="form-control"
-                       value="<?php echo datos_clientes::sumatotal_factursa($Key,$mysqli); ?>" placeholder="Sub total" readonly=readonly required>
+                       value="<?php echo datos_clientes::sumatotal_factursa($Key, $mysqli); ?>" placeholder="Total"
+                       readonly=readonly required>
             </div>
             <br>
             <div class="control-pares col-md-3" style="padding-top: 2em;">
@@ -160,45 +176,74 @@ if($_SESSION["Key"]==""){
         <br>
     </div>
 </form>
+<script src="assets/auto_elemento_.js"></script>
 <script>
-    function suma1() {
-        var cantidad = document.myapp.textcantidad1.value;
-        var precio = document.myapp.textprecio1.value;
-        try {
-            if (parseInt(cantidad)) {
-                var total = cantidad * precio;
-                document.myapp.texttotal1.value = dosdecimales(total);
-            } else {
-                document.myapp.textvalor1.value = "";
-            }
 
-            function dosdecimales(x) {
-                return Number.parseFloat(x).toFixed(2);
+    //////////////////////////////////////////////////////////////////////////////////
+                            //cambio de cantidad de total de producto//
+
+    function enviar(total,codigo,precio){
+
+        var enviar = "total="+total;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "temporal/datos_actualizar_factura.php?indcodigo="+codigo+"&precio="+precio);
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.send(enviar);
+
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+                //alert(xhr.responseText);
             }
-        } catch (e) {
-            document.myapp.textvalor1.value = "";
         }
+
     }
-    function descuento1(){
-        var total_sub = document.myapp.textsubtotal.value;
-        var descuento = document.myapp.textdescuento1.value;
-        try {
-            if (parseInt(total_sub)) {
-                var total_descuento = total_sub * (descuento/100);
-                var total = total_sub - total_descuento;
-                document.myapp.textotal33.value = dosdecimales(total);
-            } else {
-                document.myapp.textotal33.value = "";
-            }
+    function descuento_fun(codigo,descuento){
 
-            function dosdecimales(x) {
-                return Number.parseFloat(x).toFixed(2);
-            }
-        } catch (e) {
+        var enviar = "codigo="+codigo;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "temporal/descuento_update.php?descuento="+descuento);
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.send(enviar);
 
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+                //alert(xhr.responseText);
+            }
         }
+
+    }
+    function  sumar_totoales_producto(codigo,descuento,total){
+
+        var enviar = "codigo="+codigo;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "temporal/total_descuento.php?descuento_total="+descuento+"&descuento_suma="+total);
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.send(enviar);
+
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+                //alert(xhr.responseText);
+            }
+        }
+
     }
 
+    function  sumar_totaldescuento_t(codigo){
+        var c;
+        var enviar = "codigo="+codigo;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "temporal/while_factura.php");
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.send(enviar);
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+                c = parseFloat(xhr.responseText);
+                //alert(xhr.responseText);
+            }
+        }
+        document.myapp.textotal33.value = dosdecimales(xhr.responseText);
+    }
+    /////////////////////////////////////////////////////////////////////////////////
 
 </script>
 <?php include "header/footer.php" ?>

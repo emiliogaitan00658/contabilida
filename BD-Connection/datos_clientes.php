@@ -335,31 +335,77 @@ VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inic
         }
     }
 
-/* Creacion dela factura todos los datos integrados */
+    /* Creacion dela factura todos los datos integrados */
 
-    public static function facturagenerada_filtro1($indtemp,$dolar,$indsucursal,$precio,$producto,$indproducto, $mysqli)
+    public static function facturagenerada_filtro1($indtemp, $dolar, $indsucursal, $precio, $producto, $indproducto, $mysqli)
     {
-        $insert = "INSERT INTO `factura` (`indfactura`, `indtalonario`, `codigo_producto`, `nombre_producto`, `unidad`, `precio`, `cordoba`, `descuento`, `bandera`, `indcliente`, `indsucursal`, `anular`, `indtemp`) 
-VALUES (NULL, NULL, '$indproducto', '$producto', NULL, '$precio', '$dolar', NULL, '1', NULL, '$indsucursal', '', '$indtemp');";
+        $indcliente = $_SESSION["indcliente"];
+        $insert = "INSERT INTO `factura` (`indfactura`, `indtalonario`, `codigo_producto`, `nombre_producto`, `unidad`, `precio_unidad`, `precio_total`, `cordoba`, `descuento`,`total_descuento`, `bandera`, `indcliente`, `indsucursal`, `anular`, `indtemp`) 
+VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio','$precio', '$dolar', '', '' , '1','$indcliente', '$indsucursal', '', '$indtemp');";
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
+
     public static function eliminar_producto_factura($indproducto, $key, $mysqli)
     {
         $insert = "DELETE FROM `factura` WHERE `factura`.`indtemp` = '$key' AND codigo_producto='$indproducto'";
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
+
     public static function eliminar_todo_factura($key, $mysqli)
     {
         $insert = "DELETE FROM `factura` WHERE `factura`.`indtemp` = '$key'";
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
-    public static function sumatotal_factursa($key,$mysqli)
+
+    public static function sumatotal_factursa($key, $mysqli)
     {
-        $result = $mysqli->query("SELECT SUM(precio) as total FROM `factura` WHERE factura.indtemp='$key'");
-        $row = $result->fetch_array(MYSQLI_ASSOC);
-        return $row['total'];
+        $result4 = $mysqli->query("SELECT * FROM `factura` WHERE factura.indtemp='$key'");
+        $total_subtotal = 0;
+        $total_descuento = 0;
+        while ($resultado = $result4->fetch_assoc()) {
+            if ($resultado["descuento"] == "0") {
+                $total_subtotal = $resultado["precio_total"] + $total_subtotal;
+            } else {
+                $total_descuento = $resultado["total_descuento"] + $total_subtotal;
+            }
+        }
+        $final_total = $total_subtotal + $total_descuento;
+        return $final_total;
+    }
+
+    public static function sumatotal_factursa_subfactura($key, $mysqli)
+    {
+        $result4 = $mysqli->query("SELECT * FROM `factura` WHERE factura.indtemp='$key'");
+        $total_subtotal = 0;
+        while ($resultado = $result4->fetch_assoc()) {
+                $total_subtotal = $resultado["precio_total"] + $total_subtotal;
+        }
+        $final_total = $total_subtotal;
+        return $final_total;
+    }
+
+    public static function cambio_factura_update($Key, $codigo_producto, $total, $precio, $mysqli)
+    {
+        $insert = "UPDATE `factura` SET `unidad` = '$total' WHERE `factura`.`indtemp` = '$Key' and factura.codigo_producto='$codigo_producto'";
+        $query = mysqli_query($mysqli, $insert);
+
+        $total_actual = ($total * $precio);
+        $insert = "UPDATE `factura` SET `precio_total` = '$total_actual' WHERE `factura`.`indtemp` = '$Key' and factura.codigo_producto='$codigo_producto'";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+
+    public static function descuento_update($Key, $codigo, $descuento, $descuento_total, $mysqli)
+    {
+        $insert = "UPDATE `factura` SET `descuento` = '$descuento' WHERE `factura`.`indtemp` = '$Key' and factura.codigo_producto='$codigo'";
+        $query = mysqli_query($mysqli, $insert);
+
+        $insert1 = "UPDATE `factura` SET `total_descuento` = '$descuento_total' WHERE `factura`.`indtemp` = '$Key' and factura.codigo_producto='$codigo'";
+        $query = mysqli_query($mysqli, $insert1);
+
+        return true;
     }
 }

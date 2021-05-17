@@ -25,13 +25,15 @@ if ($_POST){
 
         }else{
             $_SESSION['sucursal']=$resul;
+            $_SESSION["Key"]="";
           echo '<script>location.href="factura_dia";</script>';
         }
 
     }
 ?>
 
-<div class="container">
+<div class="container z-depth-1">
+    <br>
     <section class="container white rounded" style="padding: 1em">
         <form action="login.php" method="post">
             <section class="row">
