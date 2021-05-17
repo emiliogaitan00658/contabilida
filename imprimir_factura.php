@@ -81,7 +81,7 @@ if ($_SESSION["Key"] == "") {
                href="temporal/cancelar_factura.php?indtemp=<?php echo $Key; ?>"><i class="icon-bin"></i> Eliminar
                 Factura</a>
             <a class="btn white-text blue-grey btn-primary" href="buscar_producto_factura.php"><i
-                        class="icon-search"> </i> Buscar Producto</a>
+                    class="icon-search"> </i> Buscar Producto</a>
         </div>
     </div>
 
@@ -90,10 +90,10 @@ if ($_SESSION["Key"] == "") {
             <thead>
             <tr>
                 <th style="width:15%;">No Codigo</th>
-                <th style="width:5px;" scope="col">Cantidad</th>
+                <th style="width:8%;" scope="col">Cantidad</th>
                 <th scope="col">Decripcion Producto</th>
                 <th scope="col">Descuento</th>
-                <th style="width:150px;" scope="col">P/Unidad</th>
+                <th style="width:20px;" scope="col">P/Unidad</th>
                 <th style="width:15%;" scope="col">Precio/Total</th>
                 <th style="width:15%;" scope="col">Eliminar</th>
             </tr>
@@ -116,15 +116,15 @@ if ($_SESSION["Key"] == "") {
                     <td style="width:20px;"><input type="text" class="form-control"
                                                    id='textcantidad<?php echo $contador; ?>'
                                                    name="textcantidad<?php echo $contador; ?>"
-                                                   value="<?php echo $resultado['unidad']; ?>" onkeydown="suma<?php echo $contador; ?>()"></td>
+                                                   value="<?php echo $resultado['unidad']; ?>" onkeyup="suma<?php echo $contador; ?>()"></td>
                     <td><?php echo $resultado['nombre_producto']; ?></td>
 
                     <td style="width:20px;"><input type="text" class="form-control"
                                                    id="textdescuento<?php echo $contador; ?>"
                                                    name="textdescuento<?php echo $contador; ?>"
-                                                   value="<?php echo $resultado['descuento']; ?>" onkeydown="descuento<?php echo $contador; ?>()"></td>
+                                                   value="<?php echo $resultado['descuento']; ?>" onkeyup="descuento<?php echo $contador; ?>()"></td>
 
-                    <td style="width:25px;"><input type="text" class="form-control"
+                    <td style="width:20px;"><input type="text" class="form-control"
                                                    id="textprecio<?php echo $contador; ?>"
                                                    name="textprecio<?php echo $contador; ?>"
                                                    value="<?php echo $resultado['precio_unidad']; ?>" readonly=readonly></td>
@@ -134,7 +134,7 @@ if ($_SESSION["Key"] == "") {
                                                    value="<?php echo $resultado['precio_total']; ?>" readonly=readonly></td>
                     <td style="width:20px;"><a class="btn btn-danger"
                                                href="temporal/eliminar_producto.php?indproducto=<?php echo $resultado['codigo_producto']; ?>&indtemp=<?php echo $Key; ?>"><i
-                                    class="icon-bin"></i></a></td>
+                                class="icon-bin"></i></a></td>
                 </tr>
                 <?php
             } ?>
@@ -146,43 +146,31 @@ if ($_SESSION["Key"] == "") {
     <div class="container z-depth-1 rounded white">
         <br>
         <section class="row">
-            <div class="control-pares col-md-2">
+            <div class="control-pares col-md-3">
                 <label for="" class="control-label"><b>Pago Dolar:</b></label>
                 <input type="text" name="textdolar" class="form-control"
-                       value="" placeholder="Pago en dolar">
+                       value="" placeholder="Pago en dolar" required>
             </div>
-            <div class="control-pares col-md-2">
+            <div class="control-pares col-md-3">
                 <label for="" class="control-label"><b>Pago Cordobas:</b></label>
                 <input type="text" name="textcordobas" class="form-control"
-                       value="" placeholder="Pago en cordobas">
-            </div>
-            <div class="control-pares col-md-2">
-                <label for="" class="control-label"><b>$ Dolar Total:</b></label>
-                <input type="text" name="textotaldolar" id="textotaldolar" class="form-control"
-                       value="<?php
-                       $res=datos_clientes::sumatotal_factursa($Key, $mysqli);
-                       echo $res/$dolar?>" placeholder="Total"
-                       readonly=readonly required>
+                       value="" placeholder="Pago en cordobas" required>
             </div>
             <div class="control-pares col-md-3">
                 <label for="" class="control-label"><b>Sub Total:</b></label>
                 <input type="text" name="textsubtotal" id="textsubtotal" disabled class="form-control"
-                       value="<?php  $codo=datos_clientes::sumatotal_factursa_subfactura($Key, $mysqli);
-                       $RES=$codo*$dolar;
-                       echo $english_format_number = number_format($RES, 2, '.', '');?>" placeholder="Sub total"
+                       value="<?php echo datos_clientes::sumatotal_factursa_subfactura($Key, $mysqli); ?>" placeholder="Sub total"
                        readonly=readonly>
             </div>
             <div class="control-pares col-md-3">
                 <label for="" class="control-label"><b>Total:</b></label>
                 <input type="text" name="textotal33" id="textotal33" class="form-control"
-                       value="<?php $res3=datos_clientes::sumatotal_factursa($Key, $mysqli);
-                       $sum=$res3*$dolar;
-                       echo $english_format_number = number_format($sum, 2, '.', '');?>" placeholder="Total"
+                       value="<?php echo datos_clientes::sumatotal_factursa($Key, $mysqli); ?>" placeholder="Total"
                        readonly=readonly required>
             </div>
             <br>
             <div class="control-pares col-md-3" style="padding-top: 2em;">
-                <input type="submit" value="Guardar Factura" class="btn white-text btn-large btn-info"/>
+                <input type="submit" value="Pagadar" class="btn white-text btn-danger"/>
             </div>
         </section>
         <br>
@@ -250,17 +238,10 @@ if ($_SESSION["Key"] == "") {
         xhr.onreadystatechange = function(){
             if(xhr.readyState == 4 && xhr.status == 200){
                 c = parseFloat(xhr.responseText);
-                var dolar="<?php echo $dolar; ?>";
-                textotaldolar.value = dosdecimales(c/dolar);
-                textotal33.value = dosdecimales(xhr.responseText);
-            }
-            function dosdecimales(x) {
-                return Number.parseFloat(x).toFixed(2);
+                textotal33.value = xhr.responseText;
             }
         }
     }
-
-
     /////////////////////////////////////////////////////////////////////////////////
 
 </script>

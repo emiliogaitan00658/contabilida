@@ -334,14 +334,25 @@ VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inic
             return $key;
         }
     }
+    public static function verificar_producto_factura($indtemp,$indproducto, $mysqli)
+    {
+        $result = $mysqli->query(" SELECT * FROM `factura` WHERE factura.indtemp='$indtemp' AND factura.codigo_producto='$indproducto'");
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row)) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
 
     /* Creacion dela factura todos los datos integrados */
 
     public static function facturagenerada_filtro1($indtemp, $dolar, $indsucursal, $precio, $producto, $indproducto, $mysqli)
     {
+        $precio_cordobas=$dolar*$precio;
         $indcliente = $_SESSION["indcliente"];
         $insert = "INSERT INTO `factura` (`indfactura`, `indtalonario`, `codigo_producto`, `nombre_producto`, `unidad`, `precio_unidad`, `precio_total`, `cordoba`, `descuento`,`total_descuento`, `bandera`, `indcliente`, `indsucursal`, `anular`, `indtemp`) 
-VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio','$precio', '$dolar', '', '' , '1','$indcliente', '$indsucursal', '', '$indtemp');";
+VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_cordobas', '$dolar', '', '' , '0','$indcliente', '$indsucursal', '', '$indtemp');";
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
@@ -363,17 +374,28 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio','$precio', '$dolar
     public static function sumatotal_factursa($key, $mysqli)
     {
         $result4 = $mysqli->query("SELECT * FROM `factura` WHERE factura.indtemp='$key'");
-        $total_subtotal = 0;
-        $total_descuento = 0;
+        $total_subtotal=0;
+        $total_descuento=0;
         while ($resultado = $result4->fetch_assoc()) {
-            if ($resultado["descuento"] == "0") {
-                $total_subtotal = $resultado["precio_total"] + $total_subtotal;
-            } else {
-                $total_descuento = $resultado["total_descuento"] + $total_subtotal;
+            if($resultado["descuento"]=="0"){
+                $total_subtotal=$resultado["precio_total"]+$total_subtotal;
+            }else{
+                $total_descuento =$resultado["total_descuento"]+$total_descuento;
             }
         }
-        $final_total = $total_subtotal + $total_descuento;
-        return $final_total;
+        return $final_total=$total_subtotal+$total_descuento;
+    }
+
+
+    public static function sumatotal_subtotal($key, $mysqli)
+    {
+        $result4 = $mysqli->query("SELECT * FROM `factura` WHERE factura.indtemp='$key'");
+        $total_subtotal = 0;
+        while ($resultado = $result4->fetch_assoc()) {
+                $total_subtotal = $resultado["precio_total"] + $total_subtotal;
+        }
+        $total_subtotal;
+        return $total_subtotal;
     }
 
     public static function sumatotal_factursa_subfactura($key, $mysqli)

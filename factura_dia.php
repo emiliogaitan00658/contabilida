@@ -72,7 +72,7 @@ if (!$_SESSION) {
     <table class="table table-borderless" style="padding: 1em;">
         <thead>
         <tr style="border-bottom: 1px solid black">
-            <th scope="col">indtatolnario</th>
+            <th scope="col">No.Factura</th>
             <th scope="col">Nombre y Apellido</th>
             <th scope="col">Total</th>
             <th scope="col">Imprimir</th>

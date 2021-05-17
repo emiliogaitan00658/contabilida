@@ -9,13 +9,25 @@ if ($_GET) {
     $producto = $_GET['producto'];
     $indtemp = $_SESSION['Key'];
     $indsucursal = $_SESSION['sucursal'];
-    datos_clientes::facturagenerada_filtro1($indtemp, $dolar, $indsucursal, $precio, $producto, $indproducto, $mysqli);
- echo '<script>
-    swal("Exito Registor Producto.")
+    $reques = datos_clientes::verificar_producto_factura($indtemp, $indproducto, $mysqli);
+    if ($reques == "false") {
+
+        datos_clientes::facturagenerada_filtro1($indtemp, $dolar, $indsucursal, $precio, $producto, $indproducto, $mysqli);
+        echo '<script>
+    swal("Exito .")
 .then((value) => {
   location.href="crear_factura.php";
 });
 </script>';
+    }else{
+        echo '<script>
+    swal("Producto existe en la factura.")
+.then((value) => {
+  location.href="buscar_producto_factura.php";
+});
+</script>';
+    }
+
 }
 ?>
 <div class="container white rounded z-depth-2" style="border-radius: 6px;">

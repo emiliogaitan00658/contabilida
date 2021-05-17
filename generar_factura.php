@@ -83,7 +83,7 @@
     </div>
     <div class="stl_view">
         <div class="stl_05 stl_06">
-            <div class="stl_01" style="top: 6.9957em; left:9.9017em;"><span class="stl_07" style="font-weight:bold; word-spacing:-0.01em;">Control! Control! &nbsp;</span></div>
+            <div class="stl_01" style="top: 6.9957em; left:9.9017em;"><span class="stl_07" style="font-weight:bold; word-spacing:-0.01em;">Emilio Gaitan &nbsp;</span></div>
             <div class="stl_01" style="top: 6.9957em; left:39.6183em;"><span class="stl_07" style="font-weight:bold;">Control! &nbsp;</span></div>
             <div class="stl_01" style="top: 9.9357em; left:38.9383em;"><span class="stl_07" style="font-weight:bold;">Control! &nbsp;</span></div>
             <div class="stl_01" style="top: 9.9357em; left:2.08em;"><span class="stl_07" style="font-weight:bold;">Control! &nbsp;</span></div>
