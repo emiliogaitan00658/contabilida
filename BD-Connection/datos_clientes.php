@@ -265,12 +265,12 @@ VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inic
         }
     }
 
-    public static function nombre_apellido_cliente($indcliente, $indsucursal, $mysqli)
+    public static function nombre_apellido_cliente($indcliente, $mysqli)
     {
-        $result = $mysqli->query("SELECT *  FROM `clientes` WHERE  indsucursal= '$indsucursal'");
+        $result = $mysqli->query("SELECT * FROM `clientes` WHERE  indcliente='$indcliente'");
         $row = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row)) {
-            return $row["nombre"] . $row["apellido"];
+            return $row["nombre"] ." ". $row["apellido"];
         } else {
             return "error";
         }
@@ -427,6 +427,22 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
 
         $insert1 = "UPDATE `factura` SET `total_descuento` = '$descuento_total' WHERE `factura`.`indtemp` = '$Key' and factura.codigo_producto='$codigo'";
         $query = mysqli_query($mysqli, $insert1);
+
+        return true;
+    }
+
+
+    public static function facturafinal($Key,$sucursal,$check_credito,$indcliente,$check_cordoba,$check_dolar,$check_tras,$check_efect,$check_fise,$check_bac,$check_targeta,
+                                        $cordobas,$dolar,$subtotalF, $totalF, $mysqli)
+    {
+        $fecha=self::fecha_get_pc_MYSQL();
+        $hora=self::hora_get_pc();
+
+        /*$insert = "UPDATE `factura` SET `descuento` = '$descuento' WHERE `factura`.`indtemp` = '$Key' and factura.codigo_producto='$codigo'";*/
+        $insert = "INSERT INTO `total_factura` (`indtotalfactura`, `indcliente`, `indsucursal`, `indtalonario`, `subtotal`, `total`, `cordoba_pago`, 
+                             `dolare_pago`, `cordoba`, `dolar`, `efectivo`, `credito`, `trasferencia`, `targeta`, `bac`, `lafise`, `fecha`, `hora`, `indtemp`, `bandera`)
+ VALUES (NULL, '$indcliente','$sucursal', NULL, '$subtotalF', '$totalF', '$cordobas', '$dolar', '$check_cordoba', '$check_dolar', '$check_efect', '$check_credito', '$check_tras', '$check_targeta', '$check_bac', '$check_fise', '$fecha', '$hora', '$Key', '1');";
+        $query = mysqli_query($mysqli, $insert);
 
         return true;
     }

@@ -74,7 +74,10 @@ if (!$_SESSION) {
         <tr style="border-bottom: 1px solid black">
             <th scope="col">No.Factura</th>
             <th scope="col">Nombre y Apellido</th>
-            <th scope="col">Total</th>
+            <th scope="col">Total C$</th>
+            <th scope="col">Total $</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora</th>
             <th scope="col">Imprimir</th>
             <th scope="col">Editar</th>
             <th scope="col">Anular</th>
@@ -82,21 +85,21 @@ if (!$_SESSION) {
         </thead>
         <tbody>
         <?php
-        if ($_POST) {
-            $result4 = $mysqli->query("SELECT * FROM `factura` WHERE indsucursal='$indsucursal' ORDER by indfactura DESC");
-        } else {
-            $result4 = $mysqli->query("SELECT * FROM `factura` WHERE indsucursal='$indsucursal' ORDER by indfactura DESC");
-        }
+        $fecha = datos_clientes::fecha_get_pc_MYSQL();
+        $result4 = $mysqli->query("SELECT * FROM `total_factura` WHERE total_factura.fecha='$fecha' ORDER by indtotalfactura DESC");
 
         while ($resultado = $result4->fetch_assoc()) {
             $indcliente = $resultado['indcliente'];
-            $nombre_apelido = datos_clientes::nombre_apellido_cliente($indcliente, $indsucursal, $mysqli);
+            $nombre_apelido = datos_clientes::nombre_apellido_cliente($indcliente, $mysqli);
             ?>
             <tr>
                 <td><?php echo $resultado["indtalonario"]; ?></td>
                 <td><?php echo $nombre_apelido; ?></td>
-                <td><?php echo "C$ " . $total = ($resultado['unidad'] * $resultado['precio'] * $resultado['cordoba']) ?></td>
-                <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
+                <td><?php echo "C$ " . $resultado["total"]; ?></td>
+                <td><?php echo "$ " . ($resultado["total"]/$dolar); ?></td>
+                <td><?php echo $resultado["fecha"]; ?></td>
+                <td><?php echo $resultado["hora"]; ?></td>
+                <td><a href="imprimir_factura.php?key=<?php echo $resultado['indtemp']; ?>"
                        class="btn btn-success">Imprimir</a></td>
                 <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                        class="btn btn-success">Editar</a></td>
