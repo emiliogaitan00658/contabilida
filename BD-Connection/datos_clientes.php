@@ -446,4 +446,10 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
 
         return true;
     }
+    public static function anular_factura($key, $mysqli)
+    {
+        $insert = "UPDATE `total_factura` SET `bandera` = '0' WHERE `total_factura`.`indtemp` ='$key'";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
 }

@@ -17,10 +17,13 @@ if (!$_SESSION){
                 </div>
             </section>
         </form>
-        <hr>
-        <a class="btn btn-dark blue-grey right" href="index">Nuevo Cliente</a>
-        <br>
-        <br>
+        <div class="modal-footer">
+<!--            <a class="btn white-text black btn-primary"-->
+<!--               href="temporal/cancelar_factura.php?indtemp=--><?php //echo $Key; ?><!--"><i class="icon-bin"></i> Eliminar-->
+<!--                Factura</a>-->
+            <a class="btn white-text blue-grey btn-primary" href="buscar_producto_factura.php"><i
+                        class="icon-search"> </i>Entregar Materiales</a>
+        </div>
     </div>
 </div>
 <hr>

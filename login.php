@@ -9,7 +9,7 @@ if ($_POST){
             echo '<script>
  swal({
    title: "Error ?",
-   text: "Este Usuario Existe",
+   text: "Este Usuario No Existe",
    icon: "error",
    buttons: false,
 
