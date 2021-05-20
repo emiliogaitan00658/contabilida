@@ -24,6 +24,11 @@ if ($_POST){
  </script>';
 
         }else{
+            if($user=="root"){
+
+            }else{
+                $_SESSION["root"]="true";
+            }
             $_SESSION['sucursal']=$resul;
             $_SESSION["Key"]="";
           echo '<script>location.href="factura_dia";</script>';

@@ -73,7 +73,7 @@ if (!empty($_POST["textnombre"])) {
                         if($resultado['indsucursal']=="8"){echo "Managua Villa Fontana";}
                         ?></td>
                     <td><?php echo "15"; ?></td>
-                    <td><a href="temporal/indcliente.php?indcliente=<?php echo $resultado['indcliente']; ?>"
+                    <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-success">Detalles</a></td>
                     <td><a href="temporal/indcliente.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-primary">Crear Factura</a></td>

@@ -21,8 +21,8 @@ if (!$_SESSION){
 <!--            <a class="btn white-text black btn-primary"-->
 <!--               href="temporal/cancelar_factura.php?indtemp=--><?php //echo $Key; ?><!--"><i class="icon-bin"></i> Eliminar-->
 <!--                Factura</a>-->
-            <a class="btn white-text blue-grey btn-primary" href="buscar_producto_factura.php"><i
-                        class="icon-search"> </i>Entregar Materiales</a>
+            <a class="btn white-text btn-dark" href="faltantes.php">Faltantes</a>
+            <a class="btn white-text blue-grey btn-primary" href="buscar_producto_factura.php">Entregar Materiales</a>
         </div>
     </div>
 </div>

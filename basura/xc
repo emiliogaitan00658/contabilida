@@ -1,0 +1,17 @@
+/*
+include_once '../BD-Connection/conection.php';
+include_once '../BD-Connection/datos_clientes.php';
+require 'vendor/autoload.php';
+
+use Dompdf\Dompdf;
+
+$dompdf = new Dompdf();
+
+$dompdf->loadHtml(\http\Url:");
+
+$dompdf->setPaper('letter', 'portrait');
+
+$dompdf->render();
+
+$dompdf->stream("playerofcode", array("Attachment" => 0));
+*/

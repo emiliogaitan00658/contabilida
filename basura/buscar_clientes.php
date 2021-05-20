@@ -55,7 +55,7 @@ if ($_POST) {
                     <td><?php echo $resultado['sucursal']; ?></td>
                     <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-success">Detalles</a></td>
-                    <td><a href="../creditos.php?indcliente=<?php echo $resultado['indcliente']; ?>"
+                    <td><a href="creditos.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-primary">Creditos</a></td>
                 </tr>
             <?php }

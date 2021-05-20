@@ -19,7 +19,7 @@ if ($_GET) {
   location.href="crear_factura.php";
 });
 </script>';
-    }else{
+    } else {
         echo '<script>
     swal("Producto existe en la factura.")
 .then((value) => {

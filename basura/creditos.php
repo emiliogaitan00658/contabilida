@@ -31,15 +31,8 @@ if ($_POST) {
    }
  });
  </script>';
-
-
-
     }
 }
-
-
-
-
 ?>
 <div class="container white z-depth-1 rounded">
     <div class="modal-header white rounded">
@@ -103,7 +96,6 @@ if ($_POST) {
         if ($_GET) {
             $result4 = $mysqli->query("SELECT * FROM `credito` WHERE indcliente='1' ORDER BY indcredito DESC");
             while ($resultado = $result4->fetch_assoc()) {
-
                 ?>
                 <tr>
                     <th scope="row"><?php echo $contador; ?></th>
@@ -113,17 +105,13 @@ if ($_POST) {
                         $fecha_cambio = $resultado['fechaInicio'];
                         $timestamp = strtotime($fecha_cambio);
                         echo date("d/m/Y", $timestamp); ?></td>
-                    <td><a href="basura/tabla_pago.php?indcredito=<?php echo $resultado['indcredito']; ?>" class="btn btn-primary">Pagar Creditos</a></td>
+                    <td><a href="tabla_pago.php?indcredito=<?php echo $resultado['indcredito']; ?>" class="btn btn-primary">Pagar Creditos</a></td>
                 </tr>
             <?php
             $contador=$contador+1;
             }
-
         } ?>
-
         </tbody>
     </table>
 </div>
-
-
 <?php include "header/footer.php" ?>

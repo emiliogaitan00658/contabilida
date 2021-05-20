@@ -59,7 +59,7 @@ if ($_SESSION["Key"] == "") {
             <div class="control-pares col-md-3">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedefectivo"
-                           name="flexCheckCheckedefectivo">
+                           name="flexCheckCheckedefectivo" checked>
                     <label class="form-check-label" for="flexCheckChecked">
                         Efectivo
                     </label>
@@ -196,12 +196,12 @@ if ($_SESSION["Key"] == "") {
             <div class="control-pares col-md-2">
                 <label for="" class="control-label"><b>Pago Dolar:</b></label>
                 <input type="text" name="textdolar" class="form-control"
-                       value="0" placeholder="Pago en dolar">
+                       value="" placeholder="Pago en dolar">
             </div>
             <div class="control-pares col-md-2">
                 <label for="" class="control-label"><b>Pago Cordobas:</b></label>
                 <input type="text" name="textcordobas" class="form-control"
-                       value="0" placeholder="Pago en cordobas">
+                       value="" placeholder="Pago en cordobas">
             </div>
             <div class="control-pares col-md-2">
                 <label for="" class="control-label"><b>$ Dolar Total:</b></label>
@@ -252,7 +252,7 @@ if ($_SESSION["Key"] == "") {
                 return true;
             }
         } else {
-            swal("ERROR!", "Llenar Campos Requerido", "error");
+            //swal("ERROR!", "Llenar Campos Requerido", "error");
             return false;
         }
 

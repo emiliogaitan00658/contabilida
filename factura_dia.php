@@ -70,6 +70,9 @@ if (!$_SESSION) {
                 </div>
             </section>
         </form>
+        <hr>
+        <a class="btn btn-dark right" href="index">Reporte Hoy</a>
+        <br>
         <br>
     </div>
 </div>
@@ -109,11 +112,12 @@ if (!$_SESSION) {
                 <tr>
                     <td><?php echo $resultado["indtalonario"]; ?></td>
                     <td><?php echo $nombre_apelido; ?></td>
-                    <td><?php echo "C$ " . $resultado["total"]; ?></td>
-                    <td><?php echo "$ " . ($resultado["total"] / $dolar); ?></td>
+                    <td><?php  echo  "C$ " . number_format($resultado["total"], 2, '.', ',');
+                    ?></td>
+                    <td><?php echo "$ " .number_format( ($resultado["total"] / $dolar), 2, '.', ',');?></td>
                     <td><?php echo $resultado["fecha"]; ?></td>
                     <td><?php echo $resultado["hora"]; ?></td>
-                    <td><a href="imprimir_factura.php?key=<?php echo $resultado['indtemp']; ?>"
+                    <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
                            class="btn btn-success">Imprimir</a></td>
                     <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-success">Editar</a></td>
@@ -132,7 +136,7 @@ if (!$_SESSION) {
                     <td><?php echo "$ " . ($resultado["total"] / $dolar); ?></td>
                     <td><?php echo $resultado["fecha"]; ?></td>
                     <td><?php echo $resultado["hora"]; ?></td>
-                    <td><a href="imprimir_factura.php?key=<?php echo $resultado['indtemp']; ?>"
+                    <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
                            class="btn btn-success">Imprimir</a></td>
                     <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-success">Editar</a></td>

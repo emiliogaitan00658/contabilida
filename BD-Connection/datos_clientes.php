@@ -441,7 +441,7 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
         /*$insert = "UPDATE `factura` SET `descuento` = '$descuento' WHERE `factura`.`indtemp` = '$Key' and factura.codigo_producto='$codigo'";*/
         $insert = "INSERT INTO `total_factura` (`indtotalfactura`, `indcliente`, `indsucursal`, `indtalonario`, `subtotal`, `total`, `cordoba_pago`, 
                              `dolare_pago`, `cordoba`, `dolar`, `efectivo`, `credito`, `trasferencia`, `targeta`, `bac`, `lafise`, `fecha`, `hora`, `indtemp`, `bandera`)
- VALUES (NULL, '$indcliente','$sucursal', NULL, '$subtotalF', '$totalF', '$cordobas', '$dolar', '$check_cordoba', '$check_dolar', '$check_efect', '$check_credito', '$check_tras', '$check_targeta', '$check_bac', '$check_fise', '$fecha', '$hora', '$Key', '1');";
+ VALUES (NULL, '$indcliente','$sucursal', NULL, '$subtotalF', '$totalF', '$cordobas', '$dolar', '$check_cordoba', '$check_dolar', '$check_efect', '$check_credito', '$check_tras', '$check_targeta', '$check_bac', '$check_fise', '$fecha', '$hora', '$Key', '0');";
         $query = mysqli_query($mysqli, $insert);
 
         return true;
@@ -451,5 +451,30 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
         $insert = "UPDATE `total_factura` SET `bandera` = '0' WHERE `total_factura`.`indtemp` ='$key'";
         $query = mysqli_query($mysqli, $insert);
         return true;
+    }
+
+    public static function Factura_genera_codigo($key,$talonario, $mysqli)
+    {
+        $insert = "UPDATE `factura` SET `indtalonario` = '$talonario' WHERE `factura`.`indtemp` ='$key'";
+        $query = mysqli_query($mysqli, $insert);
+
+        $insert2 = "UPDATE `total_factura` SET `indtalonario` = '$talonario' WHERE `total_factura`.`indtemp` = '$key'";
+        $query = mysqli_query($mysqli, $insert2);
+
+        $talonario_nuevo=$talonario+1;
+        $insert3 = "UPDATE `talonario` SET `numero` = '$talonario_nuevo' WHERE `talonario`.`indtalonario` = 1";
+        $query = mysqli_query($mysqli, $insert3);
+        return true;
+    }
+
+    public static function get_fecha_faltante($key,$indsucursal ,$mysqli)
+    {
+        $result = $mysqli->query("SELECT  DATE_FORMAT(fecha, '%d/%m/%Y') as fecha3,fecha FROM `total_factura` where indtemp='$key' and indsucursal='$indsucursal'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        } else {
+            return "false";
+        }
     }
 }

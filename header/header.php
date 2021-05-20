@@ -32,6 +32,15 @@ if (!empty($_SESSION)) {
     $idsucursal = $_SESSION['sucursal'];
 }
 $dolar=datos_clientes::cambio_dolar($mysqli);
+
+try {
+    if (!empty($_SESSION['sucursal'])) {
+        $indsucursal = $_SESSION['sucursal'];
+        $talonario=datos_clientes::cambio_do($indsucursal, $mysqli);
+    }
+} catch (Exception $e) {
+
+}
 ?>
 
 <div class="white rounded container-fluid">
@@ -57,16 +66,7 @@ $dolar=datos_clientes::cambio_dolar($mysqli);
                             class="icon-coin-dollar"> </i> <?php echo $dolar?> Cordobas</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link bg-red" href="talonario_cambio"> <?php
-                    try {
-                        if (!empty($_SESSION['sucursal'])) {
-                            $indsucursal = $_SESSION['sucursal'];
-                            echo 'No. ' . datos_clientes::cambio_do($indsucursal, $mysqli);
-                        }
-                    } catch (Exception $e) {
-
-                    }
-                    ?></a>
+                <a class="nav-link bg-red" href="talonario_cambio"> <?php echo "No.".$talonario?></a>
             </li>
             <?php
             try {
@@ -76,7 +76,7 @@ $dolar=datos_clientes::cambio_dolar($mysqli);
                         <a class="nav-link" href="productos"><i class="icon-cog" size="18dp"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn-success white-text" href="cerrar_seccion"><i class="icon-cross"></i></a>
+                        <a class="nav-link btn-success white-text" href="temporal/cerrar_seccion.php"><i class="icon-cross"></i></a>
                     </li>
                     </li>
                     <?php
