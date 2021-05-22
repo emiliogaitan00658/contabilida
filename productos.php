@@ -1,6 +1,6 @@
 <?php include "header/header.php";
 //session_start();
-if (!$_SESSION){
+if (!$_SESSION) {
     echo '<script> location.href="login" </script>';
 }
 ?>
@@ -18,11 +18,17 @@ if (!$_SESSION){
             </section>
         </form>
         <div class="modal-footer">
-<!--            <a class="btn white-text black btn-primary"-->
-<!--               href="temporal/cancelar_factura.php?indtemp=--><?php //echo $Key; ?><!--"><i class="icon-bin"></i> Eliminar-->
-<!--                Factura</a>-->
+
             <a class="btn white-text btn-dark" href="faltantes.php">Faltantes</a>
-            <a class="btn white-text blue-grey btn-primary" href="buscar_producto_factura.php">Entregar Materiales</a>
+            <?php
+            if (empty($_SESSION["root"])) {
+                ?>
+                <a class="btn white-text blue-grey btn-primary" href="buscar_producto_factura.php">Entregar
+                    Materiales</a>
+                <?php
+            }
+            ?>
+
         </div>
     </div>
 </div>
@@ -40,22 +46,22 @@ if (!$_SESSION){
         </thead>
         <tbody>
         <?php
-        if(!empty($_POST["textproducto"])){
-            echo $producto=$_POST["textproducto"];
+        if (!empty($_POST["textproducto"])) {
+            echo $producto = $_POST["textproducto"];
             $result4 = $mysqli->query("SELECT * FROM `producto` WHERE `nombre_producto` LIKE '%%$producto%%' ORDER by nombre_producto ASC");
-        }else{
+        } else {
             $result4 = $mysqli->query("SELECT * FROM `producto` ORDER by nombre_producto ASC limit 30");
         }
-            while ($resultado = $result4->fetch_assoc()) {
-                ?>
-                <tr>
-                    <th scope="row"><?php echo $resultado['codigo_producto']; ?></th>
-                    <td><?php echo $resultado['nombre_producto']; ?></td>
-                    <td>$ <?php echo $resultado['precio1']; ?></td>
-                    <td>$ <?php echo $resultado['precio2']; ?></td>
-                    <td>$ <?php echo $resultado['precio3']; ?></td>
-                </tr>
-            <?php } ?>
+        while ($resultado = $result4->fetch_assoc()) {
+            ?>
+            <tr>
+                <th scope="row"><?php echo $resultado['codigo_producto']; ?></th>
+                <td><?php echo $resultado['nombre_producto']; ?></td>
+                <td>$ <?php echo $resultado['precio1']; ?></td>
+                <td>$ <?php echo $resultado['precio2']; ?></td>
+                <td>$ <?php echo $resultado['precio3']; ?></td>
+            </tr>
+        <?php } ?>
 
         </tbody>
     </table>

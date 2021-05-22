@@ -18,7 +18,6 @@ if (!$_SESSION) {
                         $fcha = date("Y-m-d");
                         echo $fcha;
                     }
-
                     ?>" required>
                 </div>
                 <span>a</span>
@@ -31,7 +30,6 @@ if (!$_SESSION) {
                         $fcha = date("Y-m-d");
                         echo $fcha;
                     }
-
                     ?>" required>
                 </div>
                 <div class="control-pares col-md-2">
@@ -145,7 +143,6 @@ if (!$_SESSION) {
                 </tr>
             <?php }
         } ?>
-
         </tbody>
     </table>
 </div>

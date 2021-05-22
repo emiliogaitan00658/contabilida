@@ -18,19 +18,31 @@
 <?php
 include_once '../BD-Connection/conection.php';
 include_once '../BD-Connection/datos_clientes.php';
+session_start();
+$indsucursal = $_SESSION["sucursal"];
+$talonario = datos_clientes::cambio_do($indsucursal, $mysqli);
 
+$booos = datos_clientes::verficiar_talonario($key, $mysqli);
+if ($booos["indtalonario"] == null) {
+    datos_clientes::Factura_genera_codigo($key, $talonario, $mysqli);
+}
+$cliente=datos_clientes::datos_clientes_generales($booos["indcliente"],$mysqli);
 ?>
 <div>
-    <p style="margin-left: 5em" class="linea">Emilio Antonio Gaitan Fuentessdfsdfsdfdsfsdasdadsad </p>
-    <span style="margin-left: 8em" class="linea">04/04/1997</span>
+    <p style="margin-left: 5em" class="linea"><?php echo $cliente['nombre']." ".$cliente['apellido'];  ?></p>
+    <span style="margin-left: 18em" class="linea"><?php echo datos_clientes::fecha_get_pc();  ?></span>
 </div>
 <br>
 <br>
 <table style="height: 210px; width: 600px;" id="contenidoTabla">
     <tbody>
     <?php
+    $subtotal=datos_clientes::sumatotal_subtotal($key, $mysqli);
+    $total=datos_clientes::sumatotal_factursa_subfactura($key, $mysqli);
+
+
     $bandera = 0;
-    $result4 = $mysqli->query("SELECT * FROM `factura`");
+    $result4 = $mysqli->query("SELECT * FROM `factura` where factura.indtemp='$key'");
     while ($resultado = $result4->fetch_assoc()) {
         $bandera = $bandera + 1;
         ?>
@@ -62,14 +74,14 @@ include_once '../BD-Connection/datos_clientes.php';
         <td style="width: 40px; height: 24px;">&nbsp;</td>
         <td style="width: 400px; height: 24px;">&nbsp;</td>
         <td style="width: 68px; height: 24px;">&nbsp;</td>
-        <td style="width: 68px; height: 24px;">141111</td>
+        <td style="width: 68px; height: 24px;"><?php echo number_format( ($subtotal), 2, '.', ','); ?></td>
     </tr>
     <tr style="height: 24px;">
         <td style="width: 100px; height: 24px;">&nbsp;</td>
         <td style="width: 40px; height: 24px;">&nbsp;</td>
         <td style="width: 400px; height: 24px;">&nbsp;</td>
         <td style="width: 68px; height: 24px;">&nbsp;</td>
-        <td style="width: 68px; height: 24px;">141111</td>
+        <td style="width: 68px; height: 24px;"><?php echo number_format( ($total), 2, '.', ','); ?></td>
     </tr>
     </tbody>
 </table>

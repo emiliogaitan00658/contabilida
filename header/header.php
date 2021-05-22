@@ -30,17 +30,18 @@ include_once 'BD-Connection/conection.php';
 include_once 'BD-Connection/datos_clientes.php';
 if (!empty($_SESSION)) {
     $idsucursal = $_SESSION['sucursal'];
+    try {
+        if (!empty($_SESSION['sucursal'])) {
+            $indsucursal = $_SESSION['sucursal'];
+            $talonario=datos_clientes::cambio_do($indsucursal, $mysqli);
+        }
+    } catch (Exception $e) {
+
+    }
 }
 $dolar=datos_clientes::cambio_dolar($mysqli);
 
-try {
-    if (!empty($_SESSION['sucursal'])) {
-        $indsucursal = $_SESSION['sucursal'];
-        $talonario=datos_clientes::cambio_do($indsucursal, $mysqli);
-    }
-} catch (Exception $e) {
 
-}
 ?>
 
 <div class="white rounded container-fluid">
@@ -66,7 +67,9 @@ try {
                             class="icon-coin-dollar"> </i> <?php echo $dolar?> Cordobas</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link bg-red" href="talonario_cambio"> <?php echo "No.".$talonario?></a>
+                <a class="nav-link bg-red" href="talonario_cambio"> <?php if(!empty($_SESSION)){
+                        echo "No.".$talonario;
+                    }?></a>
             </li>
             <?php
             try {

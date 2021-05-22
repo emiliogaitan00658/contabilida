@@ -52,7 +52,6 @@ if (!$_SESSION) {
                             if ($_SESSION['sucursal'] == "8") {
                                 echo "Managua Villa Fontana";
                             }
-
                             ?></option>
                         <option class="form-control" value="1">Managua</option>
                         <option class="form-control" value="2">Masaya</option>
@@ -101,7 +100,7 @@ if (!$_SESSION) {
             $result4 = $mysqli->query("SELECT * FROM `total_factura` WHERE total_factura.fecha='$fecha2' and total_factura.indsucursal='$sucursal' ORDER by indtotalfactura DESC");
         } else {
             $fecha = datos_clientes::fecha_get_pc_MYSQL();
-            $result4 = $mysqli->query("SELECT * FROM `total_factura` WHERE total_factura.fecha='$fecha' ORDER by indtotalfactura DESC");
+            $result4 = $mysqli->query("SELECT * FROM `total_factura` WHERE total_factura.fecha='$fecha'and total_factura.indsucursal='$indsucursal' ORDER by indtotalfactura DESC");
         }
 
         while ($resultado = $result4->fetch_assoc()) {
@@ -121,8 +120,6 @@ if (!$_SESSION) {
                            class="btn btn-success">Imprimir</a></td>
                     <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-success">Editar</a></td>
-
-                    <?php ?>
                     <td><a href="#" onclick="
                                 var i='<?php echo $resultado['indtemp']; ?>';
                                 verficar_anulacion(i);"
@@ -132,8 +129,8 @@ if (!$_SESSION) {
                 <tr class="red-text">
                     <td><?php echo $resultado["indtalonario"]; ?></td>
                     <td><?php echo $nombre_apelido; ?></td>
-                    <td><?php echo "C$ " . $resultado["total"]; ?></td>
-                    <td><?php echo "$ " . ($resultado["total"] / $dolar); ?></td>
+                    <td><?php echo "C$ " . number_format($resultado["total"], 2, '.', ','); ?></td>
+                    <td><?php echo "$ " . number_format((($resultado["total"] / $dolar)), 2, '.', ','); ?></td>
                     <td><?php echo $resultado["fecha"]; ?></td>
                     <td><?php echo $resultado["hora"]; ?></td>
                     <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
@@ -144,10 +141,11 @@ if (!$_SESSION) {
                     <?php ?>
                     <td><a href="#" class="btn btn-primary">-----</a></td>
                 </tr>
-            <?php } ?>
+            <?php
+            }
+            ?>
 
             <?php
-
         } ?>
         </tbody>
     </table>
