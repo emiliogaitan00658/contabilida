@@ -80,8 +80,8 @@ if (!$_SESSION) {
                     <div class="control-pares col-md-2">
                         <input type="submit" value="Buscar" class="btn white-text blue-grey btn-primary"/>
                     </div>
-                    <span>  <i class="icon-file-pdf" style="font-size: 30px;" > </i>&nbsp; </span>
-                    <span>&nbsp;<i class="icon-file-excel" style="font-size: 30px;" ></i></span>
+                    <span>  <i class="icon-file-pdf" style="font-size: 30px;"> </i>&nbsp; </span>
+                    <span>&nbsp;<i class="icon-file-excel" style="font-size: 30px;"></i></span>
                 </section>
             </form>
             <br>
@@ -89,7 +89,7 @@ if (!$_SESSION) {
     </div>
     </div>
     <hr>
-    <div class="container z-depth-1 rounded white">
+    <div class="container z-depth-1 rounded white" style="width: 95%!important;">
         <table class="table table-borderless" style="padding: 1em;">
             <thead>
             <tr style="border-bottom: 1px solid black">
@@ -97,7 +97,9 @@ if (!$_SESSION) {
                 <th scope="col">Unidad</th>
                 <th scope="col">Producto</th>
                 <th scope="col">Fecha</th>
+                <th scope="col" class="center-align">Precio/Descuento</th>
                 <th scope="col">Precio/Unidad</th>
+                <th scope="col">Precio/Subtotal</th>
                 <th scope="col">Precio/Total</th>
                 <th scope="col">Entregar</th>
             </tr>
@@ -127,9 +129,18 @@ if (!$_SESSION) {
                             <td><?php echo $resultado['unidad']; ?></td>
                             <td><?php echo $resultado['nombre_producto']; ?></td>
                             <td><?php echo $fechad['fecha3']; ?></td>
-                            <td>C$ <?php echo $resultado['precio_unidad']; ?></td>
-                            <td>C$ <?php echo $resultado['precio_total']; ?></td>
-                            <td><a href="" class="btn btn-dark"><i class="icon-checkmark2"></i></a></td>
+                            <td class="center-align">% <?php echo $resultado['descuento']; ?></td>
+                            <td>C$ <?php echo number_format($resultado['precio_unidad'], 2, '.', ','); ?></td>
+                            <td>C$ <?php echo number_format($resultado['precio_total'], 2, '.', ','); ?></td>
+                            <td>C$ <?php
+                                if ($resultado['descuento'] == "0") {
+                                    echo number_format($resultado['precio_total'], 2, '.', ',');
+                                }else{
+                                    echo number_format($resultado['total_descuento'], 2, '.', ',');
+                                }
+                                ?></td>
+                            <td><a href="<?php echo $resultado['indtemp']; ?>" class="btn btn-dark"><i
+                                            class="icon-checkmark2"></i></a></td>
                         </tr>
                     <?php }
                 } else {
@@ -139,9 +150,18 @@ if (!$_SESSION) {
                         <td><?php echo $resultado['unidad']; ?></td>
                         <td><?php echo $resultado['nombre_producto']; ?></td>
                         <td><?php echo $fechad['fecha']; ?></td>
-                        <td>C$ <?php echo $resultado['precio_unidad']; ?></td>
-                        <td>C$ <?php echo $resultado['precio_total']; ?></td>
-                        <td><a href="" class="btn btn-dark"><i class="icon-checkmark2"></i></a></td>
+                        <td class="center-align">% <?php echo $resultado['descuento']; ?></td>
+                        <td>C$ <?php echo number_format($resultado['precio_unidad'], 2, '.', ','); ?></td>
+                        <td>C$ <?php echo number_format($resultado['precio_total'], 2, '.', ','); ?></td>
+                        <td>C$ <?php
+                            if ($resultado['descuento'] == "0") {
+                                echo number_format($resultado['precio_total'], 2, '.', ',');
+                            }else{
+                                echo number_format($resultado['total_descuento'], 2, '.', ',');
+                            }
+                            ?></td>
+                        <td><a href="<?php echo $resultado['indtemp']; ?>" class="btn btn-dark"><i
+                                        class="icon-checkmark2"></i></a></td>
                     </tr>
                 <?php }
             } ?>
