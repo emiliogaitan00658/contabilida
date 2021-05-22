@@ -80,6 +80,8 @@ if (!$_SESSION) {
                 <div class="control-pares col-md-2">
                     <input type="submit" value="Buscar" class="btn white-text blue-grey btn-primary"/>
                 </div>
+                <span>  <i class="icon-file-pdf" style="font-size: 30px;" > </i>&nbsp; </span>
+                <span>&nbsp;<i class="icon-file-excel" style="font-size: 30px;" ></i></span>
             </section>
         </form>
         <br>

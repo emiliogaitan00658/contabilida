@@ -23,7 +23,7 @@ if (!$_SESSION) {
             <?php
             if (empty($_SESSION["root"])) {
                 ?>
-                <a class="btn white-text blue-grey btn-primary" href="buscar_producto_factura.php">Entregar
+                <a class="btn white-text blue-grey btn-primary" href="entregar_materiales.php">Entregar
                     Materiales</a>
                 <?php
             }
