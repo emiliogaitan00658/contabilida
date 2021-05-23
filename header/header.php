@@ -26,6 +26,7 @@
 <body style="background-color: rgb(247,247,249)" id="page-top">
 <?php
 session_start();
+$_SESSION['n']=0;
 include_once 'BD-Connection/conection.php';
 include_once 'BD-Connection/datos_clientes.php';
 if (!empty($_SESSION)) {
