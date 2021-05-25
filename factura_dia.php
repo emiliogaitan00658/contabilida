@@ -11,9 +11,9 @@ if (!$_SESSION) {
             <section class="row">
                 <div class="control-pares col-md-3">
                     <input type="date" name="textfecha" class="form-control" placeholder="Fecha" value="<?php
-                    if ($_POST){
+                    if ($_POST) {
                         echo $_POST["textfecha"];
-                    }else{
+                    } else {
                         $fcha = date("Y-m-d");
                         echo $fcha;
                     }
@@ -22,6 +22,7 @@ if (!$_SESSION) {
                 </div>
                 <div class="control-pares col-md-3">
                     <select name="textsucursal" class="form-control" required>
+                        <?php  if (!$_POST){ ?>
                         <option class="form-control" value="<?php
                         echo $_SESSION['sucursal']; ?>" selected><?php
 
@@ -52,7 +53,42 @@ if (!$_SESSION) {
                             if ($_SESSION['sucursal'] == "8") {
                                 echo "Managua Villa Fontana";
                             }
-                            ?></option>
+                            ?>
+                        </option>
+                        <?php }else{ ?>
+                            <option class="form-control" value="<?php
+                            echo $_POST['textsucursal']; ?>" selected><?php
+
+                                if ($_POST['textsucursal'] == "1") {
+                                    echo "Managua";
+                                }
+                                if ($_POST['textsucursal'] == "2") {
+                                    echo "Masaya";
+                                }
+                                if ($_POST['textsucursal'] == "3") {
+                                    echo "Chontales";
+                                }
+                                if ($_POST['textsucursal'] == "6") {
+                                    echo "Esteli";
+                                }
+                                if ($_POST['textsucursal'] == "5") {
+                                    echo "Leon";
+                                }
+                                if ($_POST['textsucursal'] == "9") {
+                                    echo "Matagalpa";
+                                }
+                                if ($_POST['textsucursal'] == "4") {
+                                    echo "Chinandega";
+                                }
+                                if ($_POST['textsucursal'] == "7") {
+                                    echo "Managua Bolonia";
+                                }
+                                if ($_POST['textsucursal'] == "8") {
+                                    echo "Managua Villa Fontana";
+                                }
+                                ?>
+                            </option>
+                        <?php } ?>
                         <option class="form-control" value="1">Managua</option>
                         <option class="form-control" value="2">Masaya</option>
                         <option class="form-control" value="3">Chontales</option>
@@ -70,7 +106,10 @@ if (!$_SESSION) {
             </section>
         </form>
         <hr>
-        <a class="btn btn-dark right" href="index">Reporte Hoy</a>
+        <a class="btn btn-dark right" href="imprimir/diario_reporte_materiales.php" style="margin-right: 1em">Reporte
+            Radiografia</a>
+        <a class="btn btn-dark right" href="imprimir/diario_reporte_materiales.php" style="margin-right: 1em">Reporte
+            Materiales</a>
         <br>
         <br>
     </div>
@@ -81,7 +120,8 @@ if (!$_SESSION) {
         <thead>
         <tr style="border-bottom: 1px solid black">
             <th scope="col">No.Factura</th>
-            <th scope="col">Nombre y Apellido</th>
+            <th scope="col" class="center-align">Nombre y Apellido</th>
+            <th scope="col">Subtotal C$</th>
             <th scope="col">Total C$</th>
             <th scope="col">Total $</th>
             <th scope="col">Fecha</th>
@@ -95,8 +135,8 @@ if (!$_SESSION) {
         <?php
 
         if ($_POST) {
-            $fecha2=$_POST["textfecha"];
-            $sucursal=$_POST["textsucursal"];
+            $fecha2 = $_POST["textfecha"];
+            $sucursal = $_POST["textsucursal"];
             $result4 = $mysqli->query("SELECT * FROM `total_factura` WHERE total_factura.fecha='$fecha2' and total_factura.indsucursal='$sucursal' ORDER by indtotalfactura DESC");
         } else {
             $fecha = datos_clientes::fecha_get_pc_MYSQL();
@@ -111,19 +151,20 @@ if (!$_SESSION) {
                 <tr>
                     <td><?php echo $resultado["indtalonario"]; ?></td>
                     <td><?php echo $nombre_apelido; ?></td>
-                    <td><?php  echo  "C$ " . number_format($resultado["total"], 2, '.', ',');
-                    ?></td>
-                    <td><?php echo "$ " .number_format( ($resultado["total"] / $dolar), 2, '.', ',');?></td>
-                    <td><?php echo $resultado["fecha"]; ?></td>
-                    <td><?php echo $resultado["hora"]; ?></td>
-                    <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
-                           class="btn btn-success">Imprimir</a></td>
-                    <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
-                           class="btn btn-success">Editar</a></td>
-                    <td><a href="#" onclick="
+                    <td class="center-align"><?php echo number_format($resultado["subtotal"], 2, '.', ','); ?></td>
+                    <td class="center-align"><?php echo number_format($resultado["total"], 2, '.', ','); ?></td>
+                    <td class="center-align"><?php echo number_format(($resultado["total"] / $dolar), 2, '.', ','); ?></td>
+                    <td class="center-align"><?php echo $resultado["fecha"]; ?></td>
+                    <td class="center-align"><?php echo $resultado["hora"]; ?></td>
+                    <td class="center-align"><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
+                                                class="btn btn-success">Imprimir</a></td>
+                    <td class="center-align"><a
+                                href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
+                                class="btn btn-success">Editar</a></td>
+                    <td class="center-align"><a href="#" onclick="
                                 var i='<?php echo $resultado['indtemp']; ?>';
                                 verficar_anulacion(i);"
-                           class="btn btn-primary">Anular</a></td>
+                                                class="btn btn-primary">Anular</a></td>
                 </tr>
             <?php } else { ?>
                 <tr class="red-text">
@@ -141,7 +182,7 @@ if (!$_SESSION) {
                     <?php ?>
                     <td><a href="#" class="btn btn-primary">-----</a></td>
                 </tr>
-            <?php
+                <?php
             }
             ?>
 

@@ -487,4 +487,10 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
             return "false";
         }
     }
+    public static function entregar_matariales_bandera($indfactura,$bandera, $mysqli)
+    {
+        $insert = "UPDATE `factura` SET `bandera` = '$bandera' WHERE `factura`.`indfactura` = '$indfactura'";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
 }

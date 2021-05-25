@@ -33,18 +33,18 @@ if (!empty($_SESSION)) {
     try {
         if (!empty($_SESSION['sucursal'])) {
             $indsucursal = $_SESSION['sucursal'];
-            $talonario=datos_clientes::cambio_do($indsucursal, $mysqli);
+            $talonario = datos_clientes::cambio_do($indsucursal, $mysqli);
         }
     } catch (Exception $e) {
 
     }
 }
-$dolar=datos_clientes::cambio_dolar($mysqli);
+$dolar = datos_clientes::cambio_dolar($mysqli);
 
 
 ?>
 
-<div class="white rounded container-fluid">
+<div class="white rounded container-fluid" id="esconder_menu">
     <div style="padding: 1em " class="container">
         <ul class="nav nav-tabs">
             <li class="nav-item text-uppercase">
@@ -63,13 +63,16 @@ $dolar=datos_clientes::cambio_dolar($mysqli);
                 <a class="nav-link" href="productos">Productos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link bg-red" href="#"><i
-                            class="icon-coin-dollar"> </i> <?php echo $dolar?> Cordobas</a>
+                <a class="nav-link" href="productos">Credito</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link bg-red" href="talonario_cambio"> <?php if(!empty($_SESSION)){
-                        echo "No.".$talonario;
-                    }?></a>
+                <a class="nav-link bg-red" href="#"><i
+                            class="icon-coin-dollar"> </i> <?php echo $dolar ?> Cordobas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link bg-red" href="talonario_cambio"> <?php if (!empty($_SESSION)) {
+                        echo "No." . $talonario;
+                    } ?></a>
             </li>
             <?php
             try {
@@ -79,7 +82,8 @@ $dolar=datos_clientes::cambio_dolar($mysqli);
                         <a class="nav-link" href="productos"><i class="icon-cog" size="18dp"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn-success white-text" href="temporal/cerrar_seccion.php"><i class="icon-cross"></i></a>
+                        <a class="nav-link btn-success white-text" href="temporal/cerrar_seccion.php"><i
+                                    class="icon-cross"></i></a>
                     </li>
                     </li>
                     <?php

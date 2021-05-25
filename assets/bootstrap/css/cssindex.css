@@ -1,10 +1,15 @@
-
 @media only screen and (max-width: 990px) {
     .maximo {
-        display: none !important; } }
+        display: none !important;
+    }
+}
+
 @media only screen and (min-width: 989px) {
     .minimo {
-        display: none !important; } }
+        display: none !important;
+    }
+}
+
 .materialize-red {
     background-color: #e51c23 !important;
 }
@@ -2168,6 +2173,7 @@
 .z-depth-5 {
     box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 }
+
 .hide {
     display: none !important;
 }
@@ -2191,6 +2197,7 @@
 .right {
     float: right !important;
 }
+
 .center-block {
     display: block;
     margin-left: auto;
@@ -2200,11 +2207,13 @@
 .no-padding {
     padding: 0 !important;
 }
+
 .container {
     margin: 0 auto;
     max-width: 1280px;
     width: 90%;
 }
+
 @media only screen and (min-width: 601px) {
     .container {
         width: 85%;
@@ -2221,22 +2230,27 @@
     margin-left: -0.75rem;
     margin-right: -0.75rem;
 }
+
 img.responsive-img,
 video.responsive-video {
     max-width: 100%;
     height: auto;
 }
-.hover-select:hover{
+
+.hover-select:hover {
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
     background-color: rgba(0, 0, 0, 0.1);
 }
+
 .circle {
     border-radius: 50%;
 }
-.caracter-text{
+
+.caracter-text {
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
     background-color: rgba(0, 0, 0, 0.1);
 }
+
 .page-nav-header {
     font-weight: bolder;
     background-image: url('/connect.png');
@@ -2285,31 +2299,30 @@ video.responsive-video {
 }
 
 
-
-form.chat *{
-    transition:all .5s;
-    box-sizing:border-box;
-    -webkit-box-sizing:border-box;
-    -moz-box-sizing:border-box;
+form.chat * {
+    transition: all .5s;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
 
 form.chat {
-    margin:0;
-    cursor:default;
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    top:0;
+    margin: 0;
+    cursor: default;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
     -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none;   /* Chrome/Safari/Opera */
-    -khtml-user-select: none;    /* Konqueror */
-    -moz-user-select: none;      /* Firefox */
-    -ms-user-select: none;       /* IE/Edge */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
     user-select: none;
 }
 
-form.chat span.spinner{
+form.chat span.spinner {
     -moz-animation: loading-bar 2s 1;
     -webkit-animation: loading-bar 2s 1;
     animation: loading-bar 2s 1;
@@ -2317,37 +2330,48 @@ form.chat span.spinner{
     height: 2px;
     background-color: #00e34d;
     transition: width 0.2s;
-    position:absolute;
-    top:0; left:0; right:0;
-    z-index:4
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4
 }
 
-form.chat .messages{
-    display:block;
+form.chat .messages {
+    display: block;
     overflow-x: hidden;
     overflow-y: scroll;
-    position:relative;
-    height:90%;
-    width:100%;
-    padding:2% 3%;
-    border-bottom:1px solid #ecf0f1;
+    position: relative;
+    height: 90%;
+    width: 100%;
+    padding: 2% 3%;
+    border-bottom: 1px solid #ecf0f1;
 }
 
-form.chat ::-webkit-scrollbar {width: 3px; height:1px;transition:all .5s;z-index:10;}
-form.chat ::-webkit-scrollbar-track {background-color: white;}
+form.chat ::-webkit-scrollbar {
+    width: 3px;
+    height: 1px;
+    transition: all .5s;
+    z-index: 10;
+}
+
+form.chat ::-webkit-scrollbar-track {
+    background-color: white;
+}
+
 form.chat ::-webkit-scrollbar-thumb {
     background-color: #bec4c8;
-    border-radius:3px;
+    border-radius: 3px;
 }
 
-form.chat .message{
-    display:block;
-    width:98%;
-    padding:0.5%;
+form.chat .message {
+    display: block;
+    width: 98%;
+    padding: 0.5%;
 }
 
-form.chat .message p{
-    margin:0;
+form.chat .message p {
+    margin: 0;
 }
 
 form.chat .out,
@@ -2357,12 +2381,12 @@ form.chat .in {
     margin-bottom: 20px;
 }
 
-form.chat .message:hover .out{
+form.chat .message:hover .out {
     -webkit-transform: translateX(-130px);
     transform: translateX(-130px);
 }
 
-form.chat .message:hover .in{
+form.chat .message:hover .in {
     -webkit-transform: translateX(130px);
     transform: translateX(130px);
 }
@@ -2371,7 +2395,7 @@ form.chat .message:hover date {
     opacity: 1;
 }
 
-form.chat .out,.in{
+form.chat .out, .in {
     position: relative;
     padding: 10px 20px;
     color: white;
@@ -2382,10 +2406,10 @@ form.chat .out,.in{
 
 form.chat .out {
     background: #00e34d;
-    color:white;
-    float:right;
-    clear:both;
-    border-bottom-right-radius: 20px 0px\9;
+    color: white;
+    float: right;
+    clear: both;
+    border-bottom-right-radius: 20px 0px \9;
 }
 
 form.chat .out:before {
@@ -2399,8 +2423,8 @@ form.chat .out:before {
     border-bottom-left-radius: 16px 14px;
     -webkit-transform: translate(0, -2px);
     transform: translate(0, -2px);
-    border-bottom-left-radius: 15px 0px\9;
-    transform: translate(-1px, -2px)\9;
+    border-bottom-left-radius: 15px 0px \9;
+    transform: translate(-1px, -2px) \9;
 }
 
 form.chat .out:after {
@@ -2437,9 +2461,10 @@ form.chat .in {
     background: #E5E5EA;
     color: black;
     float: left;
-    clear:both;
-    border-bottom-left-radius: 30px 0px\9;
+    clear: both;
+    border-bottom-left-radius: 30px 0px \9;
 }
+
 form.chat .in:before {
     content: "";
     position: absolute;
@@ -2451,8 +2476,8 @@ form.chat .in:before {
     border-bottom-right-radius: 16px 14px;
     -webkit-transform: translate(0, -2px);
     transform: translate(0, -2px);
-    border-bottom-right-radius: 15px 0px\9;
-    transform: translate(-1px, -2px)\9;
+    border-bottom-right-radius: 15px 0px \9;
+    transform: translate(-1px, -2px) \9;
 }
 
 form.chat .in:after {
@@ -2470,11 +2495,11 @@ form.chat .in:after {
 }
 
 form.chat date {
-    position:absolute;
+    position: absolute;
     top: 10px;
-    font-size:14px;
-    white-space:nowrap;
-    vertical-align:middle;
+    font-size: 14px;
+    white-space: nowrap;
+    vertical-align: middle;
     color: #8b8b90;
     opacity: 0;
     z-index: 4;
@@ -2488,39 +2513,39 @@ form.chat .in date {
 
 }
 
-form.chat input{
+form.chat input {
     font: 400 13px 'Open Sans', sans-serif;
-    border:0;
-    padding:0 15px;
-    height:10%;
-    outline:0;
+    border: 0;
+    padding: 0 15px;
+    height: 10%;
+    outline: 0;
 }
 
-form.chat input[type='text']{
-    width:73%;
-    float:left;
+form.chat input[type='text'] {
+    width: 73%;
+    float: left;
 }
 
-form.chat input[type='submit']{
-    width:23%;
-    background:transparent;
-    color:#00E34D;
-    font-weight:700;
-    text-align:right;
-    float:right;
+form.chat input[type='submit'] {
+    width: 23%;
+    background: transparent;
+    color: #00E34D;
+    font-weight: 700;
+    text-align: right;
+    float: right;
 }
 
 form.chat .out,
-form.chat .in{
+form.chat .in {
     font-size: 12px;
 }
 
-form.chat .message:hover .out{
+form.chat .message:hover .out {
     transform: translateY(18px);
     -webkit-transform: translateY(18px);
 }
 
-form.chat .message:hover .in{
+form.chat .message:hover .in {
     transform: translateY(18px);
     -webkit-transform: translateY(18px);
 }
@@ -2528,7 +2553,7 @@ form.chat .message:hover .in{
 form.chat .out date,
 form.chat .in date {
     top: -20px;
-    left:auto;
+    left: auto;
     font-size: 12px;
 }
 
@@ -2590,7 +2615,7 @@ form.chat .in {
     color: inherit;
 }
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
     .article-list h2 {
         margin-bottom: 25px;
         padding-top: 25px;
@@ -2650,6 +2675,7 @@ form.chat .in {
 :root {
     /* larger checkbox */
 }
+
 :root label.checkbox-bootstrap input[type=checkbox] {
     /* hide original check box */
     opacity: 0;
@@ -2660,6 +2686,7 @@ form.chat .in {
     /* disabled and checked checkbox style */
     /* when the checkbox is focused with tab key show dots arround */
 }
+
 :root label.checkbox-bootstrap input[type=checkbox] + span.checkbox-placeholder {
     width: 14px;
     height: 14px;
@@ -2673,9 +2700,11 @@ form.chat .in {
     vertical-align: middle;
     text-align: center;
 }
+
 :root label.checkbox-bootstrap input[type=checkbox]:checked + span.checkbox-placeholder {
     background: #0ccce4;
 }
+
 :root label.checkbox-bootstrap input[type=checkbox]:checked + span.checkbox-placeholder:before {
     display: inline-block;
     position: relative;
@@ -2693,17 +2722,21 @@ form.chat .in {
     transform: rotate(45deg);
     content: "";
 }
+
 :root label.checkbox-bootstrap input[type=checkbox]:disabled + span.checkbox-placeholder {
     background: #ececec;
     border-color: #c3c2c2;
 }
+
 :root label.checkbox-bootstrap input[type=checkbox]:checked:disabled + span.checkbox-placeholder {
     background: #d6d6d6;
     border-color: #bdbdbd;
 }
+
 :root label.checkbox-bootstrap input[type=checkbox]:focus:not(:hover) + span.checkbox-placeholder {
     outline: 1px dotted black;
 }
+
 :root label.checkbox-bootstrap.checkbox-lg input[type=checkbox] + span.checkbox-placeholder {
     width: 26px;
     height: 26px;
@@ -2712,10 +2745,18 @@ form.chat .in {
     /*checkbox border color*/
     border-color: #737373;
 }
+
 :root label.checkbox-bootstrap.checkbox-lg input[type=checkbox]:checked + span.checkbox-placeholder:before {
     width: 9px;
     height: 15px;
     /*checkmark arrow color*/
     border: solid white;
     border-width: 0 3px 3px 0;
+}
+
+.vertical-header span {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-align: left;
+    max-height: 150px;
 }
