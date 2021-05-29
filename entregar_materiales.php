@@ -127,16 +127,16 @@ if ($_GET) {
                 $fecha1 = $_POST["textfecha1"];
                 $fecha2 = $_POST["textfecha2"];
                 $sucursal = $_POST["textsucursal"];
-                $result4 = $mysqli->query("SELECT * FROM `factura` WHERE `bandera` = 0 and indsucursal='$sucursal' and indtalonario IS NOT NULL and bandera=0");
+                $result4 = $mysqli->query("SELECT * FROM `factura` WHERE  indsucursal='$sucursal' and indtalonario IS NOT NULL and bandera=0");
             } else if ($_GET) {
                 $fecha1 = $_GET["textfecha1"];
                 $fecha2 = $_GET["textfecha2"];
                 $sucursal = $_GET["textsucursal"];
-                $result4 = $mysqli->query("SELECT * FROM `factura` WHERE `bandera` = 0 and indsucursal='$sucursal' and indtalonario IS NOT NULL and bandera=0");
+                $result4 = $mysqli->query("SELECT * FROM `factura` WHERE indsucursal='$sucursal' and indtalonario IS NOT NULL and bandera=0");
             } else {
                 $fecha1 = datos_clientes::fecha_get_pc_MYSQL();
                 $fecha2 = datos_clientes::fecha_get_pc_MYSQL();
-                $result4 = $mysqli->query("SELECT * FROM `factura` WHERE `bandera` = 0 and indtalonario IS NOT NULL and bandera=0");
+                $result4 = $mysqli->query("SELECT * FROM `factura` WHERE indtalonario IS NOT NULL and bandera=0");
             }
             while ($resultado = $result4->fetch_assoc()) {
                 $fechad = datos_clientes::get_fecha_faltante($resultado['indtemp'], 1, $mysqli);

@@ -19,11 +19,12 @@ if (!$_SESSION) {
         </form>
         <div class="modal-footer">
 
-            <a class="btn white-text btn-dark" href="faltantes.php">Faltantes</a>
+            <a class="btn white-text btn-dark" href="faltantes">Faltantes</a>
+            <a class="btn white-text btn-dark" href="entregado_materiales">Entregado Materiales</a>
             <?php
             if (empty($_SESSION["root"])) {
                 ?>
-                <a class="btn white-text blue-grey btn-primary" href="entregar_materiales.php">Entregar
+                <a class="btn white-text blue-grey btn-primary" href="entregar_materiales">Entregar
                     Materiales</a>
                 <?php
             }
