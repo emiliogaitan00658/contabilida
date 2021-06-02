@@ -1,8 +1,9 @@
 <?php include "header/header.php";
 $indcliente = $_SESSION["indcliente"];
+$ress = $_SESSION["Key"];
 $Key = $_SESSION["Key"];
 $_SESSION["Key"] = $Key;
-$sucursal=$_SESSION['sucursal'];
+$sucursal = $_SESSION['sucursal'];
 $row = datos_clientes::buscar($indcliente, $mysqli);
 if (!$_SESSION) {
     echo '<script> location.href="login" </script>';
@@ -20,18 +21,22 @@ if ($_POST) {
     $dolar = $_POST['textdolar'];
 
     $codo = datos_clientes::sumatotal_factursa_subfactura($Key, $mysqli);
-    $RES = $codo ;
+    $RES = $codo;
     $subtotalF = number_format($RES, 2, '.', '');
 
     $res3 = datos_clientes::sumatotal_factursa($Key, $mysqli);
     $sum = $res3;
     $totalF = number_format($sum, 2, '.', '');
 
-    $exito = datos_clientes::facturafinal($Key,$sucursal, $check_credito, $indcliente, $check_cordoba, $check_dolar, $check_tras, $check_efect, $check_fise, $check_bac, $check_targeta,
+    $exito = datos_clientes::facturafinal($Key, $sucursal, $check_credito, $indcliente, $check_cordoba, $check_dolar, $check_tras, $check_efect, $check_fise, $check_bac, $check_targeta,
         $cordobas, $dolar, $subtotalF, $totalF, $mysqli);
     if ($exito == true) {
         $_SESSION["Key"] = "";
-        echo '<script> location.href="factura_dia.php" </script>';
+        if ($check_credito == 1) {
+            echo '<script> location.href="detalles_credito.php?indcliente='.$indcliente.'&key='.$ress.'&total= '.$totalF.'" </script>';
+        } else {
+            echo '<script> location.href="factura_dia.php" </script>';
+        }
     }
 
 }
@@ -245,10 +250,10 @@ if ($_SESSION["Key"] == "") {
         var cordobas = document.myapp.textcordobas.value;
         var dolar = document.myapp.textdolar.value;
         if (cordobas !== "" || dolar !== "") {
-            if(comprobar=="0.00"){
+            if (comprobar == "0.00") {
                 swal("Error!", "Agregar Producto", "error");
                 return false;
-            }else{
+            } else {
                 return true;
             }
         } else {

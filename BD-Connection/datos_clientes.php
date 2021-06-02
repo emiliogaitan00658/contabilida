@@ -177,13 +177,16 @@ VALUES ( '$indusuario', '$nombre', '$apellido', '$direccion1', '$direccion2', '$
         return true;
     }
 
-    public static function nuevo_credito($indcliente, $producto, $inicio, $monto, $cuotas, $prima, $mysqli)
+    public static function nuevo_credito($indcliente,$indsucursal,$key, $inicio, $monto, $cuotas, $prima, $mysqli)
     {
-        $indcredito = self::generar_ind_cuota_pago($mysqli);
 
-        $insert1 = "INSERT INTO `credito` (`indcredito`, `indcliente`, `producto`, `totalCredito`, `numeroCuotas`, `fechaInicio`, `status`, `prima`) 
-VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inicio', 'true', $prima);";
+        $insert1 = "INSERT INTO `credito` (`indcredito`, `indsucursal`, `indcliente`, `producto`, `totalCredito`, `numeroCuotas`, `fechaInicio`, `status`, `prima`, `indtemp`) 
+VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio', '1', '$prima', '$key');";
+
+
+
         $query = mysqli_query($mysqli, $insert1);
+
 
         $fecha = $inicio;
         $bandera = 0;
@@ -212,9 +215,13 @@ VALUES ('$indcredito' , '$indcliente,', '$producto', '$monto', '$cuotas', '$inic
             } else {
                 $date = $y . "-" . $m . "-" . "1";
             }
+            $result = $mysqli->query("SELECT * FROM `credito` WHERE indtemp='$key'");
+            $row = $result->fetch_array(MYSQLI_ASSOC);
 
-            $insert1 = "INSERT INTO `creditos_pago` (`indpago`, `indcredito`, `indfactura`, `pago`, `fechapago`, `status`, `bandera`)
-                   VALUES (NULL, '$indcredito', null, '$pago_cuatos', '$date', 'false', '$bandera');";
+            $indcredito=$row["indcredito"];
+
+            $insert1 = "INSERT INTO `creditos_pago` (`indpago`, `indcredito`, `indfactura`, `pago`, `fechapago`, `status`, `bandera`, `indsucursal`, `indtemp`)
+                   VALUES (NULL, '$indcredito', null, '$pago_cuatos', '$date', 'false', '$bandera', '$indsucursal', '$key');";
             $query = mysqli_query($mysqli, $insert1);
         }
         return true;

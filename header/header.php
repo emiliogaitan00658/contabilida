@@ -64,7 +64,7 @@ $dolar = datos_clientes::cambio_dolar($mysqli);
                 <a class="nav-link" href="productos">Productos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="productos">Credito</a>
+                <a class="nav-link" href="credito">Credito</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link bg-red" href="#"><i
