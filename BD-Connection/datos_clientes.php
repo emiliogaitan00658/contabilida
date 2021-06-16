@@ -238,6 +238,17 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         }
         return "indsucursal";
     }
+    public static function ind_empleado($user, $pass, $mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `empleado` WHERE `user` = '$user' AND `pass` = '$pass'");
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row)) {
+            return $row["indempleado"];
+        } else {
+            return "indsucursal";
+        }
+        return "indsucursal";
+    }
 
     public static function cambio_dolar($mysqli)
     {
@@ -285,38 +296,32 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
 
     public static function nombre_sucursal($indsucursal)
     {
-        try {
-            if ($_SESSION) {
-                if ($_SESSION['sucursal'] == "1") {
-                    return "Managua";
-                }
-                if ($_SESSION['sucursal'] == "2") {
-                    return "Masaya";
-                }
-                if ($_SESSION['sucursal'] == "3") {
-                    return "Chontales";
-                }
-                if ($_SESSION['sucursal'] == "6") {
-                    return "Esteli";
-                }
-                if ($_SESSION['sucursal'] == "5") {
-                    return "Leon";
-                }
-                if ($_SESSION['sucursal'] == "9") {
-                    return "Matagalpa";
-                }
-                if ($_SESSION['sucursal'] == "4") {
-                    return "Chinandega";
-                }
-                if ($_SESSION['sucursal'] == "7") {
-                    return "Managua Bolonia";
-                }
-                if ($_SESSION['sucursal'] == "8") {
-                    return "Managua Villa Fontana";
-                }
-            }
-        } catch (Exception $e) {
-
+        if ($_SESSION['sucursal'] == "1") {
+            return "Managua";
+        }
+        if ($_SESSION['sucursal'] == "2") {
+            return "Masaya";
+        }
+        if ($_SESSION['sucursal'] == "3") {
+            return "Chontales";
+        }
+        if ($_SESSION['sucursal'] == "6") {
+            return "Esteli";
+        }
+        if ($_SESSION['sucursal'] == "5") {
+            return "Leon";
+        }
+        if ($_SESSION['sucursal'] == "9") {
+            return "Matagalpa";
+        }
+        if ($_SESSION['sucursal'] == "4") {
+            return "Chinandega";
+        }
+        if ($_SESSION['sucursal'] == "7") {
+            return "Managua Bolonia";
+        }
+        if ($_SESSION['sucursal'] == "8") {
+            return "Managua Villa Fontana";
         }
         return 0;
     }
@@ -506,6 +511,15 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
     public static function entregar_matariales_bandera($indfactura,$bandera, $mysqli)
     {
         $insert = "UPDATE `factura` SET `bandera` = '$bandera' WHERE `factura`.`indfactura` = '$indfactura'";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+    public static function historial_acceso($descripcion,$indcliente,$indsucursal,$mysqli)
+    {
+        $hora=self::hora_get_pc();
+        $fecha=self::fecha_get_pc_MYSQL();
+        $insert = "INSERT INTO `historial_acceso` (`indacceso`, `descripcion_acceso`, `ip_acceso`, `fecha`, `hora`, `indsucursal`, `indempleado`) 
+VALUES (NULL, 'acceso', '127.0.0.1', '$fecha', '$hora', '1', '1');";
         $query = mysqli_query($mysqli, $insert);
         return true;
     }

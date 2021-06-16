@@ -1,12 +1,13 @@
 <?php include "header/header.php";
-if ($_POST){
-    $pass=filter_var($_POST['textpass'], FILTER_SANITIZE_STRING);
-    $user=filter_var($_POST['textuser'], FILTER_SANITIZE_STRING);
+if ($_POST) {
+    $pass = filter_var($_POST['textpass'], FILTER_SANITIZE_STRING);
+    $user = filter_var($_POST['textuser'], FILTER_SANITIZE_STRING);
 
-        //session_start();
-        $resul=datos_clientes::login_empleado($user,$pass, $mysqli);
-        if ($resul=="indsucursal"){
-            echo '<script>
+    //session_start();
+    $resul = datos_clientes::login_empleado($user, $pass, $mysqli);
+    $resul_ind_empleado = datos_clientes::ind_empleado($user, $pass, $mysqli);
+    if ($resul == "indsucursal") {
+        echo '<script>
  swal({
    title: "Error ?",
    text: "Este Usuario No Existe",
@@ -23,18 +24,21 @@ if ($_POST){
  });
  </script>';
 
-        }else{
-            if($user=="root"){
+    } else {
+        if ($user == "root") {
 
-            }else{
-                $_SESSION["root"]="true";
-            }
-            $_SESSION['sucursal']=$resul;
-            $_SESSION["Key"]="";
+        } else {
+            $_SESSION["root"] = "true";
+        }
+        $_SESSION['sucursal'] = $resul;
+        $_SESSION["Key"] = "";
+        $_SESSION["indempleado"] = $resul_ind_empleado;
+        datos_clientes::historial_acceso("INGRESO A PLATAFORMA", $resul, $resul_ind_empleado, $mysqli);
+
           echo '<script>location.href="factura_dia";</script>';
         }
 
-    }
+}
 ?>
 
 <div class="container z-depth-1">

@@ -75,7 +75,7 @@ if ($_GET) {
                 <th scope="row"><?php echo $resultado['codigo_producto']; ?></th>
                 <td><?php echo $resultado['nombre_producto']; ?></td>
                 <td>
-                    <a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'] . '&precio=' . $resultado['precio1'] . '&producto=' . $resultado['nombre_producto']; ?>">$ <?php echo $resultado['precio1'] . ' (' . $dolar * $resultado['precio1'] . ')'; ?></a>
+                    <a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'] . '&precio=' . $resultado['precio1'] . '&producto=' . $resultado['nombre_producto']; ?>">$ <?php echo $resultado['precio1'] . ' (' . number_format((($dolar * $resultado['precio1'])), 2, '.', ','). ')'; ?></a>
                 </td>
                 <td>
                     <a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'] . '&precio=' . $resultado['precio2'] . '&producto=' . $resultado['nombre_producto']; ?>">$ <?php echo $resultado['precio2']; ?></a>

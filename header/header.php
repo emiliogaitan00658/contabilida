@@ -26,12 +26,11 @@
 <body style="background-color: rgb(247,247,249)" id="page-top">
 <?php
 session_start();
-$_SESSION['n']=0;
 include_once 'BD-Connection/conection.php';
 include_once 'BD-Connection/datos_clientes.php';
 if (!empty($_SESSION)) {
-    $idsucursal = $_SESSION['sucursal'];
     try {
+        $idsucursal = $_SESSION['sucursal'];
         if (!empty($_SESSION['sucursal'])) {
             $indsucursal = $_SESSION['sucursal'];
             $talonario = datos_clientes::cambio_do($indsucursal, $mysqli);

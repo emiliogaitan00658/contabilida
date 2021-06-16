@@ -17,6 +17,7 @@ if ($_POST) {
     $check_bac = isset($_POST['flexCheckCheckedbac']) ? 1 : 0;
     $check_credito = isset($_POST['flexCheckCheckedcredito']) ? 1 : 0;
     $check_targeta = isset($_POST['flexCheckCheckedtargeta']) ? 1 : 0;
+    $check_rx = isset($_POST['flexCheckCheckedtargeta']) ? 1 : 0;
     $cordobas = $_POST['textcordobas'];
     $dolar = $_POST['textdolar'];
 
@@ -28,12 +29,16 @@ if ($_POST) {
     $sum = $res3;
     $totalF = number_format($sum, 2, '.', '');
 
+    if ($check_rx == 1) {
+        $exito = datos_clientes::facturafinal($Key, $sucursal, $check_credito, $indcliente, $check_cordoba, $check_dolar, $check_tras, $check_efect, $check_fise, $check_bac, $check_targeta,
+            $cordobas, $dolar, $subtotalF, $totalF, $mysqli);
+    }
     $exito = datos_clientes::facturafinal($Key, $sucursal, $check_credito, $indcliente, $check_cordoba, $check_dolar, $check_tras, $check_efect, $check_fise, $check_bac, $check_targeta,
         $cordobas, $dolar, $subtotalF, $totalF, $mysqli);
     if ($exito == true) {
         $_SESSION["Key"] = "";
         if ($check_credito == 1) {
-            echo '<script> location.href="detalles_credito.php?indcliente='.$indcliente.'&key='.$ress.'&total= '.$totalF.'" </script>';
+            echo '<script> location.href="detalles_credito.php?indcliente=' . $indcliente . '&key=' . $ress . '&total= ' . $totalF . '" </script>';
         } else {
             echo '<script> location.href="factura_dia.php" </script>';
         }
@@ -88,6 +93,13 @@ if ($_SESSION["Key"] == "") {
                            name="flexCheckCheckedtargeta">
                     <label class="form-check-label" for="flexCheckChecked">
                         Tarjeta
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedrx"
+                           name="flexCheckCheckedrx">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        RX
                     </label>
                 </div>
             </div>
