@@ -28,9 +28,9 @@ if ($_POST) {
  })
  .then((willDelete) => {
    if (willDelete) {
-     location.href="factura_dia.php";
+     //location.href="factura_dia.php";
    }else {
-     location.href="factura_dia.php";
+     //location.href="factura_dia.php";
    }
  });
  </script>';
@@ -78,7 +78,7 @@ if ($_POST) {
                 <div class="control-pares col-md-3">
                     <label for="" class="control-label">Prima USD: *</label>
                     <input type="text" name="textprima" class="form-control" placeholder="Cuotas"
-                           value="0" required>
+                           value="">
                 </div>
                 <div class="control-pares col-md-3">
                     <label for="" class="control-label">Fecha Inicio: *</label>

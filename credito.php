@@ -27,7 +27,7 @@ if ($_POST) {
    if (willDelete) {
      location.href="creditos.php?indcliente='.$nombre.'";
    }else {
-      location.href="creditos.php?indcliente='.$nombre.'";
+     location.href="creditos.php?indcliente='.$nombre.'";
    }
  });
  </script>';
