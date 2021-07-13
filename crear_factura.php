@@ -30,9 +30,9 @@ if ($_POST) {
     $totalF = number_format($sum, 2, '.', '');
 
     if ($check_rx == 1) {
-        $exito = datos_clientes::facturafinal($Key, $sucursal, $check_credito, $indcliente, $check_cordoba, $check_dolar, $check_tras, $check_efect, $check_fise, $check_bac, $check_targeta,
-            $cordobas, $dolar, $subtotalF, $totalF, $mysqli);
+    datos_clientes::control_ingreso_facturar($indcliente,$sucursal,"rx",$key);
     }
+
     $exito = datos_clientes::facturafinal($Key, $sucursal, $check_credito, $indcliente, $check_cordoba, $check_dolar, $check_tras, $check_efect, $check_fise, $check_bac, $check_targeta,
         $cordobas, $dolar, $subtotalF, $totalF, $mysqli);
     if ($exito == true) {

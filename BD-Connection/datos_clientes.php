@@ -177,12 +177,11 @@ VALUES ( '$indusuario', '$nombre', '$apellido', '$direccion1', '$direccion2', '$
         return true;
     }
 
-    public static function nuevo_credito($indcliente,$indsucursal,$key, $inicio, $monto, $cuotas, $prima, $mysqli)
+    public static function nuevo_credito($indcliente, $indsucursal, $key, $inicio, $monto, $cuotas, $prima, $mysqli)
     {
 
         $insert1 = "INSERT INTO `credito` (`indcredito`, `indsucursal`, `indcliente`, `producto`, `totalCredito`, `numeroCuotas`, `fechaInicio`, `status`, `prima`, `indtemp`) 
 VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio', '1', '$prima', '$key');";
-
 
 
         $query = mysqli_query($mysqli, $insert1);
@@ -218,7 +217,7 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
             $result = $mysqli->query("SELECT * FROM `credito` WHERE indtemp='$key'");
             $row = $result->fetch_array(MYSQLI_ASSOC);
 
-            $indcredito=$row["indcredito"];
+            $indcredito = $row["indcredito"];
 
             $insert1 = "INSERT INTO `creditos_pago` (`indpago`, `indcredito`, `indfactura`, `pago`, `fechapago`, `status`, `bandera`, `indsucursal`, `indtemp`)
                    VALUES (NULL, '$indcredito', null, '$pago_cuatos', '$date', 'false', '$bandera', '$indsucursal', '$key');";
@@ -238,6 +237,7 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         }
         return "indsucursal";
     }
+
     public static function ind_empleado($user, $pass, $mysqli)
     {
         $result = $mysqli->query("SELECT * FROM `empleado` WHERE `user` = '$user' AND `pass` = '$pass'");
@@ -328,9 +328,7 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
 
     public static function cambio_talonario($indsucursal, $notalonario, $mysqli)
     {
-        $indsucursal;
-        $notalonario;
-        $insert = "UPDATE `talonario` SET `numero` = '$notalonario' WHERE `talonario`.`indtalonario` = '$indsucursal';";
+        $insert = "UPDATE `talonario` SET `numero` = '$notalonario' WHERE `talonario`.`indsucursal` = '$indsucursal';";
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
@@ -361,6 +359,18 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
             return "true";
         } else {
             return "false";
+        }
+    }
+
+
+    public static function conteo_cuentas_pagar($indcliente,$mysqli)
+    {
+        $result = $mysqli->query("SELECT COUNT(status) as suma FROM `credito` WHERE indcliente='$indcliente' and status=1 ORDER by indcliente");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["suma"];
+        } else {
+            return "0";
         }
     }
 
@@ -473,7 +483,7 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
         return true;
     }
 
-    public static function Factura_genera_codigo($key, $talonario, $mysqli)
+    public static function Factura_genera_codigo($key, $talonario,$indsucursal ,$mysqli)
     {
         $insert = "UPDATE `factura` SET `indtalonario` = '$talonario' WHERE `factura`.`indtemp` ='$key'";
         $query = mysqli_query($mysqli, $insert);
@@ -482,7 +492,7 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
         $query = mysqli_query($mysqli, $insert2);
 
         $talonario_nuevo = $talonario + 1;
-        $insert3 = "UPDATE `talonario` SET `numero` = '$talonario_nuevo' WHERE `talonario`.`indtalonario` = 1";
+        $insert3 = "UPDATE `talonario` SET `numero` = '$talonario_nuevo' WHERE `talonario`.`indsucursal` = '$indsucursal'";
         $query = mysqli_query($mysqli, $insert3);
         return true;
     }
@@ -508,16 +518,18 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
             return "false";
         }
     }
-    public static function entregar_matariales_bandera($indfactura,$bandera, $mysqli)
+
+    public static function entregar_matariales_bandera($indfactura, $bandera, $mysqli)
     {
         $insert = "UPDATE `factura` SET `bandera` = '$bandera' WHERE `factura`.`indfactura` = '$indfactura'";
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
-    public static function historial_acceso($descripcion,$indcliente,$indsucursal,$mysqli)
+
+    public static function historial_acceso($descripcion, $indcliente, $indsucursal, $mysqli)
     {
-        $hora=self::hora_get_pc();
-        $fecha=self::fecha_get_pc_MYSQL();
+        $hora = self::hora_get_pc();
+        $fecha = self::fecha_get_pc_MYSQL();
         $insert = "INSERT INTO `historial_acceso` (`indacceso`, `descripcion_acceso`, `ip_acceso`, `fecha`, `hora`, `indsucursal`, `indempleado`) 
 VALUES (NULL, 'acceso', '127.0.0.1', '$fecha', '$hora', '1', '1');";
         $query = mysqli_query($mysqli, $insert);

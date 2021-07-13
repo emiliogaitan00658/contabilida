@@ -34,7 +34,7 @@ if (!$_SESSION) {
                 <th class="vertical-header" scope="col"><span>Efectivo</span></th>
                 <th class="vertical-header" scope="col"><span>Dolar</span></th>
                 <th class="vertical-header" scope="col"><span>Cordobas</span></th>
-                <th class="vertical-header" scope="col"><span>Targeta</span></th>
+                <th class="vertical-header" scope="col"><span>Tarjeta</span></th>
                 <th class="vertical-header" scope="col"><span>Traferencia</span></th>
                 <th class="vertical-header" scope="col"><span>BAC</span></th>
                 <th class="vertical-header" scope="col"><span>LAFISE</span></th>

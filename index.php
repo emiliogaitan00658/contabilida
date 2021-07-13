@@ -23,16 +23,16 @@ if ($_POST) {
             echo '<script>
  swal({
    title: "Exito ?",
-   text: "Guardado Con Exito",
+   text: "Guardado Con Exitoooo",
    icon: "success",
    buttons: true,
 
  })
  .then((willDelete) => {
    if (willDelete) {
-     location.href="crear_factura.php?indcliente='.$indusuario.'";
+     location.href="temporal/indcliente.php?indcliente='.$indusuario.'";
    }else {
-      location.href="index.php";
+     
    }
  });
  </script>';
@@ -114,7 +114,7 @@ if ($_POST) {
                 <label for="" class="control-label">Cedula Identidad: *</label>
                 <input type="text" name="textcedula" class="form-control" value="<?php if (!empty($_POST['textcedula'])) {
                     echo $_POST['textcedula'];
-                } ?>" placeholder="No Cedula" required>
+                } ?>" placeholder="No Cedula">
             </div>
             <div class="control-pares col-md-3">
                 <label for="" class="control-label">Telefono: *</label>

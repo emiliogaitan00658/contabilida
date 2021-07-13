@@ -71,7 +71,7 @@ if ($_POST) {
         </section>
         <br>
         <div class="modal-footer">
-            <input type="submit" value="Nuevo Credito" class="btn blue-grey btn-primary"/>
+            <input type="submit" value="Nuevo Credito" class="btn blue-grey white-text btn-primary"/>
         </div>
     </form>
 </div>
@@ -105,7 +105,7 @@ if ($_POST) {
                         $fecha_cambio = $resultado['fechaInicio'];
                         $timestamp = strtotime($fecha_cambio);
                         echo date("d/m/Y", $timestamp); ?></td>
-                    <td><a href="tabla_pago.php?indcredito=<?php echo $resultado['indcredito']; ?>" class="btn btn-primary">Pagar Creditos</a></td>
+                    <td><a href="tabla_pago.php?indcredito=<?php echo $resultado['indcredito']; ?>" class="btn btn-primary green white-text">Pagar Creditos</a></td>
                 </tr>
                 <?php
                 $contador=$contador+1;
