@@ -54,7 +54,7 @@ $dolar = datos_clientes::cambio_dolar($mysqli);
                         } ?></b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="factura_dia">Facuración</a>
+                <a class="nav-link" href="factura_dia">Facturación</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="factura">Crear Factura</a>

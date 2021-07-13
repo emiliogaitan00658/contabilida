@@ -143,7 +143,7 @@ if ($_SESSION["Key"] == "") {
                href="temporal/cancelar_factura.php?indtemp=<?php echo $Key; ?>"><i class="icon-bin"></i> Eliminar
                 Factura</a>
             <a class="btn white-text blue-grey btn-primary" href="buscar_producto_factura.php"><i
-                        class="icon-search"> </i> Buscar Producto</a>
+                    class="icon-search"> </i> Buscar Producto</a>
         </div>
     </div>
 
@@ -200,7 +200,7 @@ if ($_SESSION["Key"] == "") {
                     </td>
                     <td style="width:20px;"><a class="btn btn-danger"
                                                href="temporal/eliminar_producto.php?indproducto=<?php echo $resultado['codigo_producto']; ?>&indtemp=<?php echo $Key; ?>"><i
-                                    class="icon-bin"></i></a></td>
+                                class="icon-bin"></i></a></td>
                 </tr>
                 <?php
             } ?>
@@ -354,4 +354,5 @@ if ($_SESSION["Key"] == "") {
 
 </script>
 <?php include "header/footer.php" ?>
+
 
