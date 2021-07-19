@@ -46,6 +46,7 @@ if ($_POST) {
         swal("alerta!", "Surgio un problema sistema!", "error");
     }
 
+    datos_clientes::historial_acceso("INGRESO A PLATAFORMA", $sucursal, $indcliente, $mysqli);
 }
 
 if ($_SESSION["Key"] == "") {

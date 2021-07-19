@@ -1,20 +1,16 @@
 <style>
-
     .linea {
         display: inline-block;
         font-family: Helvetica, Arial, Verdana, sans-serif;
     }
-
     #contenidoTabla {
         font-size: 5px;
         font-family: Helvetica, Arial, Verdana, sans-serif;
     }
-
     td {
         font-size: 13px;
         font-family: Helvetica, Arial, Verdana, sans-serif;
     }
-
     th {
         font-size: 13px;
         font-family: Helvetica, Arial, Verdana, sans-serif;
@@ -36,8 +32,8 @@ $cliente = datos_clientes::datos_clientes_generales($booos["indcliente"], $mysql
 datos_clientes::update_Control_factura($talonario, $key, $mysqli);
 ?>
 <div style="margin-top: 4.5em!important;margin-left: 1em">
-    <p style="margin-left: 8em" class="linea"><?php echo $cliente['nombre'] . " " . $cliente['apellido']; ?></p>
-    <span style="margin-left: 20em" class="linea"><?php echo datos_clientes::fecha_get_pc(); ?></span>
+    <p style="margin-left: 6em;width: 65%!important;" class="linea"><?php echo $cliente['nombre'] . " " . $cliente['apellido']; ?></p>
+    <span style="position: static!important; width: 20%!important;" class="linea"><?php echo datos_clientes::fecha_get_pc(); ?></span>
 </div>
 <br>
 <table style="height: 150px; width: 600px;" id="contenidoTabla">
@@ -45,7 +41,6 @@ datos_clientes::update_Control_factura($talonario, $key, $mysqli);
     <?php
     $subtotal = datos_clientes::sumatotal_subtotal($key, $mysqli);
     $total = datos_clientes::sumatotal_factursa_subfactura($key, $mysqli);
-
 
     $bandera = 0;
     $result4 = $mysqli->query("SELECT * FROM `factura` where factura.indtemp='$key'");
@@ -58,7 +53,7 @@ datos_clientes::update_Control_factura($talonario, $key, $mysqli);
             <td style="width: 40px; height: 20px;margin-left: 6px"
                 class="right-align"><?php echo $resultado['unidad']; ?></td>
             <td style="width: 400px; height: 20px;margin-left: 6px"><?php echo $resultado['nombre_producto']; ?></td>
-            <td style="width: 68px; height: 20px;padding-left: 3em"
+            <td style="width: 68px; height: 20px;padding-left: 2em"
                 class="right-align"><?php echo $resultado['precio_unidad']; ?></td>
             <td style="width: 68px; height: 20px;padding-left: 1em"
                 class="right-align"><?php echo $resultado['precio_total']; ?></td>

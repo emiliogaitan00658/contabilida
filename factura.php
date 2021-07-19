@@ -29,7 +29,7 @@ if (!empty($_POST["textnombre"])) {
             </section>
         </form>
         <hr>
-        <a class="btn btn-dark blue-grey right" href="index"><i class="icon-user-plus white-text"></i> Nuevo Cliente</a>
+        <a class="btn btn-dark blue-grey right" href="index" style="margin-left:1em!important; "><i class="icon-user-plus white-text"></i> Nuevo Cliente</a>
         <br>
         <br>
     </div>
@@ -45,6 +45,7 @@ if (!empty($_POST["textnombre"])) {
             <th scope="col">Sucursal</th>
             <th scope="col">No Deudas</th>
             <th scope="col">Detalles</th>
+            <th scope="col" class="red-text">RX</th>
             <th scope="col">Crear Factura</th>
         </tr>
         </thead>
@@ -74,6 +75,8 @@ if (!empty($_POST["textnombre"])) {
                     <td class="btn-link center-align  center-block"><a href="credito.php?indcliente=<?php echo $resultado['indcliente']; ?>"><?php echo datos_clientes::conteo_cuentas_pagar($resultado['indcliente'],$mysqli);?></a></td>
                     <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-success">Detalles</a></td>
+                    <td><a href="cambio_rax_paciente.php?indcliente=<?php echo $resultado['indcliente']; ?>"
+                           class="btn btn-danger">Rx</a></td>
                     <td><a href="temporal/indcliente.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-primary">Crear Factura</a></td>
                 </tr>
