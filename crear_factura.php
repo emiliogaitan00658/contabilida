@@ -29,9 +29,11 @@ if ($_POST) {
     $sum = $res3;
     $totalF = number_format($sum, 2, '.', '');
     if ($check_rx == 1) {
-        datos_clientes::control_ingreso_facturar($sucursal,"RX",$Key,$mysqli);
-    }else{
-        datos_clientes::control_ingreso_facturar($sucursal,"PX",$Key,$mysqli);
+        datos_clientes::control_ingreso_facturar($sucursal, "RX", $Key, $mysqli);
+        $RAX = $_SESSION["RAX"];
+        datos_clientes::rax_cliente_doctor($RAX, $indcliente, $Key, $sucursal, $mysqli);
+    } else {
+        datos_clientes::control_ingreso_facturar($sucursal, "PX", $Key, $mysqli);
     }
     $exito = datos_clientes::facturafinal($Key, $sucursal, $check_credito, $indcliente, $check_cordoba, $check_dolar, $check_tras, $check_efect, $check_fise, $check_bac, $check_targeta,
         $cordobas, $dolar, $subtotalF, $totalF, $mysqli);
@@ -42,7 +44,7 @@ if ($_POST) {
         } else {
             echo '<script> location.href="factura_dia.php" </script>';
         }
-    }else{
+    } else {
         swal("alerta!", "Surgio un problema sistema!", "error");
     }
 

@@ -127,6 +127,7 @@ if (!$_SESSION) {
                 <th scope="col">Fecha</th>
                 <th scope="col">Hora</th>
                 <th scope="col">Imprimir</th>
+                <th scope="col">Eliminar</th>
                 <th scope="col">Editar</th>
                 <th scope="col">Anular</th>
             </tr>
@@ -158,8 +159,9 @@ if (!$_SESSION) {
                         <td class="center-align"><?php echo $resultado["hora"]; ?></td>
                         <td class="center-align"><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
                                                     class="btn btn-success">Imprimir</a></td>
-                        <td class="center-align"><a
-                                    href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
+                        <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
+                               class="btn btn-danger"><i class="btn-danger icon-bin"></i></a></td>
+                        <td class="center-align"><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                                     class="btn btn-success">Editar</a></td>
                         <td class="center-align"><a href="#" onclick="
                                     var i='<?php echo $resultado['indtemp']; ?>';
@@ -177,6 +179,8 @@ if (!$_SESSION) {
                         <td><?php echo $resultado["hora"]; ?></td>
                         <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
                                class="btn btn-success">Imprimir</a></td>
+                        <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
+                               class="btn btn-danger"><i class="btn-danger icon-bin"></i></a></td>
                         <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                                class="btn btn-success">Editar</a></td>
 

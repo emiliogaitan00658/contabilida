@@ -40,7 +40,8 @@ datos_clientes::update_Control_factura($talonario, $key, $mysqli);
     <tbody>
     <?php
     $subtotal = datos_clientes::sumatotal_subtotal($key, $mysqli);
-    $total = datos_clientes::sumatotal_factursa_subfactura($key, $mysqli);
+    //$total = datos_clientes::sumatotal_factursa_subfactura($key, $mysqli);
+    $total = datos_clientes::sumatotal_factura_total($key, $mysqli);
 
     $bandera = 0;
     $result4 = $mysqli->query("SELECT * FROM `factura` where factura.indtemp='$key'");
@@ -54,9 +55,9 @@ datos_clientes::update_Control_factura($talonario, $key, $mysqli);
                 class="right-align"><?php echo $resultado['unidad']; ?></td>
             <td style="width: 400px; height: 20px;margin-left: 6px"><?php echo $resultado['nombre_producto']; ?></td>
             <td style="width: 68px; height: 20px;padding-left: 2em"
-                class="right-align"><?php echo $resultado['precio_unidad']; ?></td>
+                class="right-align"><?php echo number_format(($resultado['precio_unidad']), 2, '.', ','); ?></td>
             <td style="width: 68px; height: 20px;padding-left: 1em"
-                class="right-align"><?php echo $resultado['precio_total']; ?></td>
+                class="right-align"><?php echo number_format(($resultado['precio_total']), 2, '.', ','); ?></td>
         </tr>
         <?php
     }

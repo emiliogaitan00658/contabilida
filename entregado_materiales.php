@@ -79,16 +79,16 @@ if ($_GET) {
                                 }
 
                                 ?></option>
-                            <option class="form-control" value="1">Managua</option>
-                            <option class="form-control" value="2">Masaya</option>
-                            <option class="form-control" value="3">Chontales</option>
-                            <option class="form-control" value="6">Esteli</option>
-                            <option class="form-control" value="5">Leon</option>
-                            <option class="form-control" value="9">Matagalpa</option>
-                            <option class="form-control" value="4">Chinandega</option>
-                            <option class="form-control" value="7">Managua Bolonia</option>
-                            <option class="form-control" value="8">Managua Villa Fontana</option>
-                        </select>
+                            <option class="form-control" disabled value="1">Managua</option>
+                            <option class="form-control" disabled value="2">Masaya</option>
+                            <option class="form-control" disabled value="3">Chontales</option>
+                            <option class="form-control" disabled value="6">Esteli</option>
+                            <option class="form-control" disabled value="5">Leon</option>
+                            <option class="form-control" disabled value="9">Matagalpa</option>
+                            <option class="form-control" disabled value="4">Chinandega</option>
+                            <option class="form-control" disabled value="7">Managua Bolonia</option>
+                            <option class="form-control" disabled value="8">Managua Villa Fontana</option>
+                        </select >
                     </div>
                     <div class="control-pares col-md-2">
                         <input type="submit" value="Buscar" class="btn white-text blue-grey btn-primary"/>

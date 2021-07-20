@@ -373,6 +373,25 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
             return "0";
         }
     }
+    public static function sumatotal_factura_total($key, $mysqli)
+    {
+        $result = $mysqli->query("SELECT total FROM `total_factura` WHERE indtemp='$key'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["total"];
+        } else {
+            return $res=sumatotal_factursa_subfactura($key, $mysqli);
+        }
+    }
+    public static function nombre_paciente_rax($indsucursal,$mysqli)
+    {
+        $result = $mysqli->query("SELECT total FROM `total_factura` WHERE indtemp='$key'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["total"];
+        }
+        return "No existe este usuario";
+    }
 
     /* Creacion dela factura todos los datos integrados */
 
@@ -396,6 +415,18 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
     public static function eliminar_todo_factura($key, $mysqli)
     {
         $insert = "DELETE FROM `factura` WHERE `factura`.`indtemp` = '$key'";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+
+    public static function rax_cliente_doctor($RAX,$indcliente,$Key,$sucursal,$mysqli)
+    {
+        $fecha=self::fecha_get_pc_MYSQL();
+        $hora=self::hora_get_pc();
+        $nombre_completo=self::nombre_apellido_cliente($indcliente,$mysqli);
+        $insert = "INSERT INTO `radiografia_conteo` (`indconteo`, `indcliente`, `nombre_completo`, `indsucursal`, `indtemp`, `factura`, `fecha`, `hora`) VALUES
+         (NULL, '$RAX', '$nombre_completo', '$sucursal', '$Key', '', '$fecha', '$hora');";
+
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
@@ -484,6 +515,10 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
     {
         $insert = "UPDATE `total_factura` SET `bandera` = '0' WHERE `total_factura`.`indtemp` ='$key'";
         $query = mysqli_query($mysqli, $insert);
+
+
+        $insert2 = "UPDATE `control` SET `anulado` = '1' WHERE `control`.`indtemp` = '$key'";
+        $query = mysqli_query($mysqli, $insert2);
         return true;
     }
 

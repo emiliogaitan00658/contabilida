@@ -40,7 +40,7 @@ if ($_POST) {
         <section class="row">
             <div class="control-pares col-md-5">
                 <label for="" class="control-label">Cambio Nombre Radiografia: *</label>
-                <input type="text" name="texttalonario" class="form-control" value=" <?php ?>"
+                <input type="text" name="texttalonario" class="form-control" value=" <?php echo datos_clientes::nombre_paciente_rax($indsucursal,$mysqli); ?>"
                        placeholder="Cambio de nombre de cliente" required>
             </div>
         </section>

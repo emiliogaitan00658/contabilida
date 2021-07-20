@@ -6,5 +6,5 @@ www.orthodentalnic.com.
 
 ![img.png](img.png)
 
-Sistema creado :Emilio Antonio Gaitan Fuentes
+Sistema creado : Emilio Antonio Gaitan Fuentes
 ![img_1.png](img_1.png)
