@@ -43,6 +43,8 @@ if ($_GET) {
                 </div>
             </section>
         </form>
+        <br>
+        <p>Si desea buscar el producto por marca debe de asignar el codigo mas ( - ) ejemplo=(MAQUIRA-)</p>
         <hr>
         <a class="btn btn-dark light-blue right" href="index"><i class="icon-arrow-left2"></i> Regresar</a>
         <br>
@@ -65,7 +67,7 @@ if ($_GET) {
         <?php
         if (!empty($_POST["textproducto"])) {
             $producto = $_POST["textproducto"];
-            $result4 = $mysqli->query("SELECT * FROM `producto` WHERE `nombre_producto` LIKE '%%$producto%%' ORDER by nombre_producto ASC");
+            $result4 = $mysqli->query("SELECT * FROM `producto` WHERE `nombre_producto` LIKE '%%$producto%%' OR `codigo_producto` LIKE '%%$producto%%' ORDER by nombre_producto ASC");
         } else {
             $result4 = $mysqli->query("SELECT * FROM `producto` ORDER by nombre_producto ASC limit 30");
         }

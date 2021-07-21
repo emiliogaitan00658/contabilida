@@ -1,19 +1,35 @@
+<style type="text/css">
+    @font-face {
+        font-family: "source_sans_proregular";
+        src: local("Source Sans Pro"), url("fonts/sourcesans/sourcesanspro-regular-webfont.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+
+    }
+   *{
+        font-family: "source_sans_proregular", Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+    }
+</style>
+
 <style>
+    *{
+        font-family: Helvetica;
+    }
     .linea {
         display: inline-block;
-        font-family: Helvetica, Arial, Verdana, sans-serif;
+        font-family: 'lucida grande', helvetica, verdana, arial, sans-serif!important;
     }
     #contenidoTabla {
         font-size: 5px;
-        font-family: Helvetica, Arial, Verdana, sans-serif;
+        font-family: 'lucida grande', helvetica, verdana, arial, sans-serif!important;
     }
     td {
         font-size: 13px;
-        font-family: Helvetica, Arial, Verdana, sans-serif;
+        font-family: 'lucida grande', helvetica, verdana, arial, sans-serif!important;
     }
     th {
         font-size: 13px;
-        font-family: Helvetica, Arial, Verdana, sans-serif;
+        font-family: 'lucida grande', helvetica, verdana, arial, sans-serif!important;
     }
 </style>
 <?php
@@ -32,8 +48,8 @@ $cliente = datos_clientes::datos_clientes_generales($booos["indcliente"], $mysql
 datos_clientes::update_Control_factura($talonario, $key, $mysqli);
 ?>
 <div style="margin-top: 4.5em!important;margin-left: 1em">
-    <p style="margin-left: 6em;width: 65%!important;" class="linea"><?php echo $cliente['nombre'] . " " . $cliente['apellido']; ?></p>
-    <span style="position: static!important; width: 20%!important;" class="linea"><?php echo datos_clientes::fecha_get_pc(); ?></span>
+    <p style="margin-left: 6em;width: 65%!important; font-size: 13px;" class="linea"><b><?php echo $cliente['nombre'] . " " . $cliente['apellido']; ?></b></p>
+    <span style="position: static!important; width: 20%!important; font-size: 16px;margin-left: 1em;" class="linea"><b><?php echo datos_clientes::fecha_get_pc(); ?></b></span>
 </div>
 <br>
 <table style="height: 150px; width: 600px;" id="contenidoTabla">
@@ -50,14 +66,14 @@ datos_clientes::update_Control_factura($talonario, $key, $mysqli);
         ?>
         <tr style="height: 5px;">
             <td style="width: 10px; height: 20px;margin-left: 0;padding-left: 0;"
-                class="left-align"><?php echo $resultado['codigo_producto']; ?></td>
+                class="left-align"><b><?php echo $resultado['codigo_producto']; ?></b></td>
             <td style="width: 40px; height: 20px;margin-left: 6px"
-                class="right-align"><?php echo $resultado['unidad']; ?></td>
-            <td style="width: 400px; height: 20px;margin-left: 6px"><?php echo $resultado['nombre_producto']; ?></td>
+                class="right-align"><b><?php echo $resultado['unidad']; ?></b></td>
+            <td style="width: 400px; height: 20px;margin-left: 6px"><b><?php echo $resultado['nombre_producto']; ?></b></td>
             <td style="width: 68px; height: 20px;padding-left: 2em"
-                class="right-align"><?php echo number_format(($resultado['precio_unidad']), 2, '.', ','); ?></td>
+                class="right-align"><b><?php echo number_format(($resultado['precio_unidad']), 2, '.', ','); ?></b></td>
             <td style="width: 68px; height: 20px;padding-left: 1em"
-                class="right-align"><?php echo number_format(($resultado['precio_total']), 2, '.', ','); ?></td>
+                class="right-align"><b><?php echo number_format(($resultado['precio_total']), 2, '.', ','); ?></b></td>
         </tr>
         <?php
     }
@@ -80,14 +96,14 @@ datos_clientes::update_Control_factura($talonario, $key, $mysqli);
         <td style="width: 40px; height:20px;">&nbsp;</td>
         <td style="width: 400px; height:20px;">&nbsp;</td>
         <td style="width: 68px; height:20px;">&nbsp;</td>
-        <td style="width: 68px; height:20px;font-size: 15px!important;"><?php echo number_format(($subtotal), 2, '.', ','); ?></td>
+        <td style="width: 68px; height:20px;font-size: 15px!important;"><b><?php echo number_format(($subtotal), 2, '.', ','); ?></b></td>
     </tr>
     <tr style="height: 5px;">
         <td style="width: 100px; height:20px;">&nbsp;</td>
         <td style="width: 40px; height:20px;">&nbsp;</td>
         <td style="width: 400px; height:20px;">&nbsp;</td>
         <td style="width: 68px; height:20px;">&nbsp;</td>
-        <td style="width: 68px; height:20px;font-size: 15px!important;"><?php echo number_format(($total), 2, '.', ','); ?></td>
+        <td style="width: 68px; height:20px;font-size: 15px!important;"><b><?php echo number_format(($total), 2, '.', ','); ?></b></td>
     </tr>
     </tbody>
 </table>

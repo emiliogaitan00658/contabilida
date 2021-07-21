@@ -393,6 +393,17 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         return "No existe este usuario";
     }
 
+
+    public static function buscar_producto($indproducto,$mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `producto` WHERE indproducto='$indproducto'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        }
+        return "";
+    }
+
     /* Creacion dela factura todos los datos integrados */
 
     public static function facturagenerada_filtro1($indtemp, $dolar, $indsucursal, $precio, $producto, $indproducto, $mysqli)
@@ -408,6 +419,12 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
     public static function eliminar_producto_factura($indproducto, $key, $mysqli)
     {
         $insert = "DELETE FROM `factura` WHERE `factura`.`indtemp` = '$key' AND codigo_producto='$indproducto'";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+    public static function eliminar_producto_lista($indproducto,$mysqli)
+    {
+        $insert = "DELETE FROM `producto` WHERE `producto`.`indproducto` = '$indproducto'";
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
@@ -587,6 +604,16 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
         $fecha = self::fecha_get_pc_MYSQL();
         $insert = "INSERT INTO `historial_acceso` (`indacceso`, `descripcion_acceso`, `ip_acceso`, `fecha`, `hora`, `indsucursal`, `indempleado`) 
 VALUES (NULL, 'acceso', '127.0.0.1', '$fecha', '$hora', '1', '1');";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+
+    public static function cambio_dato_producto($indproducto,$producto,$precio1,$precio2,$precio3,$mysqli)
+    {
+        $hora = self::hora_get_pc();
+        $fecha = self::fecha_get_pc_MYSQL();
+        $insert = "UPDATE `producto` SET `nombre_producto` = '$producto', `precio1` = '$precio1', `precio2` = '$precio2', `precio3` = '$precio3'
+WHERE `producto`.`indproducto` = '$indproducto'";
         $query = mysqli_query($mysqli, $insert);
         return true;
     }

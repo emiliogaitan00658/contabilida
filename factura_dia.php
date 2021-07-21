@@ -158,7 +158,7 @@ if (!$_SESSION) {
                         <td class="center-align"><?php echo $resultado["fecha"]; ?></td>
                         <td class="center-align"><?php echo $resultado["hora"]; ?></td>
                         <td class="center-align"><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
-                                                    class="btn btn-success">Imprimir</a></td>
+                                                    class="btn btn-success" target="_blank">Imprimir</a></td>
                         <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
                                class="btn btn-danger"><i class="btn-danger icon-bin"></i></a></td>
                         <td class="center-align"><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
@@ -178,7 +178,7 @@ if (!$_SESSION) {
                         <td><?php echo $resultado["fecha"]; ?></td>
                         <td><?php echo $resultado["hora"]; ?></td>
                         <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
-                               class="btn btn-success">Imprimir</a></td>
+                               class="btn btn-success" target="_blank">Imprimir</a></td>
                         <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
                                class="btn btn-danger"><i class="btn-danger icon-bin"></i></a></td>
                         <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
