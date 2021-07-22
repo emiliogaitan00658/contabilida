@@ -403,6 +403,15 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         }
         return "";
     }
+    public static function buscar_producto_codigo_producto($indproducto,$mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `producto` WHERE codigo_producto='$indproducto'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        }
+        return "";
+    }
 
     /* Creacion dela factura todos los datos integrados */
 
@@ -615,6 +624,25 @@ VALUES (NULL, 'acceso', '127.0.0.1', '$fecha', '$hora', '1', '1');";
         $insert = "UPDATE `producto` SET `nombre_producto` = '$producto', `precio1` = '$precio1', `precio2` = '$precio2', `precio3` = '$precio3'
 WHERE `producto`.`indproducto` = '$indproducto'";
         $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+
+    public static function registro_usuario_mysql($nombre,$apellido,$user,$pas,$sucursal,$mysqli)
+    {
+
+        $insert = "INSERT INTO `empleado` (`indempleado`, `nombre_empleado`, `apellido_empleado`, `user`, `pass`, `indsucursal`) 
+VALUES (NULL, '$nombre', '$apellido', '$user', '$pas', '$sucursal');";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+    public static function eliminar_todo_las_factura($key,$mysqli)
+    {
+        $insert1 = "DELETE FROM `control` WHERE `control`.`indtemp` ='$key' ";
+        $insert2 = "DELETE FROM `factura` WHERE `factura`.`indtemp` ='$key' ";
+        $insert3 = "DELETE FROM `total_factura` WHERE `total_factura`.`indtemp` ='$key' ";
+        $query = mysqli_query($mysqli, $insert1);
+        $query = mysqli_query($mysqli, $insert2);
+        $query = mysqli_query($mysqli, $insert3);
         return true;
     }
 }

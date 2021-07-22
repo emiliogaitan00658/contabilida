@@ -1,7 +1,5 @@
 <?php
-include_once '../BD-Connection/conection.php';
-include_once '../BD-Connection/datos_clientes.php';
-include_once "../header/header_temporal.php";
+include_once "../header/header_panel.php";
 $dolar = datos_clientes::cambio_dolar($mysqli);
 ?>
     <br>
@@ -18,6 +16,7 @@ $dolar = datos_clientes::cambio_dolar($mysqli);
                     </div>
                 </section>
             </form>
+            <br>
             <p>Si desea buscar el producto por marca debe de asignar el codigo mas - ejemplo=(MAQUIRA-)</p>
             <hr>
             <a class="btn btn-dark light-blue right" href="../panel_control"><i class="icon-arrow-left2"></i>
@@ -56,8 +55,8 @@ $dolar = datos_clientes::cambio_dolar($mysqli);
                     <td>$ <?php echo $resultado['precio1']; ?></td>
                     <td>$ <?php echo $resultado['precio2']; ?></td>
                     <td>$ <?php echo $resultado['precio3']; ?></td>
-                    <td><a href="eliminar_producto_lista.php?producto=<?php echo $resultado['indproducto']; ?>" class="btn btn-danger" target="_blank"><i class="icon-bin bt btn-danger"></i></a></td>
-                    <td><a href="Edit_producto.php?producto=<?php echo $resultado['indproducto']; ?>" class="btn btn-success">Editar</a></td>
+                    <td><a href="eliminar_producto_lista.php?producto=<?php echo $resultado['indproducto']; ?>" class="btn btn-danger"><i class="icon-bin bt btn-danger"></i></a></td>
+                    <td><a href="Edit_producto.php?producto=<?php echo $resultado['indproducto']; ?>" class="btn btn-success"  target="_blank">Editar</a></td>
                 </tr>
             <?php } ?>
 

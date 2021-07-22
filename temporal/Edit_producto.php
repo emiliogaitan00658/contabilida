@@ -14,10 +14,18 @@ if($_POST){
     $precio3=$_POST["textprecio3"];
     datos_clientes::cambio_dato_producto($indproducto,$producto,$precio1,$precio2,$precio3,$mysqli);
     echo '<script> swal({
-  title: "Producto Guardado",
-  text: "sea actualizado los datos",
+  title: "Producto Actualizado?",
+  text: "Exito Cambios!",
   icon: "success",
-  button: "Guardado",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+   location.href="Edit_producto.php?producto='. $indproducto.'";
+  } else {
+    location.href="Edit_producto.php?producto='. $indproducto.'";
+  }
 }); </script>';
 
 }
@@ -66,7 +74,7 @@ if($_POST){
                 </div>
             </section>
         </form>
-        <a class="btn btn-dark light-blue right" href="../panel_control"><i class="icon-arrow-left2"></i>Regresar</a>
+        <a class="btn btn-dark light-blue right" href="producto_cambio_precio.php"><i class="icon-arrow-left2"></i>Regresar</a>
         <br>
         <p>Nota: Los detalle del producto solo seran cambiado y autizado por el personal adminstrativo de la
             plataforma.</p>

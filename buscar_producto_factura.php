@@ -6,14 +6,15 @@ if (!$_SESSION) {
 if ($_GET) {
     $indproducto = $_GET['codigo'];
     $precio = $_GET['precio'];
-    $producto = $_GET['producto'];
+    $dato=datos_clientes::buscar_producto_codigo_producto($indproducto,$mysqli);
+    $producto = $dato['nombre_producto'];
     $indtemp = $_SESSION['Key'];
     $indsucursal = $_SESSION['sucursal'];
     $reques = datos_clientes::verificar_producto_factura($indtemp, $indproducto, $mysqli);
     if ($reques == "false") {
 
         datos_clientes::facturagenerada_filtro1($indtemp, $dolar, $indsucursal, $precio, $producto, $indproducto, $mysqli);
-        echo '<script>
+       echo '<script>
     swal("Exito .")
 .then((value) => {
   location.href="crear_factura.php";

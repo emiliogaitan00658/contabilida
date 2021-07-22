@@ -159,8 +159,10 @@ if (!$_SESSION) {
                         <td class="center-align"><?php echo $resultado["hora"]; ?></td>
                         <td class="center-align"><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
                                                     class="btn btn-success" target="_blank">Imprimir</a></td>
-                        <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
-                               class="btn btn-danger"><i class="btn-danger icon-bin"></i></a></td>
+                        <td><a href="#"
+                               class="btn btn-danger" onclick="
+                                    var i='<?php echo $resultado['indtemp']; ?>';
+                                    verficar_eliminar(i);"><i class="btn-danger icon-bin"></i></a></td>
                         <td class="center-align"><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                                     class="btn btn-success">Editar</a></td>
                         <td class="center-align"><a href="#" onclick="
@@ -179,7 +181,9 @@ if (!$_SESSION) {
                         <td><?php echo $resultado["hora"]; ?></td>
                         <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
                                class="btn btn-success" target="_blank">Imprimir</a></td>
-                        <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
+                        <td><a href="#" onclick="
+                                    var i='<?php echo $resultado['indtemp']; ?>';
+                                    verficar_eliminar(i);"
                                class="btn btn-danger"><i class="btn-danger icon-bin"></i></a></td>
                         <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                                class="btn btn-success">Editar</a></td>
@@ -210,6 +214,22 @@ if (!$_SESSION) {
                 .then((willDelete) => {
                     if (willDelete) {
                         location.href = "temporal/anular.php?key=" + codigo;
+                    } else {
+                        location.href = "factura_dia.php";
+                    }
+                });
+        }
+        function verficar_eliminar(codigo) {
+            swal({
+                title: "Eliminar?",
+                text: "Seguro de Eliminar Factura",
+                icon: "success",
+                buttons: true,
+
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        location.href = "temporal/eliminar_factura?key=" + codigo;
                     } else {
                         location.href = "factura_dia.php";
                     }
