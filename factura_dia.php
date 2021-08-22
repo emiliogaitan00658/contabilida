@@ -115,10 +115,10 @@ if (!$_SESSION) {
         </div>
     </div>
     <hr>
-    <div class="container z-depth-1 rounded white">
+    <div class="z-depth-1 rounded white center-block" style="width: 95%">
         <table class="table table-borderless" style="padding: 1em;">
             <thead>
-            <tr style="border-bottom: 1px solid black">
+            <tr style="border-bottom: 1px solid black;">
                 <th scope="col">No.Factura</th>
                 <th scope="col" class="center-align">Nombre y Apellido</th>
                 <th scope="col">Subtotal C$</th>
@@ -130,6 +130,7 @@ if (!$_SESSION) {
                 <th scope="col">Eliminar</th>
                 <th scope="col">Editar</th>
                 <th scope="col">Anular</th>
+                <th scope="col">Proforma</th>
             </tr>
             </thead>
             <tbody>
@@ -158,21 +159,23 @@ if (!$_SESSION) {
                         <td class="center-align"><?php echo $resultado["fecha"]; ?></td>
                         <td class="center-align"><?php echo $resultado["hora"]; ?></td>
                         <td class="center-align"><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
-                                                    class="btn btn-success" target="_blank">Imprimir</a></td>
+                                                    class="btn btn-success" target="_blank"><i class="icon-printer"></i></a></td>
                         <td><a href="#"
                                class="btn btn-danger" onclick="
                                     var i='<?php echo $resultado['indtemp']; ?>';
                                     verficar_eliminar(i);"><i class="btn-danger icon-bin"></i></a></td>
-                        <td class="center-align"><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
+                        <td class="center-align"><a href="editar_factura.php?Key=<?php echo $resultado['indtemp']; ?>"
                                     class="btn btn-success">Editar</a></td>
                         <td class="center-align"><a href="#" onclick="
                                     var i='<?php echo $resultado['indtemp']; ?>';
                                     verficar_anulacion(i);"
-                                                    class="btn btn-primary">Anular</a></td>
+                                                    class="btn btn-primary"><i class="icon-blocked"></i></a></td><td class="center-align">
+                            <a href="temporal/dolar_pregunta.php?key=<?php echo $resultado['indtemp']; ?>"
+                                                    class="btn btn-primary" target="_blank"><i class="icon-insert-template"></i></a></td>
                     </tr>
                 <?php } else { ?>
                     <tr class="red-text">
-                        <td><?php echo $resultado["indtalonario"]; ?></td>
+                        <td><del><?php echo $resultado["indtalonario"]; ?></del></td>
                         <td><?php echo $nombre_apelido; ?></td>
                         <td class="center-align"><?php echo number_format($resultado["subtotal"], 2, '.', ','); ?></td>
                         <td class="center-align"><?php echo number_format($resultado["total"], 2, '.', ','); ?></td>
@@ -180,16 +183,17 @@ if (!$_SESSION) {
                         <td><?php echo $resultado["fecha"]; ?></td>
                         <td><?php echo $resultado["hora"]; ?></td>
                         <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
-                               class="btn btn-success" target="_blank">Imprimir</a></td>
+                               class="btn btn-success" target="_blank"><i class="icon-printer"></i></a></td>
                         <td><a href="#" onclick="
                                     var i='<?php echo $resultado['indtemp']; ?>';
                                     verficar_eliminar(i);"
                                class="btn btn-danger"><i class="btn-danger icon-bin"></i></a></td>
-                        <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
+                        <td><a href="editar_factura.php?Key=<?php echo $resultado['indtemp']; ?>"
                                class="btn btn-success">Editar</a></td>
 
                         <?php ?>
-                        <td><a href="#" class="btn btn-primary">-----</a></td>
+                        <td><a href="#" class="btn btn-primary">--</a></td>
+                        <td><a href="temporal/dolar_pregunta.php?key=<?php echo $resultado['indtemp']; ?>"  target="_blank" class="btn btn-primary"><i class="icon-insert-template"></i></a></td>
                     </tr>
                     <?php
                 }

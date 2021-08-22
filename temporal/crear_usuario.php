@@ -135,6 +135,63 @@ if ($_POST) {
         <br>
     </div>
 </div>
+<br>
+<br>
+<div class="container row z-depth-1 white">
+    <hr>
+    <h4 style="padding: 1em;">Usuarios Registrados</h4>
+    <hr>
+    <table class="table table-responsive-lg" style="height: 86px; width: 1189px;margin-bottom: 4em">
+        <tbody>
+        <tr>
+            <td style="width: 57px;">#</td>
+            <td style="width: 260px;"><b>Nombres</b></td>
+            <td style="width: 275px;"><b>Apellidos</b></td>
+            <td style="width: 188px;"><b>Usuario</b></td>
+            <td style="width: 190.038px;"><b>Contraseña</b></td>
+            <td style="width: 205.962px;"><b>Sucursal</b></td>
+            <td style="width: 205.962px;"><b>Eliminar</b></td>
+        </tr>
+        <?php
+        $result = $mysqli->query("SELECT * FROM `empleado`");
+        while ($resultado = $result->fetch_assoc()) {
+            ?>
+            <tr>
+                <td style="width: 57px;"><?php echo $resultado['indempleado']; ?></td>
+                <td style="width: 260px;"><?php echo $resultado['nombre_empleado']; ?></td>
+                <td style="width: 275px;"><?php echo $resultado['apellido_empleado']; ?></td>
+                <td style="width: 188px;"><?php echo $resultado['user']; ?></td>
+                <td style="width: 190.038px;"><?php echo $resultado['pass']; ?></td>
+                <td style="width: 205.962px;"><?php echo datos_clientes::nombre_sucursal($resultado['indsucursal']); ?></td>
+                <td style="width: 190.038px;"><a href="#" onclick="
+                            var i='<?php echo $resultado['indempleado']; ?>';
+                            verficar_eliminar(i);" class="btn btn-danger"><i class="icon-bin white-text"></i></a></td>
+            </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function verficar_eliminar(codigo) {
+        swal({
+            title: "Desea Eliminar?",
+            text: "Eliminiar Usuario",
+            icon: "success",
+            buttons: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    location.href = "eliminar_usuario_user.php?induser=" + codigo;
+                } else {
+                    location.href = "#";
+                }
+            });
+    }
+
+</script>
 <?php
 include_once "../header/footer_temporal.php";
 ?>

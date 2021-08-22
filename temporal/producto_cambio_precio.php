@@ -2,7 +2,6 @@
 include_once "../header/header_panel.php";
 $dolar = datos_clientes::cambio_dolar($mysqli);
 ?>
-    <br>
     <div class="container white rounded z-depth-2" style="border-radius: 6px;">
         <div style="padding: 1em">
             <h5>Buscar producto</h5>
@@ -17,9 +16,12 @@ $dolar = datos_clientes::cambio_dolar($mysqli);
                 </section>
             </form>
             <br>
+            <hr>
+            <a href="nuevo_producto.php" class="btn btn-success">Agregar Producto</a>
+            <hr>
             <p>Si desea buscar el producto por marca debe de asignar el codigo mas - ejemplo=(MAQUIRA-)</p>
             <hr>
-            <a class="btn btn-dark light-blue right" href="../panel_control"><i class="icon-arrow-left2"></i>
+           <a class="btn btn-dark light-blue right" href="../panel_control"><i class="icon-arrow-left2"></i>
                 Regresar</a>
             <br>
             <br>

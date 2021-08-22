@@ -74,7 +74,7 @@ if ($_SESSION["Key"] == "") {
             <div class="control-pares col-md-3">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedefectivo"
-                           name="flexCheckCheckedefectivo" checked>
+                           name="flexCheckCheckedefectivo">
                     <label class="form-check-label" for="flexCheckChecked">
                         Efectivo
                     </label>

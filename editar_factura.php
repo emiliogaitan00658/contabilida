@@ -1,12 +1,12 @@
 <?php include "header/header.php";
-$indcliente = $_SESSION["indcliente"];
-$ress = $_SESSION["Key"];
-$Key = $_SESSION["Key"];
-$_SESSION["Key"] = $Key;
+$ress = $_GET["Key"];
+$Key = $_GET["Key"];
+$i = datos_clientes::datos_factura_general_subtotal($Key,$mysqli);
+$indcliente = $i["indcliente"];
 $sucursal = $_SESSION['sucursal'];
 $row = datos_clientes::buscar($indcliente, $mysqli);
-if (!$_SESSION) {
-    echo '<script> location.href="login" </script>';
+if (!$_GET) {
+    echo '<script> location.href="factura_dia.php" </script>';
 }
 if ($_POST) {
     $check_cordoba = isset($_POST['flexCheckCheckedcordoba']) ? 1 : 0;
@@ -48,8 +48,8 @@ if ($_POST) {
 
 }
 
-if ($_SESSION["Key"] == "") {
-    echo '<script> location.href="factura.php" </script>';
+if ($_GET["Key"] == "") {
+    echo '<script> location.href="factura_dia.php" </script>';
 }
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" name="myapp"
@@ -68,6 +68,14 @@ if ($_SESSION["Key"] == "") {
                 <input type="text" name="textapellido" class="form-control"
                        value="<?php echo $row["apellido"] ?>" placeholder="Apellidos" readonly=readonly>
             </div>
+
+
+<!--            --><?php
+//            $i=datos_clientes::tipo_trasferencia("",$Key,$mysqli);
+//            if(){
+//
+//            }
+//            ?>
             <div class="control-pares col-md-3">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedefectivo"
