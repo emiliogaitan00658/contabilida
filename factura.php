@@ -1,5 +1,4 @@
 <?php include "header/header.php";
-//session_start();
 if (!$_SESSION){
     echo '<script> location.href="login" </script>';
 }
@@ -30,7 +29,7 @@ if (!empty($_POST["textnombre"])) {
             </section>
         </form>
         <hr>
-        <a class="btn btn-dark blue-grey right" href="index"><i class="icon-user-plus white-text"></i> Nuevo Cliente</a>
+        <a class="btn btn-dark blue-grey right" href="index" style="margin-left:1em!important; "><i class="icon-user-plus white-text"></i> Nuevo Cliente</a>
         <br>
         <br>
     </div>
@@ -46,6 +45,7 @@ if (!empty($_POST["textnombre"])) {
             <th scope="col">Sucursal</th>
             <th scope="col">No Deudas</th>
             <th scope="col">Detalles</th>
+            <th scope="col" class="red-text">RX</th>
             <th scope="col">Crear Factura</th>
         </tr>
         </thead>
@@ -72,9 +72,11 @@ if (!empty($_POST["textnombre"])) {
                         if($resultado['indsucursal']=="7"){echo "Managua Bolonia";}
                         if($resultado['indsucursal']=="8"){echo "Managua Villa Fontana";}
                         ?></td>
-                    <td class="btn-link center-align  center-block"><a href="credito.php?indcliente=<?php echo $resultado['indcliente']; ?>"><?php echo "15"; ?></a></td>
+                    <td class="btn-link center-align  center-block"><a href="credito.php?indcliente=<?php echo $resultado['indcliente']; ?>"><?php echo datos_clientes::conteo_cuentas_pagar($resultado['indcliente'],$mysqli);?></a></td>
                     <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-success">Detalles</a></td>
+                    <td><a href="temporal/rax_medico_cooke.php?inddoctor=<?php echo $resultado['indcliente']; ?>"
+                           class="btn btn-danger">Rx</a></td>
                     <td><a href="temporal/indcliente.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-primary">Crear Factura</a></td>
                 </tr>

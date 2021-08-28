@@ -34,38 +34,39 @@ if (!$_SESSION) {
                     </div>
                     <div class="control-pares col-md-2">
                         <select name="textsucursal" class="form-control" required>
-                            <option class="form-control" value="<?php
-                            echo $_SESSION['sucursal']; ?>" selected><?php
+                            <?php if ($_POST) { ?>
+                                <option class="form-control" value="<?php
+                                echo $_POST["textsucursal"]; ?>" selected><?php
 
-                                if ($_SESSION['sucursal'] == "1") {
-                                    echo "Managua";
-                                }
-                                if ($_SESSION['sucursal'] == "2") {
-                                    echo "Masaya";
-                                }
-                                if ($_SESSION['sucursal'] == "3") {
-                                    echo "Chontales";
-                                }
-                                if ($_SESSION['sucursal'] == "6") {
-                                    echo "Esteli";
-                                }
-                                if ($_SESSION['sucursal'] == "5") {
-                                    echo "Leon";
-                                }
-                                if ($_SESSION['sucursal'] == "9") {
-                                    echo "Matagalpa";
-                                }
-                                if ($_SESSION['sucursal'] == "4") {
-                                    echo "Chinandega";
-                                }
-                                if ($_SESSION['sucursal'] == "7") {
-                                    echo "Managua Bolonia";
-                                }
-                                if ($_SESSION['sucursal'] == "8") {
-                                    echo "Managua Villa Fontana";
-                                }
-
-                                ?></option>
+                                    if ($_POST["textsucursal"] == "1") {
+                                        echo "Managua";
+                                    }
+                                    if ($_POST["textsucursal"] == "2") {
+                                        echo "Masaya";
+                                    }
+                                    if ($_POST["textsucursal"] == "3") {
+                                        echo "Chontales";
+                                    }
+                                    if ($_POST["textsucursal"] == "6") {
+                                        echo "Esteli";
+                                    }
+                                    if ($_POST["textsucursal"] == "5") {
+                                        echo "Leon";
+                                    }
+                                    if ($_POST["textsucursal"] == "9") {
+                                        echo "Matagalpa";
+                                    }
+                                    if ($_POST["textsucursal"] == "4") {
+                                        echo "Chinandega";
+                                    }
+                                    if ($_POST["textsucursal"] == "7") {
+                                        echo "Managua Bolonia";
+                                    }
+                                    if ($_POST["textsucursal"] == "8") {
+                                        echo "Managua Villa Fontana";
+                                    }
+                                    ?></option>
+                            <?php } ?>
                             <option class="form-control" value="1">Managua</option>
                             <option class="form-control" value="2">Masaya</option>
                             <option class="form-control" value="3">Chontales</option>
@@ -110,13 +111,13 @@ if (!$_SESSION) {
                 $fecha1 = $_POST["textfecha1"];
                 $fecha2 = $_POST["textfecha2"];
                 $sucursal = $_POST["textsucursal"];
-                $result4 = $mysqli->query("SELECT * FROM `factura` WHERE `bandera` = 0 and indsucursal='$sucursal' and indtalonario IS NOT NULL");
+                $result4 = $mysqli->query("SELECT * FROM `factura` WHERE `bandera` = 0 and indsucursal='$sucursal' and indtalonario IS NOT NULL  ORDER BY nombre_producto ASC");
             } else {
-                $result4 = $mysqli->query("SELECT * FROM `factura` WHERE `bandera` = 0 and indtalonario IS NOT NULL");
+                $result4 = $mysqli->query("SELECT * FROM `factura` WHERE `bandera` = 0 and indtalonario IS NOT NULL ORDER BY nombre_producto ASC");
             }
 
             while ($resultado = $result4->fetch_assoc()) {
-                $fechad = datos_clientes::get_fecha_faltante($resultado['indtemp'], 1, $mysqli);
+                $fechad = datos_clientes::get_fecha_faltante($resultado['indtemp'], $sucursal, $mysqli);
                 if ($_POST) {
                     $FE = date('Y-m-d', strtotime($fechad['fecha']));
                     $contractDateBegin = date('Y-m-d', strtotime($fecha1));

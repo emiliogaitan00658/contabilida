@@ -1,20 +1,11 @@
 <?php
-$key = $_GET["key"];
-session_start();
-$indsucursal = $_SESSION["sucursal"];
+$key=$_GET["key"];
+$pregunta=$_GET["dolar"];
 include_once "./vendor/autoload.php";
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 ob_start();
-
-if ($indsucursal == "1") {
-    include "imprimir_factura.php";
-} else if ($indsucursal == "3") {
-    include "imprimir_juigalpa.php";
-} else {
-    include "imprimir_factura.php";
-}
-
+include "cotizar_factura_page.php";
 $html = ob_get_clean();
 $dompdf->loadHtml($html);
 $dompdf->render();

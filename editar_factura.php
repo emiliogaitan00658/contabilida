@@ -1,12 +1,12 @@
 <?php include "header/header.php";
-$indcliente = $_SESSION["indcliente"];
-$ress = $_SESSION["Key"];
-$Key = $_SESSION["Key"];
-$_SESSION["Key"] = $Key;
+$ress = $_GET["Key"];
+$Key = $_GET["Key"];
+$i = datos_clientes::datos_factura_general_subtotal($Key,$mysqli);
+$indcliente = $i["indcliente"];
 $sucursal = $_SESSION['sucursal'];
 $row = datos_clientes::buscar($indcliente, $mysqli);
-if (!$_SESSION) {
-    echo '<script> location.href="login" </script>';
+if (!$_GET) {
+    echo '<script> location.href="factura_dia.php" </script>';
 }
 if ($_POST) {
     $check_cordoba = isset($_POST['flexCheckCheckedcordoba']) ? 1 : 0;
@@ -29,11 +29,9 @@ if ($_POST) {
     $sum = $res3;
     $totalF = number_format($sum, 2, '.', '');
     if ($check_rx == 1) {
-        datos_clientes::control_ingreso_facturar($sucursal, "RX", $Key, $mysqli);
-        $RAX = $_SESSION["RAX"];
-        datos_clientes::rax_cliente_doctor($RAX, $indcliente, $Key, $sucursal, $mysqli);
-    } else {
-        datos_clientes::control_ingreso_facturar($sucursal, "PX", $Key, $mysqli);
+        datos_clientes::control_ingreso_facturar($sucursal,"RX",$Key,$mysqli);
+    }else{
+        datos_clientes::control_ingreso_facturar($sucursal,"PX",$Key,$mysqli);
     }
     $exito = datos_clientes::facturafinal($Key, $sucursal, $check_credito, $indcliente, $check_cordoba, $check_dolar, $check_tras, $check_efect, $check_fise, $check_bac, $check_targeta,
         $cordobas, $dolar, $subtotalF, $totalF, $mysqli);
@@ -44,15 +42,14 @@ if ($_POST) {
         } else {
             echo '<script> location.href="factura_dia.php" </script>';
         }
-    } else {
+    }else{
         swal("alerta!", "Surgio un problema sistema!", "error");
     }
 
-    datos_clientes::historial_acceso("INGRESO A PLATAFORMA", $sucursal, $indcliente, $mysqli);
 }
 
-if ($_SESSION["Key"] == "") {
-    echo '<script> location.href="factura.php" </script>';
+if ($_GET["Key"] == "") {
+    echo '<script> location.href="factura_dia.php" </script>';
 }
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" name="myapp"
@@ -71,10 +68,18 @@ if ($_SESSION["Key"] == "") {
                 <input type="text" name="textapellido" class="form-control"
                        value="<?php echo $row["apellido"] ?>" placeholder="Apellidos" readonly=readonly>
             </div>
+
+
+<!--            --><?php
+//            $i=datos_clientes::tipo_trasferencia("",$Key,$mysqli);
+//            if(){
+//
+//            }
+//            ?>
             <div class="control-pares col-md-3">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedefectivo"
-                           name="flexCheckCheckedefectivo">
+                           name="flexCheckCheckedefectivo" checked>
                     <label class="form-check-label" for="flexCheckChecked">
                         Efectivo
                     </label>
@@ -146,7 +151,7 @@ if ($_SESSION["Key"] == "") {
                href="temporal/cancelar_factura.php?indtemp=<?php echo $Key; ?>"><i class="icon-bin"></i> Eliminar
                 Factura</a>
             <a class="btn white-text blue-grey btn-primary" href="buscar_producto_factura.php"><i
-                        class="icon-search"> </i> Buscar Producto</a>
+                    class="icon-search"> </i> Buscar Producto</a>
         </div>
     </div>
 
@@ -203,7 +208,7 @@ if ($_SESSION["Key"] == "") {
                     </td>
                     <td style="width:20px;"><a class="btn btn-danger"
                                                href="temporal/eliminar_producto.php?indproducto=<?php echo $resultado['codigo_producto']; ?>&indtemp=<?php echo $Key; ?>"><i
-                                    class="icon-bin"></i></a></td>
+                                class="icon-bin"></i></a></td>
                 </tr>
                 <?php
             } ?>
@@ -357,4 +362,5 @@ if ($_SESSION["Key"] == "") {
 
 </script>
 <?php include "header/footer.php" ?>
+
 

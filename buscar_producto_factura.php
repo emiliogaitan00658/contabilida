@@ -6,14 +6,15 @@ if (!$_SESSION) {
 if ($_GET) {
     $indproducto = $_GET['codigo'];
     $precio = $_GET['precio'];
-    $producto = $_GET['producto'];
+    $dato=datos_clientes::buscar_producto_codigo_producto($indproducto,$mysqli);
+    $producto = $dato['nombre_producto'];
     $indtemp = $_SESSION['Key'];
     $indsucursal = $_SESSION['sucursal'];
     $reques = datos_clientes::verificar_producto_factura($indtemp, $indproducto, $mysqli);
     if ($reques == "false") {
 
         datos_clientes::facturagenerada_filtro1($indtemp, $dolar, $indsucursal, $precio, $producto, $indproducto, $mysqli);
-        echo '<script>
+       echo '<script>
     swal("Exito .")
 .then((value) => {
   location.href="crear_factura.php";
@@ -43,6 +44,8 @@ if ($_GET) {
                 </div>
             </section>
         </form>
+        <br>
+        <p>Si desea buscar el producto por marca debe de asignar el codigo mas ( - ) ejemplo=(MAQUIRA-)</p>
         <hr>
         <a class="btn btn-dark light-blue right" href="index"><i class="icon-arrow-left2"></i> Regresar</a>
         <br>
@@ -65,7 +68,7 @@ if ($_GET) {
         <?php
         if (!empty($_POST["textproducto"])) {
             $producto = $_POST["textproducto"];
-            $result4 = $mysqli->query("SELECT * FROM `producto` WHERE `nombre_producto` LIKE '%%$producto%%' ORDER by nombre_producto ASC");
+            $result4 = $mysqli->query("SELECT * FROM `producto` WHERE `nombre_producto` LIKE '%%$producto%%' OR `codigo_producto` LIKE '%%$producto%%' ORDER by nombre_producto ASC");
         } else {
             $result4 = $mysqli->query("SELECT * FROM `producto` ORDER by nombre_producto ASC limit 30");
         }

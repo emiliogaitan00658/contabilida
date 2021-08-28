@@ -177,12 +177,11 @@ VALUES ( '$indusuario', '$nombre', '$apellido', '$direccion1', '$direccion2', '$
         return true;
     }
 
-    public static function nuevo_credito($indcliente,$indsucursal,$key, $inicio, $monto, $cuotas, $prima, $mysqli)
+    public static function nuevo_credito($indcliente, $indsucursal, $key, $inicio, $monto, $cuotas, $prima, $mysqli)
     {
 
         $insert1 = "INSERT INTO `credito` (`indcredito`, `indsucursal`, `indcliente`, `producto`, `totalCredito`, `numeroCuotas`, `fechaInicio`, `status`, `prima`, `indtemp`) 
 VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio', '1', '$prima', '$key');";
-
 
 
         $query = mysqli_query($mysqli, $insert1);
@@ -218,7 +217,7 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
             $result = $mysqli->query("SELECT * FROM `credito` WHERE indtemp='$key'");
             $row = $result->fetch_array(MYSQLI_ASSOC);
 
-            $indcredito=$row["indcredito"];
+            $indcredito = $row["indcredito"];
 
             $insert1 = "INSERT INTO `creditos_pago` (`indpago`, `indcredito`, `indfactura`, `pago`, `fechapago`, `status`, `bandera`, `indsucursal`, `indtemp`)
                    VALUES (NULL, '$indcredito', null, '$pago_cuatos', '$date', 'false', '$bandera', '$indsucursal', '$key');";
@@ -238,6 +237,7 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         }
         return "indsucursal";
     }
+
     public static function ind_empleado($user, $pass, $mysqli)
     {
         $result = $mysqli->query("SELECT * FROM `empleado` WHERE `user` = '$user' AND `pass` = '$pass'");
@@ -328,9 +328,7 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
 
     public static function cambio_talonario($indsucursal, $notalonario, $mysqli)
     {
-        $indsucursal;
-        $notalonario;
-        $insert = "UPDATE `talonario` SET `numero` = '$notalonario' WHERE `talonario`.`indtalonario` = '$indsucursal';";
+        $insert = "UPDATE `talonario` SET `numero` = '$notalonario' WHERE `talonario`.`indsucursal` = '$indsucursal';";
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
@@ -364,6 +362,128 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         }
     }
 
+
+    public static function conteo_cuentas_pagar($indcliente, $mysqli)
+    {
+        $result = $mysqli->query("SELECT COUNT(status) as suma FROM `credito` WHERE indcliente='$indcliente' and status=1 ORDER by indcliente");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["suma"];
+        } else {
+            return "0";
+        }
+    }
+
+    public static function sumatotal_factura_total($key, $mysqli)
+    {
+        $result = $mysqli->query("SELECT total FROM `total_factura` WHERE indtemp='$key'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["total"];
+        } else {
+            return $res = sumatotal_factursa_subfactura($key, $mysqli);
+        }
+    }
+
+    public static function nombre_paciente_rax($indsucursal, $mysqli)
+    {
+        $result = $mysqli->query("SELECT total FROM `total_factura` WHERE indtemp='$key'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["total"];
+        }
+        return "No existe este usuario";
+    }
+
+
+    public static function cierre_cordobas($fecha1, $fecha2, $indsucursal, $mysqli)
+    {
+        $result = $mysqli->query("SELECT SUM(cordoba_pago) as total FROM `total_factura` WHERE fecha BETWEEN '$fecha1' AND '$fecha2' AND indsucursal='$indsucursal' AND bandera='1'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["total"];
+        }
+        return "No existe este usuario";
+    }
+
+    public static function cierre_dolar($fecha1, $fecha2, $indsucursal, $mysqli)
+    {
+        $result = $mysqli->query("SELECT SUM(dolare_pago) as total FROM `total_factura` WHERE fecha BETWEEN '$fecha1' AND '$fecha2' AND indsucursal='$indsucursal' AND bandera='1'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["total"];
+        }
+        return "No existe este usuario";
+    }
+
+    public static function tipo_factura_RAX($indtalonario, $sucursal, $mysqli)
+    {
+        //RAX
+        //$result = $mysqli->query("SELECT tipocontrol FROM `control` WHERE indsucursal='' and indfactura='$indtalonario'");
+        $result = $mysqli->query("SELECT codigo_producto FROM `factura` WHERE indtalonario=$indtalonario and indsucursal='$sucursal'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            $temp=$row3["codigo_producto"];
+            //echo var_dump(strpos("$temp", 'RAX'));
+            if (strpos("$temp", 'RAX')!== false) {
+                return "RX";
+            }else{
+             return "";
+            }
+        }
+        return "";
+    }
+
+    public static function buscar_producto($indproducto, $mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `producto` WHERE indproducto='$indproducto'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        }
+        return "";
+    }
+
+    public static function buscar_producto_codigo_producto($indproducto, $mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `producto` WHERE codigo_producto='$indproducto'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        }
+        return "";
+    }
+
+    public static function datos_factura_general_subtotal($Key, $mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `total_factura` WHERE indtemp='$Key'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        }
+        return "";
+    }
+
+    public static function verificar_codigo_exitente($codigo, $mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `producto` WHERE codigo_producto='$codigo'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        }
+        return "0";
+    }
+
+    public static function datos_generales_factura($indtemp, $mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `factura` WHERE indtemp='$indtemp'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        }
+        return "error";
+    }
+
     /* Creacion dela factura todos los datos integrados */
 
     public static function facturagenerada_filtro1($indtemp, $dolar, $indsucursal, $precio, $producto, $indproducto, $mysqli)
@@ -383,9 +503,28 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
         return true;
     }
 
+    public static function eliminar_producto_lista($indproducto, $mysqli)
+    {
+        $insert = "DELETE FROM `producto` WHERE `producto`.`indproducto` = '$indproducto'";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+
     public static function eliminar_todo_factura($key, $mysqli)
     {
         $insert = "DELETE FROM `factura` WHERE `factura`.`indtemp` = '$key'";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+
+    public static function rax_cliente_doctor($RAX, $indcliente, $Key, $sucursal, $mysqli)
+    {
+        $fecha = self::fecha_get_pc_MYSQL();
+        $hora = self::hora_get_pc();
+        $nombre_completo = self::nombre_apellido_cliente($indcliente, $mysqli);
+        $insert = "INSERT INTO `radiografia_conteo` (`indconteo`, `indcliente`, `nombre_completo`, `indsucursal`, `indtemp`, `factura`, `fecha`, `hora`) VALUES
+         (NULL, '$RAX', '$nombre_completo', '$sucursal', '$Key', '', '$fecha', '$hora');";
+
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
@@ -457,23 +596,58 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
         $fecha = self::fecha_get_pc_MYSQL();
         $hora = self::hora_get_pc();
 
-        /*$insert = "UPDATE `factura` SET `descuento` = '$descuento' WHERE `factura`.`indtemp` = '$Key' and factura.codigo_producto='$codigo'";*/
-        $insert = "INSERT INTO `total_factura` (`indtotalfactura`, `indcliente`, `indsucursal`, `indtalonario`, `subtotal`, `total`, `cordoba_pago`, 
+        $result = $mysqli->query("SELECT * FROM `total_factura` WHERE `indtemp` LIKE '$Key'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return false;
+        } else {
+            $insert = "INSERT INTO `total_factura` (`indtotalfactura`, `indcliente`, `indsucursal`, `indtalonario`, `subtotal`, `total`, `cordoba_pago`, 
                              `dolare_pago`, `cordoba`, `dolar`, `efectivo`, `credito`, `trasferencia`, `targeta`, `bac`, `lafise`, `fecha`, `hora`, `indtemp`, `bandera`)
  VALUES (NULL, '$indcliente','$sucursal', NULL, '$subtotalF', '$totalF', '$cordobas', '$dolar', '$check_cordoba', '$check_dolar', '$check_efect', '$check_credito', '$check_tras', '$check_targeta', '$check_bac', '$check_fise', '$fecha', '$hora', '$Key', '1');";
-        $query = mysqli_query($mysqli, $insert);
-
-        return true;
+            $query = mysqli_query($mysqli, $insert);
+            return true;
+        }
     }
 
     public static function anular_factura($key, $mysqli)
     {
         $insert = "UPDATE `total_factura` SET `bandera` = '0' WHERE `total_factura`.`indtemp` ='$key'";
         $query = mysqli_query($mysqli, $insert);
+
+
+        $insert2 = "UPDATE `control` SET `anulado` = '1' WHERE `control`.`indtemp` = '$key'";
+        $query = mysqli_query($mysqli, $insert2);
         return true;
     }
 
-    public static function Factura_genera_codigo($key, $talonario, $mysqli)
+    public static function control_ingreso_facturar($sucursal, $detalle, $Key, $mysqli)
+    {
+        $fecha = self::fecha_get_pc_MYSQL();
+        $hora = self::hora_get_pc();
+        $insert = "INSERT INTO `control` (`indcontrol`, `indfactura`, `indsucursal`, `indtemp`, `tipocontrol`, `fecha`, `hora`, `anulado`) VALUES 
+                            (NULL, NULL, '$sucursal', '$Key', '$detalle', '$fecha', '$hora', '0');";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+
+    public static function update_Control_factura($talonario, $key, $mysqli)
+    {
+        $insert = "UPDATE `control` SET `indfactura` = '$talonario' WHERE `control`.`indtemp` ='$key' ;";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+
+    public static function agregar_dato_producto($codigo, $producto, $precio1, $precio2, $precio3, $mysqli)
+    {
+
+        $fecha = self::fecha_get_pc_MYSQL();
+        $insert = "INSERT INTO `producto` (`indproducto`, `codigo_producto`, `nombre_producto`, `precio1`, `precio2`, `precio3`, `fecha_vencimiento`, `bandera`)
+                  VALUES (NULL, '$codigo', '$producto', '$precio1', '$precio2', '$precio3', '$fecha', '1');";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+
+    public static function Factura_genera_codigo($key, $talonario, $indsucursal, $mysqli)
     {
         $insert = "UPDATE `factura` SET `indtalonario` = '$talonario' WHERE `factura`.`indtemp` ='$key'";
         $query = mysqli_query($mysqli, $insert);
@@ -482,7 +656,7 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
         $query = mysqli_query($mysqli, $insert2);
 
         $talonario_nuevo = $talonario + 1;
-        $insert3 = "UPDATE `talonario` SET `numero` = '$talonario_nuevo' WHERE `talonario`.`indtalonario` = 1";
+        $insert3 = "UPDATE `talonario` SET `numero` = '$talonario_nuevo' WHERE `talonario`.`indsucursal` = '$indsucursal'";
         $query = mysqli_query($mysqli, $insert3);
         return true;
     }
@@ -508,19 +682,58 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
             return "false";
         }
     }
-    public static function entregar_matariales_bandera($indfactura,$bandera, $mysqli)
+
+    public static function entregar_matariales_bandera($indfactura, $bandera, $mysqli)
     {
         $insert = "UPDATE `factura` SET `bandera` = '$bandera' WHERE `factura`.`indfactura` = '$indfactura'";
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
-    public static function historial_acceso($descripcion,$indcliente,$indsucursal,$mysqli)
+
+    public static function historial_acceso($descripcion, $indcliente, $indsucursal, $mysqli)
     {
-        $hora=self::hora_get_pc();
-        $fecha=self::fecha_get_pc_MYSQL();
+        $hora = self::hora_get_pc();
+        $fecha = self::fecha_get_pc_MYSQL();
         $insert = "INSERT INTO `historial_acceso` (`indacceso`, `descripcion_acceso`, `ip_acceso`, `fecha`, `hora`, `indsucursal`, `indempleado`) 
 VALUES (NULL, 'acceso', '127.0.0.1', '$fecha', '$hora', '1', '1');";
         $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+
+    public static function cambio_dato_producto($indproducto, $producto, $precio1, $precio2, $precio3, $mysqli)
+    {
+        $hora = self::hora_get_pc();
+        $fecha = self::fecha_get_pc_MYSQL();
+        $insert = "UPDATE `producto` SET `nombre_producto` = '$producto', `precio1` = '$precio1', `precio2` = '$precio2', `precio3` = '$precio3'
+WHERE `producto`.`indproducto` = '$indproducto'";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+
+    public static function registro_usuario_mysql($nombre, $apellido, $user, $pas, $sucursal, $mysqli)
+    {
+
+        $insert = "INSERT INTO `empleado` (`indempleado`, `nombre_empleado`, `apellido_empleado`, `user`, `pass`, `indsucursal`) 
+VALUES (NULL, '$nombre', '$apellido', '$user', '$pas', '$sucursal');";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+
+    public static function eliminar_todo_las_factura($key, $mysqli)
+    {
+        $insert1 = "DELETE FROM `control` WHERE `control`.`indtemp` ='$key' ";
+        $insert2 = "DELETE FROM `factura` WHERE `factura`.`indtemp` ='$key' ";
+        $insert3 = "DELETE FROM `total_factura` WHERE `total_factura`.`indtemp` ='$key' ";
+        $query = mysqli_query($mysqli, $insert1);
+        $query = mysqli_query($mysqli, $insert2);
+        $query = mysqli_query($mysqli, $insert3);
+        return true;
+    }
+
+    public static function eliminar_user_acceso($induser, $mysqli)
+    {
+        $insert1 = "DELETE FROM `empleado` WHERE `empleado`.`indempleado`='$induser' ";
+        $query = mysqli_query($mysqli, $insert1);
         return true;
     }
 }

@@ -34,7 +34,7 @@ if (!$_SESSION) {
                 <th class="vertical-header" scope="col"><span>Efectivo</span></th>
                 <th class="vertical-header" scope="col"><span>Dolar</span></th>
                 <th class="vertical-header" scope="col"><span>Cordobas</span></th>
-                <th class="vertical-header" scope="col"><span>Targeta</span></th>
+                <th class="vertical-header" scope="col"><span>Tarjeta</span></th>
                 <th class="vertical-header" scope="col"><span>Traferencia</span></th>
                 <th class="vertical-header" scope="col"><span>BAC</span></th>
                 <th class="vertical-header" scope="col"><span>LAFISE</span></th>
@@ -51,6 +51,8 @@ if (!$_SESSION) {
             while ($resultado = $result4->fetch_assoc()) {
                 $indcliente = $resultado['indcliente'];
                 $nombre_apelido = datos_clientes::nombre_apellido_cliente($indcliente, $mysqli);
+                echo $resultado['bandera'];
+                if ($resultado['bandera'] == "1"){
                 ?>
                 <tr>
                     <td class="center-align"><?php echo $resultado["indtalonario"]; ?></td>
@@ -67,6 +69,23 @@ if (!$_SESSION) {
                     <td class="center-align"><?php echo number_format($resultado["subtotal"], 2, '.', ','); ?></td>
                 </tr>
                 <?php
+            } else {?>
+                    <tr>
+                    <td class="center-align"><del> <?php echo $resultado["indtalonario"]; ?></del></td>
+                <td class="center-align"><del><?php echo $nombre_apelido; ?></del></td>
+                <td class="center-align"><del><?php if ($resultado["efectivo"] == "1") {echo "<b>X</b>";} else {echo "";} ?></del></td>
+                <td class="center-align"><del><?php if ($resultado["dolar"] == "1") {echo "<b>X</b>";} else {echo "";} ?></del></td>
+                <td class="center-align"><del><?php if ($resultado["cordoba"] == "1") {echo "<b>X</b>";} else {echo "";} ?></del></td>
+                <td class="center-align"><del><?php if ($resultado["targeta"] == "1") {echo "<b>X</b>";} else {echo "";} ?>v</td>
+                <td class="center-align"><del><?php if ($resultado["trasferencia"] == "1") {echo "<b>X</b>";} else {echo "";} ?></del></td>
+                <td class="center-align"><del><?php if ($resultado["bac"] == "1") {echo "<b>X</b>";} else {echo "";} ?></del></td>
+                <td class="center-align"><del><?php if ($resultado["lafise"] == "1") {echo "<b>X</b>";} else {echo "";} ?></del></td>
+                <td class="center-align"><del><?php if ($resultado["credito"] == "1") {echo "<b>X</b>";} else {echo "";} ?></del></td>
+                <td class="center-align"><del><?php echo number_format($resultado["subtotal"], 2, '.', ','); ?></del></td>
+                <td class="center-align"><del><?php echo number_format($resultado["subtotal"], 2, '.', ','); ?>v</td>
+                </tr>
+                    <?php
+                }
             } ?>
             </tbody>
         </table>
@@ -94,5 +113,4 @@ if (!$_SESSION) {
     </script>
 
     <?php include "../header/footer_temporal.php" ?>
-
 

@@ -32,6 +32,7 @@ if ($_POST) {
         }
         $_SESSION['sucursal'] = $resul;
         $_SESSION["Key"] = "";
+        $_SESSION["RAX"] = "";
         $_SESSION["indempleado"] = $resul_ind_empleado;
         datos_clientes::historial_acceso("INGRESO A PLATAFORMA", $resul, $resul_ind_empleado, $mysqli);
 

@@ -1,5 +1,4 @@
 <?php include "header/header.php";
-session_start();
 if($_SESSION){
 
 }else{
@@ -49,7 +48,7 @@ if ($_POST) {
         <br>
         <section class="row">
             <div class="control-pares col-md-4">
-                <label for="" class="control-label">Numero de Factura: *</label>
+                <label for="" class="control-label">Numero de Recibo: *</label>
                 <input type="text" name="textfactura" class="form-control" placeholder="Numero Factura" required>
             </div>
             <div class="control-pares col-md-5">
@@ -91,7 +90,7 @@ if ($_POST) {
         <tr style="border-bottom: 1px solid black">
             <th scope="col"># ID</th>
             <th scope="col">USD Pago</th>
-            <th scope="col">No Factura</th>
+            <th scope="col">No Recibo</th>
             <th scope="col">Fecha Pago</th>
             <th scope="col">Pagar</th>
         </tr>

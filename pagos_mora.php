@@ -1,5 +1,4 @@
 <?php include "header/header.php";
-session_start();
 if ($_SESSION) {
 
 } else {
@@ -43,7 +42,7 @@ if ($_GET) {
 <br>
 <div class="container z-depth-1 rounded white">
     <div class="modal-header white rounded">
-        <h4 class="modal-title blue-grey-text unoem">Lista de Creditos</h4>
+        <h4 class="modal-title blue-grey-text unoem">Lista de Creditos  (<?php echo datos_clientes::fecha_get_pc(); ?>)</h4>
     </div>
     <table class="table table-borderless" style="padding: 1em;">
         <thead>
@@ -61,12 +60,13 @@ if ($_GET) {
         <tbody>
         <?php
         if ($_GET) {
-            $result4 = $mysqli->query("SELECT * FROM `creditos_pago` WHERE MONTH(fechapago) = MONTH(CURDATE()) AND YEAR(fechapago) = YEAR(CURDATE()) AND status='false' OR fechapago<=CURDATE()");
+            $fecha= datos_clientes::fecha_get_pc_MYSQL();
+            $result4 = $mysqli->query("SELECT * FROM `creditos_pago` WHERE MONTH('$fecha') = MONTH(CURDATE()) AND YEAR('$fecha') = YEAR(CURDATE()) AND status='false' OR fechapago<=CURDATE()");
             while ($resultado = $result4->fetch_assoc()) {
                 $indcredito = $resultado['indcredito'];
                 $indcliente = datos_clientes::datos_clientes_moras($indcredito, $mysqli);
                 $rows = datos_clientes::datos_clientes_generales_dadd($indcliente, $mysqli);
-                if ($resultado['status'] == "false" && $rows['sucursal']==$valores) {
+//                if ($resultado['status'] == "false" && $_SESSION['sucursal']==$valores) {
                     ?>
                     <tr>
                         <th scope="row"><?php echo $resultado['indpago']; ?></th>
@@ -78,7 +78,7 @@ if ($_GET) {
                             ?></td>
                         <td><b><?php echo $rows['nombre'] . " " . $rows['apellido']; ?></b></td>
                         <td><b><?php echo $rows['telefono']; ?></b></td>
-                        <td><b><?php echo $rows['sucursal']; ?></b></td>
+                        <td><b><?php echo datos_clientes::nombre_sucursal($resultado['indsucursal']); ?></b></td>
                         <td class="center-align"><?php
                             if ($resultado['status'] == "false") {
                                 ?>
@@ -91,7 +91,7 @@ if ($_GET) {
                     </tr>
                     <?php
                 }
-            }
+//            }
         } ?>
         </tbody>
     </table>

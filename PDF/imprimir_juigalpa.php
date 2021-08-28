@@ -21,7 +21,7 @@
 include_once '../BD-Connection/conection.php';
 include_once '../BD-Connection/datos_clientes.php';
 $talonario = datos_clientes::cambio_do($indsucursal, $mysqli);
-
+$indsucursal = $_SESSION["sucursal"];
 $booos = datos_clientes::verficiar_talonario($key, $mysqli);
 if ($booos["indtalonario"] == null) {
     datos_clientes::Factura_genera_codigo($key, $talonario, $indsucursal, $mysqli);
