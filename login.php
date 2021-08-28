@@ -44,7 +44,7 @@ if ($_POST) {
 <div class="container z-depth-1">
     <br>
     <section class="container white rounded" style="padding: 1em">
-        <form action="login.php" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <section class="row">
                 <div class="control-pares col-md-5">
                     <label for="" class="control-label">Usuario:</label>
