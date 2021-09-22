@@ -71,6 +71,7 @@ $datos = datos_clientes::datos_clientes_generales($indcliente, $mysqli);
                     if($datos['indsucursal']=="Chinandega"){echo "4";}
                     if($datos['indsucursal']=="Managua Bolonia"){echo "7";}
                     if($datos['indsucursal']=="Managua Villa Fontana"){echo "8";}
+                    if($datos['indsucursal']=="Clinica Dansing"){echo "10";}
                     ?>" selected hidden><?php
                     if($datos['indsucursal']=="1"){echo "Managua";}
                     if($datos['indsucursal']=="2"){echo "Masaya";}
@@ -81,6 +82,7 @@ $datos = datos_clientes::datos_clientes_generales($indcliente, $mysqli);
                     if($datos['indsucursal']=="4"){echo "Chinandega";}
                     if($datos['indsucursal']=="7"){echo "Managua Bolonia";}
                     if($datos['indsucursal']=="8"){echo "Managua Villa Fontana";}
+                    if($datos['indsucursal']=="10"){echo "Clinica Dansing";}
                     ?></option>
                     <option class="form-control" value="1">Managua</option>
                     <option class="form-control" value="2">Masaya</option>
@@ -91,6 +93,7 @@ $datos = datos_clientes::datos_clientes_generales($indcliente, $mysqli);
                     <option class="form-control" value="4">Chinandega</option>
                     <option class="form-control" value="7">Managua Bolonia</option>
                     <option class="form-control" value="8">Managua Villa Fontana</option>
+                    <option class="form-control" value="10">Clinica Dansing</option>
                 </select>
             </div>
             <div class="control-pares col-md-3">

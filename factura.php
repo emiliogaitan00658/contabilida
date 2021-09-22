@@ -71,6 +71,7 @@ if (!empty($_POST["textnombre"])) {
                         if($resultado['indsucursal']=="4"){echo "Chinandega";}
                         if($resultado['indsucursal']=="7"){echo "Managua Bolonia";}
                         if($resultado['indsucursal']=="8"){echo "Managua Villa Fontana";}
+                        if($resultado['indsucursal']=="10"){echo "Clinica Dansing";}
                         ?></td>
                     <td class="btn-link center-align  center-block"><a href="credito.php?indcliente=<?php echo $resultado['indcliente']; ?>"><?php echo datos_clientes::conteo_cuentas_pagar($resultado['indcliente'],$mysqli);?></a></td>
                     <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"

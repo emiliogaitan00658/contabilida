@@ -77,6 +77,9 @@ if ($_GET) {
                                 if ($_SESSION['sucursal'] == "8") {
                                     echo "Managua Villa Fontana";
                                 }
+                                if ($_SESSION['sucursal'] == "10") {
+                                    echo "Clinica Dasing";
+                                }
 
                                 ?></option>
                             <option class="form-control" disabled value="1">Managua</option>
@@ -88,6 +91,7 @@ if ($_GET) {
                             <option class="form-control" disabled value="4">Chinandega</option>
                             <option class="form-control" disabled value="7">Managua Bolonia</option>
                             <option class="form-control" disabled value="8">Managua Villa Fontana</option>
+                            <option class="form-control" disabled value="10">Clinica Dansing</option>
                         </select >
                     </div>
                     <div class="control-pares col-md-2">

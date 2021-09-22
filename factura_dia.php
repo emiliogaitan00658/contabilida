@@ -53,6 +53,9 @@ if (!$_SESSION) {
                                     if ($_SESSION['sucursal'] == "8") {
                                         echo "Managua Villa Fontana";
                                     }
+                                    if ($_SESSION['sucursal'] == "10") {
+                                        echo "Clinica Dansing";
+                                    }
                                     ?>
                                 </option>
                             <?php }else{ ?>
@@ -86,6 +89,9 @@ if (!$_SESSION) {
                                     if ($_POST['textsucursal'] == "8") {
                                         echo "Managua Villa Fontana";
                                     }
+                                    if ($_POST['textsucursal'] == "10") {
+                                        echo "Clinica Dansing";
+                                    }
                                     ?>
                                 </option>
                             <?php } ?>
@@ -98,6 +104,7 @@ if (!$_SESSION) {
                             <option class="form-control" value="4">Chinandega</option>
                             <option class="form-control" value="7">Managua Bolonia</option>
                             <option class="form-control" value="8">Managua Villa Fontana</option>
+                            <option class="form-control" value="10">Clinica Dansing</option>
                         </select>
                     </div>
                     <div class="control-pares col-md-4">

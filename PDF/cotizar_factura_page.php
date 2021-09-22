@@ -139,7 +139,7 @@ $cliente = datos_clientes::datos_clientes_generales($booos["indcliente"], $mysql
     <tbody>
     <tr style="height: 5px;">
         <td style="width: 100px; height: 20px;"><b class="center-align">Codigo</b></td>
-        <td style="width: 40px; height:20px;" class="text-center"><b class="center-align">Cntidad</b></td>
+        <td style="width: 40px; height:20px;" class="text-center"><b class="center-align">Cantidad</b></td>
         <td style="width: 400px; height:20px;" class="text-center"><b class="center-align">Detalle del Producto<b></td>
         <td style="width: 68px; height:20px;" class="text-center"><b class="center-align">P./Unit</td>
         <td style="width: 68px; height:20px;" class="text-center"><b class="center-align">Precio Total<b></td>
