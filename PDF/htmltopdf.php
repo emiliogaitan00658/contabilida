@@ -9,8 +9,12 @@ ob_start();
 
 if ($indsucursal == "1") {
     include "imprimir_factura.php";
-} else if ($indsucursal == "3") {
+} else if ($indsucursal == "2") {
+    include "imprimir_masaya.php";
+}else if ($indsucursal == "3") {
     include "imprimir_juigalpa.php";
+}else if ($indsucursal == "4") {
+    include "factura_chinandega.php";
 } else {
     include "imprimir_factura.php";
 }

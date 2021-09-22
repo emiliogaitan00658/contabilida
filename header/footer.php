@@ -4,7 +4,7 @@
 <div class="footer-basic">
     <footer class="center-block center">
         <p class="copyright"><p>Derechos Reservado ORTHODENTAL S.A </p>
-<!--        <p class="copyright"><p>Creado por Ing. Emilio Gaitan </p>-->
+        <p class="copyright"><p>Creado por Ing. Emilio Gaitan </p>
             <script>
                 var fecha = new Date();
                 var ano = fecha.getFullYear();
@@ -69,5 +69,4 @@
 <script src="assets/js/jquery.easing.js"></script>
 <script src="assets/js/theme.js"></script>
 </body>
-
 </html>

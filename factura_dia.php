@@ -105,18 +105,18 @@ if (!$_SESSION) {
                     </div>
                 </section>
             </form>
-            <hr>
-            <a class="btn btn-dark right" href="imprimir/diario_reporte_materiales.php" style="margin-right: 1em">Reporte
-                Radiografia</a>
-            <a class="btn btn-dark right" href="imprimir/diario_reporte_materiales.php" style="margin-right: 1em">Reporte
-                Materiales</a>
-            <br>
-            <br>
+<!--            <hr>-->
+<!--            <a class="btn btn-dark right" href="imprimir/diario_reporte_materiales.php" style="margin-right: 1em">Reporte-->
+<!--                Radiografia</a>-->
+<!--            <a class="btn btn-dark right" href="imprimir/diario_reporte_materiales.php" style="margin-right: 1em">Reporte-->
+<!--                Materiales</a>-->
+<!--            <br>-->
+<!--            <br>-->
         </div>
     </div>
     <hr>
     <div class="z-depth-1 rounded white center-block" style="width: 95%">
-        <table class="table table-borderless" style="padding: 1em;">
+        <table class="table table-sm" style="padding:0em">
             <thead>
             <tr style="border-bottom: 1px solid black;">
                 <th scope="col">No.Factura</th>
@@ -239,6 +239,10 @@ if (!$_SESSION) {
                     }
                 });
         }
+        function refrescar_factura(){
+            location.href = "factura_dia.php";
+        }
+
     </script>
 
 <?php include "header/footer.php" ?>

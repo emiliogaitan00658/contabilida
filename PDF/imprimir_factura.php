@@ -1,4 +1,15 @@
 <style>
+
+    @font-face {
+        font-family: DraftB-RegularIta;
+        font-weight: normal;
+        src: url("fonts/DraftB-RegularIta.otf") format("opentype");
+    }
+    @font-face {
+        font-family: DraftB-Regular;
+        font-weight: normal;
+        src: url("fonts/DraftB-Regular.otf") format("opentype");
+    }
     .linea {
         display: inline-block;
         font-family: 'lucida grande', helvetica, verdana, arial, sans-serif!important;

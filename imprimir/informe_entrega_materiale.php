@@ -9,15 +9,13 @@ $sucursal = 0;
 if ($_POST) {
     $fecha1 = $_POST["textfecha1"];
     $fecha2 = $_POST["textfecha2"];
-    echo $sucursal = $_POST["textsucursal"];
-    $result4 = $mysqli->query("SELECT * FROM `factura` WHERE `bandera` = 0 and indsucursal='$sucursal' and indtalonario IS NOT NULL");
-} else {
-    $result4 = $mysqli->query("SELECT * FROM `factura` WHERE `bandera` = 0 and indtalonario IS NOT NULL");
+    $sucursal = $_POST["textsucursal"];
+    $result4 = $mysqli->query("SELECT COUNT(unidad) as total_unidad,unidad,nombre_producto,precio_total,bandera,anular,indtemp,codigo_producto,indtalonario,total_descuento,descuento FROM `factura` WHERE `bandera` = 0 and indsucursal='$sucursal' and indtalonario IS NOT NULL ");
 }
 ?>
 <div class="container">
     <hr>
-    <h2 class="center">INFORME DE MATERILES DE SUCURSAL DE <?php echo strtoupper(datos_clientes::nombre_sucursal_ind($sucursal)); ?></h2>
+    <h2 class="center">INFORME DE MATERILES DE SUCURSAL DE <?php echo strtoupper(datos_clientes::nombre_sucursal($sucursal)); ?></h2>
     <h5 class="center-align">Fecha de facturaciòn <?php echo $fecha1 ?> al <?php echo $fecha2 ?></h5>
     <hr>
 </div>
@@ -30,9 +28,6 @@ if ($_POST) {
             <th scope="col">Unidad</th>
             <th scope="col">Producto</th>
             <th scope="col">Fecha</th>
-            <th scope="col" class="center-align">Precio/Descuento</th>
-            <th scope="col">Precio/Unidad</th>
-            <th scope="col">Precio/Subtotal</th>
             <th scope="col">Precio/Total</th>
         </tr>
         </thead>
@@ -64,12 +59,9 @@ if ($_POST) {
                     <tr>
                         <th scope="row"><?php echo $resultado['indtalonario']; ?></th>
                         <td><?php echo $resultado['codigo_producto']; ?></td>
-                        <td><?php echo $resultado['unidad']; ?></td>
+                        <td><?php echo $resultado['total_unidad']; ?></td>
                         <td><?php echo $resultado['nombre_producto']; ?></td>
                         <td><?php echo $fechad['fecha3']; ?></td>
-                        <td class="center-align">% <?php echo $resultado['descuento']; ?></td>
-                        <td>C$ <?php echo number_format($resultado['precio_unidad'], 2, '.', ','); ?></td>
-                        <td>C$ <?php echo number_format($resultado['precio_total'], 2, '.', ','); ?></td>
                         <td>C$ <?php
                             if ($resultado['descuento'] == "0") {
                                 echo number_format($resultado['precio_total'], 2, '.', ',');
@@ -83,17 +75,5 @@ if ($_POST) {
         } ?>
         </tbody>
     </table>
-    <br>
-    <hr>
-    <div class="container">
-        <h6>Informe de cierre de facturaciòn:</h6>
-        <hr>
-        <h5>Subtotal Cierre en Cordobas: <?php echo number_format($Subtotal, 2, '.', ','); ?></h5>
-        <h5><b>Total Cierre en Cordobas: <?php echo number_format($Total, 2, '.', ','); ?></b></h5>
-        <hr>
-        <h5>Informe de Cordobas C$: <?php echo number_format(datos_clientes::cierre_cordobas($fecha1,$fecha2,$sucursal,$mysqli), 2, '.', ','); ?></h5>
-        <h5>Informe de Dolares U$: <?php echo number_format(datos_clientes::cierre_dolar($fecha1,$fecha2,$sucursal,$mysqli), 2, '.', ','); ?></h5>
-    </div>
-    <hr>
-    <br>
 </div>
+

@@ -91,7 +91,7 @@ include "../header/header_panel_informe.php";
         <br>
         <p>Nota: Los detalle del producto solo seran cambiado y autizado por el personal adminstrativo de la
             plataforma.</p>
-        <p>contactar al ingeniero de la empresa</p>
+        <p>Contactar al ingeniero de la empresa</p>
         <br>
     </div>
 </div>

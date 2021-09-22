@@ -55,6 +55,12 @@ class datos_clientes
         return $fecha;
     }
 
+    public static function traforma_fecha($fecha)
+    {
+        $timestamp = strtotime($fecha);
+        return date('d/m/Y', $timestamp);
+    }
+
     public static function fecha_get_pc_MYSQL()
     {
         date_default_timezone_set('America/Managua');
@@ -296,31 +302,63 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
 
     public static function nombre_sucursal($indsucursal)
     {
-        if ($_SESSION['sucursal'] == "1") {
+        if ($indsucursal == "1") {
             return "Managua";
         }
-        if ($_SESSION['sucursal'] == "2") {
+        if ($indsucursal == "2") {
             return "Masaya";
         }
-        if ($_SESSION['sucursal'] == "3") {
+        if ($indsucursal == "3") {
             return "Chontales";
         }
-        if ($_SESSION['sucursal'] == "6") {
+        if ($indsucursal == "6") {
             return "Esteli";
         }
-        if ($_SESSION['sucursal'] == "5") {
+        if ($indsucursal == "5") {
             return "Leon";
         }
-        if ($_SESSION['sucursal'] == "9") {
+        if ($indsucursal == "9") {
             return "Matagalpa";
         }
-        if ($_SESSION['sucursal'] == "4") {
+        if ($indsucursal == "4") {
             return "Chinandega";
         }
-        if ($_SESSION['sucursal'] == "7") {
+        if ($indsucursal == "7") {
             return "Managua Bolonia";
         }
-        if ($_SESSION['sucursal'] == "8") {
+        if ($indsucursal == "8") {
+            return "Managua Villa Fontana";
+        }
+        return 0;
+    }
+
+    public static function nombre_sucursal_ind($indsucursal)
+    {
+        if ($indsucursal == "1") {
+            return "Managua";
+        }
+        if ($indsucursal == "2") {
+            return "Masaya";
+        }
+        if ($indsucursal == "3") {
+            return "Chontales";
+        }
+        if ($indsucursal == "6") {
+            return "Esteli";
+        }
+        if ($indsucursal == "5") {
+            return "Leon";
+        }
+        if ($indsucursal == "9") {
+            return "Matagalpa";
+        }
+        if ($indsucursal == "4") {
+            return "Chinandega";
+        }
+        if ($indsucursal == "7") {
+            return "Managua Bolonia";
+        }
+        if ($indsucursal == "8") {
             return "Managua Villa Fontana";
         }
         return 0;
@@ -423,12 +461,12 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         $result = $mysqli->query("SELECT codigo_producto FROM `factura` WHERE indtalonario=$indtalonario and indsucursal='$sucursal'");
         $row3 = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row3)) {
-            $temp=$row3["codigo_producto"];
+            $temp = $row3["codigo_producto"];
             //echo var_dump(strpos("$temp", 'RAX'));
-            if (strpos("$temp", 'RAX')!== false) {
+            if (strpos("$temp", 'RAX') !== false) {
                 return "RX";
-            }else{
-             return "";
+            } else {
+                return "";
             }
         }
         return "";
@@ -482,6 +520,44 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
             return $row3;
         }
         return "error";
+    }
+
+    public static function ultima_factura_no($indsucursal,$fecha1,$fecha2, $mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `total_factura` WHERE indsucursal='$indsucursal' and bandera='1' and indtalonario IS NOT NULL and (fecha BETWEEN '$fecha1' and '$fecha2') order by indtalonario desc limit 1");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["indtalonario"];
+        }
+        return "0";
+    }
+    public static function primera_factura_no($indsucursal,$fecha1,$fecha2, $mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `total_factura` WHERE indsucursal='$indsucursal' and bandera='1' and indtalonario IS NOT NULL and (fecha BETWEEN '$fecha1' and '$fecha2') order by indtalonario asc limit 1");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["indtalonario"];
+        }
+        return "0";
+    }
+
+    public static function conteo_factura($indsucursal,$fecha1,$fecha2, $mysqli)
+    {
+        $result = $mysqli->query("SELECT count(indtalonario) as conteo FROM `total_factura` WHERE indsucursal='$indsucursal' and bandera='1' and indtalonario IS NOT NULL and (fecha BETWEEN '$fecha1' and '$fecha2') order by indtalonario asc limit 1");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["conteo"];
+        }
+        return "0";
+    }
+    public static function suma_total_venta_contador($indsucursal,$fecha1,$fecha2, $mysqli)
+    {
+        $result = $mysqli->query("SELECT count(indtalonario) as conteo FROM `total_factura` WHERE indsucursal='$indsucursal' and bandera='1' and indtalonario IS NOT NULL and (fecha BETWEEN '$fecha1' and '$fecha2') order by indtalonario asc limit 1");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["conteo"];
+        }
+        return "0";
     }
 
     /* Creacion dela factura todos los datos integrados */
@@ -649,8 +725,16 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
 
     public static function Factura_genera_codigo($key, $talonario, $indsucursal, $mysqli)
     {
+        $fecha = self::fecha_get_pc_MYSQL();
+        $hora = self::hora_get_pc();
         $insert = "UPDATE `factura` SET `indtalonario` = '$talonario' WHERE `factura`.`indtemp` ='$key'";
         $query = mysqli_query($mysqli, $insert);
+
+        $insert4 = "UPDATE `total_factura` SET `fecha` = '$fecha' WHERE `total_factura`.`indtemp` = '$key'";
+        $query = mysqli_query($mysqli, $insert4);
+
+        $insert5 = "UPDATE `total_factura` SET `hora` = '$hora' WHERE `total_factura`.`indtemp` = '$key'";
+        $query = mysqli_query($mysqli, $insert5);
 
         $insert2 = "UPDATE `total_factura` SET `indtalonario` = '$talonario' WHERE `total_factura`.`indtemp` = '$key'";
         $query = mysqli_query($mysqli, $insert2);
