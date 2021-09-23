@@ -556,6 +556,15 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         }
         return "0";
     }
+    public static function busqueda_alerta($i, $mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `total_factura` WHERE indtalonario='$i'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return "1";
+        }
+        return "0";
+    }
 
     public static function suma_total_venta_contador($indsucursal, $fecha1, $fecha2, $mysqli)
     {
@@ -578,7 +587,7 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         $result = $mysqli->query("SELECT sum(total) as suma FROM `total_factura` WHERE indsucursal='$indsucursal' and bandera='1' and credito='0' and indtalonario IS NOT NULL and (fecha BETWEEN '$fecha1' and '$fecha2')");
         $row3 = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row3)) {
-            return self::dos_decimales($row3["suma"]);
+            return$row3["suma"];
         }
         return "0";
     }
@@ -588,7 +597,7 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         $result = $mysqli->query("SELECT sum(total) as suma FROM `total_factura` WHERE indsucursal='$indsucursal' and bandera='1' and credito='1' and indtalonario IS NOT NULL and (fecha BETWEEN '$fecha1' and '$fecha2')");
         $row3 = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row3)) {
-            return self::dos_decimales($row3["suma"]);
+            return $row3["suma"];
         }
         return "0";
     }
@@ -600,7 +609,7 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         $result1 = $mysqli->query("SELECT sum(total) as suma FROM `total_factura` WHERE indsucursal='$indsucursal' and bandera='1' and credito='1' and indtalonario IS NOT NULL and (fecha BETWEEN '$fecha1' and '$fecha2')");
         $row4 = $result1->fetch_array(MYSQLI_ASSOC);
         $suma = $row3["suma"] + $row4["suma"];
-        return self::dos_decimales($suma);
+        return $suma;
     }
 
     /* Creacion dela factura todos los datos integrados */

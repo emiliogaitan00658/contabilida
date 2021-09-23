@@ -84,6 +84,15 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body center-align">
+                    <h5 class="card-title">Alerta de Factura</h5>
+                    <p class="card-text">Alerta de Facturas no ingresadas</p>
+                    <a href="contador_modulo/fecha_factura_ingresada.php" class="btn btn-secondary">Ir</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
