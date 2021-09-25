@@ -35,7 +35,7 @@ if (!$_SESSION) {
 </div>
 <hr>
 <div class="container z-depth-1 rounded white">
-    <table class="table table-borderless" style="padding: 1em;">
+    <table class="table table-striped" style="padding: 1em;">
         <thead>
         <tr style="border-bottom: 1px solid black">
             <th scope="col">#Codigo</th>

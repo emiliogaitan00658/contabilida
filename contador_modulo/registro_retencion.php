@@ -7,20 +7,20 @@ if (!$_SESSION){
 if ($_POST) {
 
     if(!empty($_POST['textnombre'])){
-   $nombre = strtoupper(filter_var($_POST['textnombre'], FILTER_SANITIZE_STRING));
-   $apellido = strtoupper(filter_var($_POST['textapellido'], FILTER_SANITIZE_STRING));
-   $sucursale = strtoupper(filter_var($_POST['textsucursal'], FILTER_SANITIZE_STRING));
-   $cedula = strtoupper(filter_var($_POST['textcedula'], FILTER_SANITIZE_STRING));
-   $direccion1 = strtoupper(filter_var($_POST['textdireccion1'], FILTER_SANITIZE_STRING));
-   $direccion2 = strtoupper(filter_var($_POST['textdireccion2'], FILTER_SANITIZE_STRING));
-   $telefono = strtoupper(filter_var($_POST['texttelefono'], FILTER_SANITIZE_STRING));
+        $nombre = strtoupper(filter_var($_POST['textnombre'], FILTER_SANITIZE_STRING));
+        $apellido = strtoupper(filter_var($_POST['textapellido'], FILTER_SANITIZE_STRING));
+        $sucursale = strtoupper(filter_var($_POST['textsucursal'], FILTER_SANITIZE_STRING));
+        $cedula = strtoupper(filter_var($_POST['textcedula'], FILTER_SANITIZE_STRING));
+        $direccion1 = strtoupper(filter_var($_POST['textdireccion1'], FILTER_SANITIZE_STRING));
+        $direccion2 = strtoupper(filter_var($_POST['textdireccion2'], FILTER_SANITIZE_STRING));
+        $telefono = strtoupper(filter_var($_POST['texttelefono'], FILTER_SANITIZE_STRING));
 
-    $varficar_nombres = datos_clientes::verificar_nombre_apellido($nombre, $apellido, $mysqli);
-    if ($varficar_nombres == false) {
-        $indusuario=datos_clientes::generar_ind_cliente($mysqli);
-        $recues=datos_clientes::nuevo_usuario($indusuario, $nombre, $direccion1,$direccion2, $cedula, $telefono, $sucursale, $apellido, $mysqli);
-        if($recues==true){
-            echo '<script>
+        $varficar_nombres = datos_clientes::verificar_nombre_apellido($nombre, $apellido, $mysqli);
+        if ($varficar_nombres == false) {
+            $indusuario=datos_clientes::generar_ind_cliente($mysqli);
+            $recues=datos_clientes::nuevo_usuario($indusuario, $nombre, $direccion1,$direccion2, $cedula, $telefono, $sucursale, $apellido, $mysqli);
+            if($recues==true){
+                echo '<script>
  swal({
    title: "Exito ?",
    text: "Guardado Con Exitoooo",
@@ -36,9 +36,9 @@ if ($_POST) {
    }
  });
  </script>';
-        }
-    } else {
-        echo '<script>
+            }
+        } else {
+            echo '<script>
  swal({
    title: "Error ?",
    text: "Este Usuario Existe",
@@ -55,7 +55,7 @@ if ($_POST) {
  });
  </script>';
 
-    }
+        }
     }
 }
 ?>
@@ -87,7 +87,7 @@ if ($_POST) {
                 <label>Seleccionar Sucursal: *</label>
                 <select name="textsucursal" class="form-control" required>
                     <option class="form-control" value="<?php
-                        echo $_SESSION['sucursal']; ?>" selected><?php
+                    echo $_SESSION['sucursal']; ?>" selected><?php
 
                         if($_SESSION['sucursal']=="1"){echo "Managua";}
                         if($_SESSION['sucursal']=="2"){echo "Masaya";}

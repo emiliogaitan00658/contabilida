@@ -112,6 +112,8 @@ if (!$_SESSION) {
                     </div>
                 </section>
             </form>
+            <hr>
+            <p class="green-text">Las Facturas anuladas deben de ser reportada por el sistema es una obigaciòn del personal reportar.</p>
 <!--            <hr>-->
 <!--            <a class="btn btn-dark right" href="imprimir/diario_reporte_materiales.php" style="margin-right: 1em">Reporte-->
 <!--                Radiografia</a>-->
@@ -138,6 +140,7 @@ if (!$_SESSION) {
                 <th scope="col">Editar</th>
                 <th scope="col">Anular</th>
                 <th scope="col">Proforma</th>
+                <th scope="col">Retencion</th>
             </tr>
             </thead>
             <tbody>
@@ -163,7 +166,7 @@ if (!$_SESSION) {
                         <td class="center-align"><?php echo number_format($resultado["subtotal"], 2, '.', ','); ?></td>
                         <td class="center-align"><?php echo number_format($resultado["total"], 2, '.', ','); ?></td>
                         <td class="center-align"><?php echo number_format(($resultado["total"] / $dolar), 2, '.', ','); ?></td>
-                        <td class="center-align"><?php echo $resultado["fecha"]; ?></td>
+                        <td class="center-align"><?php echo datos_clientes::traforma_fecha($resultado["fecha"]); ?></td>
                         <td class="center-align"><?php echo $resultado["hora"]; ?></td>
                         <td class="center-align"><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
                                                     class="btn btn-success" target="_blank"><i class="icon-printer"></i></a></td>
@@ -176,9 +179,15 @@ if (!$_SESSION) {
                         <td class="center-align"><a href="#" onclick="
                                     var i='<?php echo $resultado['indtemp']; ?>';
                                     verficar_anulacion(i);"
-                                                    class="btn btn-primary"><i class="icon-blocked"></i></a></td><td class="center-align">
+                                                    class="btn btn-primary"><i class="icon-blocked"></i></a></td>
+
+                        <td class="center-align">
                             <a href="temporal/dolar_pregunta.php?key=<?php echo $resultado['indtemp']; ?>"
                                                     class="btn btn-primary" target="_blank"><i class="icon-insert-template"></i></a></td>
+
+                        <td class="center-align">
+                            <a href="contador_modulo/registro_retencion.php?key=<?php echo $resultado['indtemp']; ?>"
+                               class="btn btn-primary" target="_blank"><i>%</i></a></td>
                     </tr>
                 <?php } else { ?>
                     <tr class="red-text">
@@ -187,7 +196,7 @@ if (!$_SESSION) {
                         <td class="center-align"><?php echo number_format($resultado["subtotal"], 2, '.', ','); ?></td>
                         <td class="center-align"><?php echo number_format($resultado["total"], 2, '.', ','); ?></td>
                         <td class="center-align"><?php echo number_format(($resultado["total"] / $dolar), 2, '.', ','); ?></td>
-                        <td><?php echo $resultado["fecha"]; ?></td>
+                        <td><?php echo datos_clientes::traforma_fecha($resultado["fecha"]); ?></td>
                         <td><?php echo $resultado["hora"]; ?></td>
                         <td><a href="PDF/htmltopdf.php?key=<?php echo $resultado['indtemp']; ?>"
                                class="btn btn-success" target="_blank"><i class="icon-printer"></i></a></td>
@@ -201,6 +210,7 @@ if (!$_SESSION) {
                         <?php ?>
                         <td><a href="#" class="btn btn-primary">--</a></td>
                         <td><a href="temporal/dolar_pregunta.php?key=<?php echo $resultado['indtemp']; ?>"  target="_blank" class="btn btn-primary"><i class="icon-insert-template"></i></a></td>
+                        <td><a href="#" class="btn btn-primary"><i>%</i></a></td>
                     </tr>
                     <?php
                 }

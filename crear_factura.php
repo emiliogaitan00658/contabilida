@@ -30,7 +30,7 @@ if ($_POST) {
     $totalF = number_format($sum, 2, '.', '');
     if ($check_rx == 1) {
         datos_clientes::control_ingreso_facturar($sucursal, "RX", $Key, $mysqli);
-        $RAX = $_SESSION["RAX"];
+        $RAX = 0;
         datos_clientes::rax_cliente_doctor($RAX, $indcliente, $Key, $sucursal, $mysqli);
     } else {
         datos_clientes::control_ingreso_facturar($sucursal, "PX", $Key, $mysqli);
@@ -42,7 +42,11 @@ if ($_POST) {
         if ($check_credito == 1) {
             echo '<script> location.href="detalles_credito.php?indcliente=' . $indcliente . '&key=' . $ress . '&total= ' . $totalF . '" </script>';
         } else {
-            echo '<script> location.href="factura_dia.php" </script>';
+            if ($check_rx == 1) {
+                echo '<script> location.href="temporal/buscar_RAX_medico.php?key='. $ress .'" </script>';
+            } else {
+                echo '<script> location.href="factura_dia.php" </script>';
+            }
         }
     } else {
         swal("alerta!", "Surgio un problema sistema!", "error");
@@ -260,8 +264,6 @@ if ($_SESSION["Key"] == "") {
 </form>
 <script src="assets/auto_elemento_.js"></script>
 <script>
-
-
     function appregistro() {
         var comprobar = document.myapp.textotal33.value;
         var cordobas = document.myapp.textcordobas.value;

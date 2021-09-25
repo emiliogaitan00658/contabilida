@@ -526,6 +526,15 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         }
         return "error";
     }
+    public static function datos_generales_factura_talonario($indtalonario, $mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `factura` WHERE indtalonario='$indtalonario'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        }
+        return "error";
+    }
 
     public static function ultima_factura_no($indsucursal, $fecha1, $fecha2, $mysqli)
     {
@@ -869,6 +878,14 @@ VALUES (NULL, '$nombre', '$apellido', '$user', '$pas', '$sucursal');";
     public static function eliminar_user_acceso($induser, $mysqli)
     {
         $insert1 = "DELETE FROM `empleado` WHERE `empleado`.`indempleado`='$induser' ";
+        $query = mysqli_query($mysqli, $insert1);
+        return true;
+    }
+
+
+    public static function medico_rax($indmedico,$key, $mysqli)
+    {
+        $insert1 = "UPDATE `radiografia_conteo` SET `indcliente` = '$indmedico' WHERE `radiografia_conteo`.`indtemp` ='$key' ";
         $query = mysqli_query($mysqli, $insert1);
         return true;
     }

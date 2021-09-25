@@ -4,7 +4,7 @@
 <div class="footer-basic">
     <footer class="center-block center">
         <p class="copyright"><p>Derechos Reservado ORTHODENTAL S.A </p>
-        <p class="copyright"><p>Creado por Ing. Emilio Gaitan </p>
+        <p class="copyright"><p>Creado por Ing. Emilio Gaitan <i class="green-text"><a href="https://contabilidad.orthodentalnic.com/derechos_resevado/propieedad_intelectual.pdf">end-user license agreement (EULA)</a></i> </p>
             <script>
                 var fecha = new Date();
                 var ano = fecha.getFullYear();
@@ -61,6 +61,10 @@
         this.parentNode.insertBefore(section, this);
     };
 </script>
+
+
+
+
 <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
 <!--<script src="assets/js/jquery.min.js"></script>-->
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
