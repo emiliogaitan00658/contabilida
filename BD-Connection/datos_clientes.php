@@ -328,7 +328,8 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         }
         if ($indsucursal == "8") {
             return "Managua Villa Fontana";
-        }if ($indsucursal == "10") {
+        }
+        if ($indsucursal == "10") {
             return "Clinica Managua";
         }
         return 0;
@@ -526,9 +527,40 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         }
         return "error";
     }
+
     public static function datos_generales_factura_talonario($indtalonario, $mysqli)
     {
         $result = $mysqli->query("SELECT * FROM `factura` WHERE indtalonario='$indtalonario'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        }
+        return "error";
+    }
+
+    public static function datos_generales_talonario($key, $mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `total_factura` WHERE indtemp='$key'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        }
+        return "error";
+    }
+
+    public static function numero_retencion_exite($numero_recibo, $mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `retencion` WHERE norecibo='$numero_recibo'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        }
+        return "error";
+    }
+
+    public static function recibo_repetido($numero_recibo, $mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `retencion` WHERE norecibo='$numero_recibo'");
         $row3 = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row3)) {
             return $row3;
@@ -565,6 +597,7 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         }
         return "0";
     }
+
     public static function busqueda_alerta($i, $mysqli)
     {
         $result = $mysqli->query("SELECT * FROM `total_factura` WHERE indtalonario='$i'");
@@ -596,7 +629,7 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         $result = $mysqli->query("SELECT sum(total) as suma FROM `total_factura` WHERE indsucursal='$indsucursal' and bandera='1' and credito='0' and indtalonario IS NOT NULL and (fecha BETWEEN '$fecha1' and '$fecha2')");
         $row3 = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row3)) {
-            return$row3["suma"];
+            return $row3["suma"];
         }
         return "0";
     }
@@ -883,9 +916,23 @@ VALUES (NULL, '$nombre', '$apellido', '$user', '$pas', '$sucursal');";
     }
 
 
-    public static function medico_rax($indmedico,$key, $mysqli)
+    public static function medico_rax($indmedico, $key, $mysqli)
     {
         $insert1 = "UPDATE `radiografia_conteo` SET `indcliente` = '$indmedico' WHERE `radiografia_conteo`.`indtemp` ='$key' ";
+        $query = mysqli_query($mysqli, $insert1);
+        return true;
+    }
+
+
+    public static function ingresar_retencion($key, $numero_recibo, $subtotal, $indtotalfactura, $sucursal, $porsentaje, $indtalonario, $mysqli)
+    {
+        $fecha = self::fecha_get_pc_MYSQL();
+        $hora = self::hora_get_pc();
+        $datos_factura = self::datos_generales_talonario($key, $mysqli);
+        $cliente = $datos_factura['indcliente'];
+
+        $insert1 = "INSERT INTO `retencion` (`indretencion`, `indcliente`, `indsucursal`, `indtotalfactura`, `indcontrol`, `norecibo`, `fecha`, `hora`, `bandera`, `indtemp`, `subtotal`, `porsentaje`) 
+VALUES (NULL, '$cliente', '$sucursal', '$indtotalfactura', '$indtalonario', '$numero_recibo', '$fecha', '$hora', '1', '$key', '$subtotal', '$porsentaje');";
         $query = mysqli_query($mysqli, $insert1);
         return true;
     }

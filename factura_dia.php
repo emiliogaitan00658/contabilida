@@ -124,7 +124,7 @@ if (!$_SESSION) {
         </div>
     </div>
     <hr>
-    <div class="z-depth-1 rounded white center-block" style="width: 95%">
+    <div class="z-depth-1 rounded white center-block" style="width: 95%;border-radius: 6px;padding: 1em;">
         <table class="table table-sm" style="padding:0em">
             <thead>
             <tr style="border-bottom: 1px solid black;">
@@ -187,7 +187,7 @@ if (!$_SESSION) {
 
                         <td class="center-align">
                             <a href="contador_modulo/registro_retencion.php?key=<?php echo $resultado['indtemp']; ?>"
-                               class="btn btn-primary" target="_blank"><i>%</i></a></td>
+                               class="btn btn-primary"><i>%</i></a></td>
                     </tr>
                 <?php } else { ?>
                     <tr class="red-text">
