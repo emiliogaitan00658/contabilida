@@ -44,7 +44,7 @@ if ($_POST) {
 
 <div class="container z-depth-1">
     <br>
-    <section class="container white rounded" style="padding: 1em">
+    <section class="container white rounded z-depth-1" style="padding: 2em">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <section class="row">
                 <div class="control-pares col-md-5">
@@ -53,7 +53,7 @@ if ($_POST) {
                 </div>
                 <div class="control-pares col-md-5">
                     <label for="" class="control-label">Contraseña:</label>
-                    <input type="text" name="textpass" class="form-control" placeholder="Contraseña" required>
+                    <input type="password" name="textpass" class="form-control" placeholder="Contraseña" required>
                 </div>
             </section>
             <div class="modal-footer">

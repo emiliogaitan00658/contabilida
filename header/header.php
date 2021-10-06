@@ -70,6 +70,11 @@ $dolar = datos_clientes::cambio_dolar($mysqli);
                             class="icon-coin-dollar"> </i> <?php echo $dolar ?> Cordobas</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link bg-red" href="#" style="padding: 0;margin: 0"><img
+                            src="assets/icons8_add_to_chat_64px.png" class="center-block" style="" width="50%"
+                            alt=""></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link bg-red" href="talonario_cambio"> <?php if (!empty($_SESSION)) {
                         echo "No." . $talonario;
                     } ?></a>
@@ -77,10 +82,14 @@ $dolar = datos_clientes::cambio_dolar($mysqli);
             <?php
             try {
                 if (!empty($_SESSION['sucursal'])) {
+                    if ($_SESSION['indempleado']=="1" or $_SESSION['indempleado']=="23") {
+                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="panel_control"><i class="icon-cog" size="18dp"></i></a>
+                        </li>
+                        <?php
+                    }
                     ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="panel_control"><i class="icon-cog" size="18dp"></i></a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link btn-success white-text" href="temporal/cerrar_seccion.php"><i
                                     class="icon-cross"></i></a>

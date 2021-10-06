@@ -42,15 +42,28 @@ if ($_POST) {
     $indtotalfactura = $factura["indtotalfactura"];
 
     $exite_numero_retnecion = datos_clientes::numero_retencion_exite($numero_recibo, $mysqli);
-    if ($exite_numero_retnecion=="") {
+    if ($exite_numero_retnecion == "") {
 
     } else {
-        $repetido=datos_clientes::recibo_repetido($numero_recibo,$mysqli);
-        if ($repetido==""){
-            datos_clientes::ingresar_retencion($key, $numero_recibo, $subtotal,$indtotalfactura,$sucursal, $porsentaje, $indtalonario, $mysqli);
-        }else{
+        $repetido = datos_clientes::recibo_repetido($numero_recibo, $mysqli);
+        datos_clientes::ingresar_retencion($key, $numero_recibo, $subtotal, $indtotalfactura, $sucursal, $porsentaje, $indtalonario, $mysqli);
+        echo '<script>
+   swal({
+     title: "Exito",
+     text: "Retencion Guardada",
+     icon: "success",
+     buttons: true,
 
-        }
+   })
+   .then((willDelete) => {
+     if (willDelete) {
+        location.href="../factura_dia.php";
+     }else {
+        location.href="../factura_dia.php";
+     }
+   });
+   </script>';
+
     }
 
 }
@@ -93,12 +106,12 @@ if ($_POST) {
             <div class="control-pares col-md-3">
                 <label for="" class="control-label">2%</label>
                 <input type="text" name="textporcentaje" class="form-control" placeholder="2%"
-                       value="<?php echo datos_clientes::dos_decimales(($factura["subtotal"] * 0.2)); ?>">
+                       value="<?php echo datos_clientes::dos_decimales(($factura["subtotal"] * 0.02)); ?>">
             </div>
         </section>
         <br>
         <div class="modal-footer">
-            <input type="submit" value="Nuevo Cliente" class="btn white-text blue-grey btn-primary"/>
+            <input type="submit" value="Regitrar" class="btn white-text blue-grey btn-primary"/>
         </div>
     </form>
 </div>

@@ -69,13 +69,13 @@ if ($_POST) {
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <section class="row">
             <div class="control-pares col-md-5">
-                <label for="" class="control-label">Nombres o No RUC: *</label>
+                <label for="" class="control-label">Nombres o Empresa: *</label>
                 <input type="text" name="textnombre" class="form-control" value="<?php if (!empty($_POST['textnombre'])) {
                     echo $_POST['textnombre'];
                 } ?>" placeholder="Nombres" required>
             </div>
             <div class="control-pares col-md-5">
-                <label for="" class="control-label">Apellidos  o Nombre de Empresa: *</label>
+                <label for="" class="control-label">Apellidos  o No RUC: *</label>
                 <input type="text" name="textapellido" class="form-control" value="<?php if(!empty($_POST['textapellido'])) {
                     echo $_POST['textapellido'];
                 } ?>" placeholder="Apellidos" required>

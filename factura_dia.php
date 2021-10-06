@@ -161,7 +161,7 @@ if (!$_SESSION) {
                 ?>
                 <?php if ($resultado['bandera'] == "1") { ?>
                     <tr>
-                        <td><?php echo $resultado["indtalonario"]; ?></td>
+                        <td><a href=""><?php echo $resultado["indtalonario"]; ?></a></td>
                         <td><?php echo $nombre_apelido; ?></td>
                         <td class="center-align"><?php echo number_format($resultado["subtotal"], 2, '.', ','); ?></td>
                         <td class="center-align"><?php echo number_format($resultado["total"], 2, '.', ','); ?></td>
@@ -174,7 +174,7 @@ if (!$_SESSION) {
                                class="btn btn-danger" onclick="
                                     var i='<?php echo $resultado['indtemp']; ?>';
                                     verficar_eliminar(i);"><i class="btn-danger icon-bin"></i></a></td>
-                        <td class="center-align"><a href="editar_factura.php?Key=<?php echo $resultado['indtemp']; ?>"
+                        <td class="center-align"><a href="temporal/editar_factura_verificacion.php?temp=<?php echo $resultado['indtemp']."&indcliente=".$indcliente; ?>"
                                     class="btn btn-success">Editar</a></td>
                         <td class="center-align"><a href="#" onclick="
                                     var i='<?php echo $resultado['indtemp']; ?>';
@@ -204,7 +204,7 @@ if (!$_SESSION) {
                                     var i='<?php echo $resultado['indtemp']; ?>';
                                     verficar_eliminar(i);"
                                class="btn btn-danger"><i class="btn-danger icon-bin"></i></a></td>
-                        <td><a href="editar_factura.php?Key=<?php echo $resultado['indtemp']; ?>"
+                        <td><a href="#"
                                class="btn btn-success">Editar</a></td>
 
                         <?php ?>

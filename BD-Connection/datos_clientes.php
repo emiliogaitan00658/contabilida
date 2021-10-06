@@ -158,10 +158,9 @@ class datos_clientes
     }
 
 
-    public static function datos_clientes_generales_actualizar($indcliente, $direccion1, $direccion2, $telefono, $sucursale, $mysqli)
+    public static function datos_clientes_generales_actualizar($indcliente, $nombre, $apellido, $cedula, $direccion1, $direccion2, $telefono, $sucursale, $mysqli)
     {
-        $insert1 = "UPDATE `clientes`
-SET `direccion1` = '$direccion1 ', `direccion2` = '$direccion2', `telefono` = '$telefono ', `indsucursal` = '$sucursale' WHERE `clientes`.`indcliente` = '$indcliente';";
+        $insert1 = "UPDATE `clientes` SET `nombre` = '$nombre', `apellido` = '$apellido', `direccion1` = '$direccion1', `direccion2` = '$direccion2', `cedula` = '$cedula', `telefono` = '$telefono' WHERE `clientes`.`indcliente` = '$indcliente';";
         $query = mysqli_query($mysqli, $insert1);
         return true;
     }
@@ -919,6 +918,15 @@ VALUES (NULL, '$nombre', '$apellido', '$user', '$pas', '$sucursal');";
     public static function medico_rax($indmedico, $key, $mysqli)
     {
         $insert1 = "UPDATE `radiografia_conteo` SET `indcliente` = '$indmedico' WHERE `radiografia_conteo`.`indtemp` ='$key' ";
+        $query = mysqli_query($mysqli, $insert1);
+        return true;
+    }
+
+    public static function eliminar_indtalonario($temp, $mysqli)
+    {
+        $insert1 = "DELETE FROM `total_factura` WHERE `total_factura`.`indtemp` ='$temp' ";
+        $query = mysqli_query($mysqli, $insert1);
+        $insert1 = "DELETE FROM `control` WHERE `control`.`indtemp` ='$temp' ";
         $query = mysqli_query($mysqli, $insert1);
         return true;
     }

@@ -11,11 +11,14 @@ if ($_GET) {
 }
 
 if ($_POST) {
-    echo $sucursale = strtoupper(filter_var($_POST['textsucursal'], FILTER_SANITIZE_STRING));
+    $sucursale = strtoupper(filter_var($_POST['textsucursal'], FILTER_SANITIZE_STRING));
+    $nombre = strtoupper(filter_var($_POST['textnombre'], FILTER_SANITIZE_STRING));
+    $apellido = strtoupper(filter_var($_POST['textapellido'], FILTER_SANITIZE_STRING));
+    $cedula = $_POST['textcedula'];
     $direccion1 = filter_var($_POST['textdireccion1'], FILTER_SANITIZE_STRING);
     $direccion2 = filter_var($_POST['textdireccion2'], FILTER_SANITIZE_STRING);
     $telefono = strtoupper(filter_var($_POST['texttelefono'], FILTER_SANITIZE_STRING));
-    $recues = datos_clientes::datos_clientes_generales_actualizar($indcliente, $direccion1, $direccion2, $telefono, $sucursale, $mysqli);
+    $recues = datos_clientes::datos_clientes_generales_actualizar($indcliente,$nombre,$apellido,$cedula, $direccion1, $direccion2, $telefono, $sucursale, $mysqli);
     if ($recues == true) {
         echo '<script>
  swal({
@@ -46,13 +49,13 @@ $datos = datos_clientes::datos_clientes_generales($indcliente, $mysqli);
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?indcliente=<?php echo $indcliente;?>" method="post">
         <section class="row">
             <div class="control-pares col-md-5">
-                <label for="" class="control-label">Nombres: *</label>
-                <input type="text" name="textnombre" disabled class="form-control"
+                <label for="" class="control-label">Nombres o Empresa: *</label>
+                <input type="text" name="textnombre" class="form-control"
                        value="<?php echo $datos['nombre']; ?>" placeholder="Nombres" required>
             </div>
             <div class="control-pares col-md-5">
-                <label for="" class="control-label">Apellidos: *</label>
-                <input type="text" name="textapellido" disabled class="form-control"
+                <label for="" class="control-label">Apellidos o No RUC: *</label>
+                <input type="text" name="textapellido"  class="form-control"
                        value="<?php echo $datos['apellido']; ?>" placeholder="Apellidos" required>
             </div>
         </section>
@@ -60,7 +63,7 @@ $datos = datos_clientes::datos_clientes_generales($indcliente, $mysqli);
         <section class="row">
             <div class="control-pares col-md-3">
                 <label>Seleccionar Sucursal: *</label>
-                <select name="textsucursal" class="form-control">
+                <select name="textsucursal" disabled class="form-control">
                     <option class="form-control" value="<?php
                     if($datos['indsucursal']=="Managua"){echo "Managua";}
                     if($datos['indsucursal']=="Masaya"){echo "2";}
@@ -98,7 +101,7 @@ $datos = datos_clientes::datos_clientes_generales($indcliente, $mysqli);
             </div>
             <div class="control-pares col-md-3">
                 <label for="" class="control-label">Cedula Identidad: *</label>
-                <input type="text" name="textcedula" disabled class="form-control"
+                <input type="text" name="textcedula" class="form-control"
                        value="<?php echo $datos['cedula']; ?>" placeholder="No Cedula" required>
             </div>
             <div class="control-pares col-md-3">
@@ -122,11 +125,30 @@ $datos = datos_clientes::datos_clientes_generales($indcliente, $mysqli);
         </section>
         <br>
         <div class="modal-footer">
-            <a href="" class="btn white-text red btn-primary">Eliminar usuario</a>
+            <a href="#" onclick="
+                    var i='<?php echo $indcliente; ?>';
+                    verficar_eliminar(i);" class="btn white-text red btn-primary">Eliminar usuario</a>
             <input type="submit" value="Actualizar Datos" class="btn white-text blue-grey btn-primary"/>
         </div>
     </form>
 </div>
 
+<script>
+    function verficar_eliminar(codigo) {
+        swal({
+            title: "Eliminiar?",
+            text: "Seguro de eliminiar cliente",
+            icon: "success",
+            buttons: true,
 
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    location.href = "temporal/eliminar ?indcliente=" + codigo;
+                } else {
+                    location.href = "factura_dia.php";
+                }
+            });
+    }
+</script>
 <?php include "header/footer.php" ?>
