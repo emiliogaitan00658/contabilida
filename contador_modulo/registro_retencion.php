@@ -67,6 +67,28 @@ if ($_POST) {
     }
 
 }
+$total_factura=$factura["subtotal"];
+if ($total_factura>=1000){
+
+}else{
+    echo '<script>
+   swal({
+     title: "Error",
+     text: "Retenciòn mayor C$ 1,000",
+     icon: "error",
+     buttons: true,
+
+   })
+   .then((willDelete) => {
+     if (willDelete) {
+        location.href="../factura_dia.php";
+     }else {
+        location.href="../factura_dia.php";
+     }
+   });
+   </script>';
+
+}
 
 
 ?>

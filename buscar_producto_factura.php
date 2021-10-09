@@ -34,6 +34,7 @@ if ($_GET) {
 <div class="container white rounded z-depth-2" style="border-radius: 6px;">
     <div style="padding: 1em">
         <h5>Buscar producto</h5>
+        <hr>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <section class="row">
                 <div class="control-pares col-md-4">
@@ -81,10 +82,10 @@ if ($_GET) {
                     <a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'] . '&precio=' . $resultado['precio1'] . '&producto=' . $resultado['nombre_producto']; ?>">$ <?php echo $resultado['precio1'] . ' (' . number_format((($dolar * $resultado['precio1'])), 2, '.', ','). ')'; ?></a>
                 </td>
                 <td>
-                    <a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'] . '&precio=' . $resultado['precio2'] . '&producto=' . $resultado['nombre_producto']; ?>">$ <?php echo $resultado['precio2']; ?></a>
+                    <a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'] . '&precio=' . $resultado['precio2'] . '&producto=' . $resultado['nombre_producto']; ?>">$ <?php echo $resultado['precio2'] . ' (' . number_format((($dolar * $resultado['precio2'])), 2, '.', ','). ')'; ?></a>
                 </td>
                 <td>
-                    <a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'] . '&precio=' . $resultado['precio3'] . '&producto=' . $resultado['nombre_producto']; ?>">$ <?php echo $resultado['precio3']; ?></a>
+                    <a href="buscar_producto_factura.php?codigo=<?php echo $resultado['codigo_producto'] . '&precio=' . $resultado['precio3'] . '&producto=' . $resultado['nombre_producto']; ?>">$ <?php echo $resultado['precio3'] . ' (' . number_format((($dolar * $resultado['precio3'])), 2, '.', ','). ')'; ?></a>
                 </td>
             </tr>
         <?php } ?>

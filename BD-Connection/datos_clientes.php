@@ -376,6 +376,15 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         return true;
     }
 
+    public static function cambio_numero_factura($key, $indtalonario, $mysqli)
+    {
+        $insert1 = "UPDATE `control` SET `indfactura` = '$indtalonario' WHERE `control`.`indtemp` = '$key'";
+        $query = mysqli_query($mysqli, $insert1);
+        $insert = "UPDATE `total_factura` SET `indtalonario` = '$indtalonario' WHERE `total_factura`.`indtemp` ='$key'";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
+
     public static function Verificar_generador_codigo($mysqli)
     {
         $longitud = 100;

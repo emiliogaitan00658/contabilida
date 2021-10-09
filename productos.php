@@ -58,9 +58,15 @@ if (!$_SESSION) {
             <tr>
                 <th scope="row"><?php echo $resultado['codigo_producto']; ?></th>
                 <td><?php echo $resultado['nombre_producto']; ?></td>
-                <td>$ <?php echo $resultado['precio1']; ?></td>
-                <td>$ <?php echo $resultado['precio2']; ?></td>
-                <td>$ <?php echo $resultado['precio3']; ?></td>
+                <td>
+                    $ <?php echo $resultado['precio1'] . ' (' . number_format((($dolar * $resultado['precio1'])), 2, '.', ','). ')'; ?>
+                </td>
+                <td>
+                    $ <?php echo $resultado['precio2'] . ' (' . number_format((($dolar * $resultado['precio2'])), 2, '.', ','). ')'; ?>
+                </td>
+                <td>
+                  $ <?php echo $resultado['precio3'] . ' (' . number_format((($dolar * $resultado['precio3'])), 2, '.', ','). ')'; ?>
+                </td>
             </tr>
         <?php } ?>
 

@@ -40,7 +40,8 @@ if (!empty($_GET["medico"])) {
 <br>
 <div class="container white rounded z-depth-1">
     <div style="padding: 1em">
-        <h5>Buscardor de Clientes</h5>
+        <h5>Asignar radiografia al medico o empresa</h5>
+        <p>buscar medico o empresa que le pertence esa radiografia (Si el cliente no esta registrado debe de registrar antes)</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <section class="row">
                 <div class="control-pares col-md-4">

@@ -15,13 +15,14 @@ if (!empty($_POST["textnombre"])) {
     $nombre ="0";
 }
 ?>
-<div class="container white rounded z-depth-1">
+<div class="container white rounded z-depth-1" style="border-radius: 6px;">
     <div style="padding: 1em">
         <h5>Buscardor de Clientes</h5>
+        <hr>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <section class="row">
                 <div class="control-pares col-md-4">
-                    <input type="text" name="textnombre" class="form-control" placeholder="Buscar ....." required>
+                    <input type="text" name="textnombre" class="form-control mr-sm-2" type="search" placeholder="Buscar cliente o Empresa ....."  aria-label="Search" required>
                 </div>
                 <div class="control-pares col-md-4">
                     <input type="submit" value="Buscar" class="btn  white-text blue-grey btn-primary"/>
@@ -34,9 +35,9 @@ if (!empty($_POST["textnombre"])) {
         <br>
     </div>
 </div>
-<hr>
+<br>
 <div class="container z-depth-1 rounded white">
-    <table class="table table-borderless" style="padding: 1em;">
+    <table class="table table-hover" style="padding: 1em;">
         <thead>
         <tr style="border-bottom: 1px solid black">
             <th scope="col"># ID</th>

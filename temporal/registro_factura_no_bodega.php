@@ -1,81 +1,21 @@
-<?php include "header/header.php";
-
-if (!$_SESSION){
-    echo '<script> location.href="login" </script>';
-}
-
-if ($_POST) {
-
-    if(!empty($_POST['textnombre'])){
-   $nombre = strtoupper(filter_var($_POST['textnombre'], FILTER_SANITIZE_STRING));
-   $apellido = strtoupper(filter_var($_POST['textapellido'], FILTER_SANITIZE_STRING));
-   $sucursale = strtoupper(filter_var($_POST['textsucursal'], FILTER_SANITIZE_STRING));
-   $cedula = strtoupper(filter_var($_POST['textcedula'], FILTER_SANITIZE_STRING));
-   $direccion1 = strtoupper(filter_var($_POST['textdireccion1'], FILTER_SANITIZE_STRING));
-   $direccion2 = strtoupper(filter_var($_POST['textdireccion2'], FILTER_SANITIZE_STRING));
-   $telefono = strtoupper(filter_var($_POST['texttelefono'], FILTER_SANITIZE_STRING));
-
-    $varficar_nombres = datos_clientes::verificar_nombre_apellido($nombre, $apellido, $mysqli);
-    if ($varficar_nombres == false) {
-        $indusuario=datos_clientes::generar_ind_cliente($mysqli);
-        $recues=datos_clientes::nuevo_usuario($indusuario, $nombre, $direccion1,$direccion2, $cedula, $telefono, $sucursale, $apellido, $mysqli);
-        if($recues==true){
-            echo '<script>
- swal({
-   title: "Exito ?",
-   text: "Guardado Con Exitoooo",
-   icon: "success",
-   buttons: true,
-
- })
- .then((willDelete) => {
-   if (willDelete) {
-     location.href="temporal/indcliente.php?indcliente='.$indusuario.'";
-   }else {
-     
-   }
- });
- </script>';
-        }
-    } else {
-        echo '<script>
- swal({
-   title: "Error ?",
-   text: "Este Usuario Existe",
-   icon: "error",
-   buttons: false,
-
- })
- .then((willDelete) => {
-   if (willDelete) {
-     
-   }else {
-      
-   }
- });
- </script>';
-
-    }
-    }
-}
-?>
+<?php include "header/header.php"; ?>
 
 <div class="container z-depth-1 rounded white">
     <div class="modal-header white rounded">
-        <h4 class="modal-title blue-grey-text unoem"><i class="icon-user-plus" size="80%"></i> Registro de Clientes Nuevos</h4>
+        <h4 class="modal-title blue-grey-text unoem"><i class="icon-user-plus" size="80%"></i>Registro de Factura</h4>
     </div>
-    <p class="red-text"> Si van a hacer registro de una empresa deben de registar el nombre de la empresa y despues en el campo siguente el numero ruc de la empresa.</p>
+    <p class="red-text">Si hay producto que no se encuantra en el sistema</p>
     <br>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <section class="row">
             <div class="control-pares col-md-5">
-                <label for="" class="control-label">Nombres o Empresa: *</label>
+                <label for="" class="control-label">Nombre Producto o servicio: *</label>
                 <input type="text" name="textnombre" class="form-control" value="<?php if (!empty($_POST['textnombre'])) {
                     echo $_POST['textnombre'];
                 } ?>" placeholder="Nombres" required>
             </div>
             <div class="control-pares col-md-5">
-                <label for="" class="control-label">Apellidos  o No RUC: *</label>
+                <label for="" class="control-label">:*</label>
                 <input type="text" name="textapellido" class="form-control" value="<?php if(!empty($_POST['textapellido'])) {
                     echo $_POST['textapellido'];
                 } ?>" placeholder="Apellidos" required>
@@ -87,7 +27,7 @@ if ($_POST) {
                 <label>Seleccionar Sucursal: *</label>
                 <select name="textsucursal" class="form-control" required>
                     <option class="form-control" value="<?php
-                        echo $_SESSION['sucursal']; ?>" selected><?php
+                    echo $_SESSION['sucursal']; ?>" selected><?php
 
                         if($_SESSION['sucursal']=="1"){echo "Managua";}
                         if($_SESSION['sucursal']=="2"){echo "Masaya";}
