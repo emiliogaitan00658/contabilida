@@ -11,34 +11,34 @@ if ($_GET) {
 }
 
 if ($_POST) {
-    $factura = $_POST['textfactura'];
-    $fecha = $_POST['textfecha'];
-    if ($factura == "" || $fecha == "") {
-
-    }else{
-        $resues=datos_clientes::pago_actualizar($indcredito, $factura, $fecha, $mysqli);
-        if($resues==true){
-            echo '<script>
- swal({
-   title: "Exito ?",
-   text: "Guardado Con Exito",
-   icon: "success",
-   buttons: true,
-
- })
- .then((willDelete) => {
-   if (willDelete) {
-     location.href="tabla_pago.php?indcredito='. $indcredito.'";
-   }else {
-     location.href="tabla_pago.php?indcredito='. $indcredito.'";
-   }
- });
- </script>';
-        }
-    }
+    echo $recibo = $_POST['textrecibo'];
+    echo $detalle = $_POST['textdetalles'];
+    echo $total = $_POST['texttota'];
+//    $ = $_POST['text'];
+    echo $fecha = $_POST['textfecha'];
 }
 $total_faltante=datos_clientes::total_deuda_faltante22($indcredito,$mysqli);
 
+
+
+
+
+//echo '<script>
+// swal({
+//   title: "Exito ?",
+//   text: "Guardado Con Exito",
+//   icon: "success",
+//   buttons: true,
+//
+// })
+// .then((willDelete) => {
+//   if (willDelete) {
+//     location.href="tabla_pago.php?indcredito='. $indcredito.'";
+//   }else {
+//     location.href="tabla_pago.php?indcredito='. $indcredito.'";
+//   }
+// });
+// </script>';
 ?>
 <div class="container white z-depth-1 rounded" style="border-radius: 6px;">
     <div class="modal-header white rounded">
@@ -50,16 +50,16 @@ $total_faltante=datos_clientes::total_deuda_faltante22($indcredito,$mysqli);
         <section class="row">
             <div class="control-pares col-md-2">
                 <label for="" class="control-label">Numero de Recibo: *</label>
-                <input type="number" name="textfactura" class="form-control" placeholder="Numero Factura" required>
+                <input type="number" name="textrecibo" class="form-control" placeholder="Numero Factura" required>
             </div>
             <br>
             <div class="control-pares col-md-7">
                 <label for="" class="control-label">Por Concepto de: *</label>
-                <input type="text" name="textfactura" class="form-control" placeholder="Numero Factura" required value="">
+                <input type="text" name="textdetalles" class="form-control" placeholder="Numero Factura" required value="">
             </div>
             <div class="control-pares col-md-2">
                 <label for="" class="control-label">Cantidad dolares: $ *</label>
-                <input type="number" name="textfactura" class="form-control" placeholder="Detalles de concepto" required>
+                <input type="number" name="texttotal" class="form-control" placeholder="Detalles de concepto" required>
             </div>
             <div class="control-pares col-md-2">
                 <label for="" class="control-label">Fecha: *</label>
