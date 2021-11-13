@@ -39,14 +39,15 @@ if (!empty($_SESSION)) {
 
     }
 }
+$nombre_empleado=datos_clientes::nombre_empleado($_SESSION["indempleado"],$mysqli);
 $dolar = datos_clientes::cambio_dolar($mysqli);
+$indempleado=$_SESSION["indempleado"];
 
 
 ?>
-
 <div class="white rounded container-fluid" id="esconder_menu">
-    <div style="padding: 1em " class="container">
-        <ul class="nav nav-tabs">
+    <div style="padding: 1em;border-color: #2a96a5!important;" class="container">
+        <ul class="nav nav-tabs" >
             <li class="nav-item text-uppercase">
                 <a class="nav-link text-uppercase" href="#">Sucursal <b class="text-uppercase">
                         <?php if (!empty($_SESSION)) {
@@ -62,17 +63,15 @@ $dolar = datos_clientes::cambio_dolar($mysqli);
             <li class="nav-item">
                 <a class="nav-link" href="productos">Productos</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="pagos_mora">Credito</a>
-            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="pagos_mora">Credito</a>-->
+<!--            </li>-->
             <li class="nav-item">
                 <a class="nav-link bg-red" href="#"><i
                             class="icon-coin-dollar"> </i> <?php echo $dolar ?> Cordobas</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link bg-red" href="#" style="padding: 0;margin: 0"><img
-                            src="assets/icons8_add_to_chat_64px.png" class="center-block" style="" width="50%"
-                            alt=""></a>
+                <a class="nav-link bg-red" href="historial_acceso.php" style="padding: 0;margin: 0"><i class="icon-profile indigo-text" style="font-size: 30px"></i></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link bg-red" href="talonario_cambio"> <?php if (!empty($_SESSION)) {
@@ -94,6 +93,7 @@ $dolar = datos_clientes::cambio_dolar($mysqli);
                         <a class="nav-link btn-success white-text" href="temporal/cerrar_seccion.php"><i
                                     class="icon-cross"></i></a>
                     </li>
+
                     </li>
                     <?php
                 }

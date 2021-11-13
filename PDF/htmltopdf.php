@@ -17,6 +17,10 @@ if ($indsucursal == "1") {
     include "factura_chinandega.php";
 }else if ($indsucursal == "5") {
     include "factura_leon.php";
+}else if ($indsucursal == "8") {
+    include "imprimir_villafontana.php";
+}else if ($indsucursal == "6") {
+    include "imprimir_esteli.php";
 } else {
     include "imprimir_factura.php";
 }

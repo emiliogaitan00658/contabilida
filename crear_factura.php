@@ -51,7 +51,7 @@ if ($_POST) {
     } else {
         swal("alerta!", "Surgio un problema sistema!", "error");
     }
-    datos_clientes::historial_acceso("INGRESO A PLATAFORMA", $sucursal, $indcliente, $mysqli);
+    datos_clientes::historial_acceso("Creo Factura", $sucursal, $indempleado, $mysqli);
 }
 
 if ($_SESSION["Key"] == "") {

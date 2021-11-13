@@ -44,7 +44,8 @@ if (!empty($_POST["textnombre"])) {
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
             <th scope="col">Sucursal</th>
-            <th scope="col">No Deudas</th>
+            <th scope="col">Factura Credito</th>
+            <th scope="col">Eliminar</th>
             <th scope="col">Detalles</th>
             <th scope="col">Crear Factura</th>
         </tr>
@@ -73,7 +74,8 @@ if (!empty($_POST["textnombre"])) {
                         if($resultado['indsucursal']=="8"){echo "Managua Villa Fontana";}
                         if($resultado['indsucursal']=="10"){echo "Clinica Dansing";}
                         ?></td>
-                    <td class="btn-link center-align  center-block"><a href="credito.php?indcliente=<?php echo $resultado['indcliente']; ?>"><?php echo datos_clientes::conteo_cuentas_pagar($resultado['indcliente'],$mysqli);?></a></td>
+                    <td class="btn-link center-align  center-block"><a href="credito.php?indcliente=<?php echo $resultado['indcliente']; ?>">Deuda # <?php echo datos_clientes::conteo_cuentas_pagar($resultado['indcliente'],$mysqli);?></a></td>
+                    <td><a href="temporal/eliminar_cuenta_cliente.php?º=<?php echo $resultado['indcliente']; ?>" class="btn btn-danger"><i class="btn-danger icon-bin"></i></a></td>
                     <td><a href="detaller_clientes.php?indcliente=<?php echo $resultado['indcliente']; ?>"
                            class="btn btn-success">Detalles</a></td>
                     <td><a href="temporal/indcliente.php?indcliente=<?php echo $resultado['indcliente']; ?>"

@@ -116,23 +116,26 @@ if ($booos["indtalonario"] == null) {
 $cliente = datos_clientes::datos_clientes_generales($booos["indcliente"], $mysqli);
 /// verificamos de que se registro el control de la factura
 //datos_clientes::update_Control_factura($talonario, $key, $mysqli);
+
+
+
 ?>
 <div class="container">
     <div class="text-center" style="width: 100%!important;">
         <br>
         <img src="../imgbanco.png" width="15%" alt=""><h2 class="text-center" style="position: center!important;margin-bottom: 0!important;">ORTHODENTAL S.A</h2>
-        <p class="red-text text-center " style="font-style: normal;margin-top: 0!important;">COTIZACION PRODUCTO</p>
+        <p class="red-text text-center " style="font-style: normal;margin-top: 0!important;">Producto de Credito</p>
     </div>
 </div>
-<div style="margin-left: 1em;">
-    <p style="margin-left: 2em;width: 60%!important; font-size: 13px;" class="linea">
+<div style="margin-left: 1em">
+    <p style="margin-left: 2em;width: 65%!important; font-size: 13px;" class="linea">
         <b>CLIENTE: <?php echo $cliente['nombre'] . " " . $cliente['apellido']; ?></b></p>
-    <span style="position: static!important; width: 38%!important; font-size: 16px;"
+    <span style="position: static!important; width: 40%!important; font-size: 16px;margin-left: 1em;"
           class="linea"><b><span
                     style="font-size: 13px!important;">FECHA: </span> <?php echo datos_clientes::fecha_get_pc(); ?></b></span>
 </div>
 <table style="height: 130px!important; width: 100%!important;margin: 0!important;"
-       class="table table-">
+       class="table table-bordered">
     <tbody>
     <tr style="height: 5px;">
         <td style="width: 100px; height: 20px;"><b class="center-align">Codigo</b></td>

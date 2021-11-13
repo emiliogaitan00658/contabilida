@@ -1,17 +1,15 @@
 <?php
-include "../header/header_panel_informe.php";
+include_once "header/header.php";
+if (!$_SESSION) {
+    echo '<script> location.href="login" </script>';
+}
 ?>
-<br>
-<br>
-<br>
-<br>
 <div class="container white rounded z-depth-2" style="border-radius: 6px;">
     <div style="padding: 1em">
-        <h5>Generar informe de Cierre de Caja</h5>
-        <p><span class="red-text">*</span>Los informenes son mensuales o semanales si desea desde una fecha determinada</p>
+        <h5>Historial de acceso</h5>
         <hr>
         <br>
-        <form action="../imprimir/producto_rango_venta.php" target="_blank" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <section class="row">
                 <div class="control-pares col-md-3">
                     <input type="date" name="textfecha1" class="form-control" placeholder="Fecha" value="<?php
@@ -92,14 +90,51 @@ include "../header/header_panel_informe.php";
                 </div>
             </section>
         </form>
-        <a class="btn btn-dark light-blue right" href="../panel_control.php"><i class="icon-arrow-left2"></i>Regresar</a>
-        <br>
-        <p>Nota: Los detalle del producto solo seran cambiado y autizado por el personal adminstrativo de la
-            plataforma.</p>
-        <p>Contactar al ingeniero de la empresa</p>
         <br>
     </div>
 </div>
-<?php
-include_once "../header/footer_temporal.php";
-?>
+<br>
+<div class="row">
+    <div class="z-depth-1 rounded white center-block" style="width: 95%;padding: 1em;">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr style="border-bottom: 1px solid black;">
+                <th scope="col" class="center-align">N.#</th>
+                <th scope="col" class="center-align">Detalles</th>
+                <th scope="col" class="center-align">Nombre</th>
+                <th scope="col" class="center-align">SUCURSAL</th>
+                <th scope="col" class="center-align">Fecha</th>
+                <th scope="col" class="center-align">Hora</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+
+            if ($_POST) {
+                $fecha1 = $_POST["textfecha1"];
+                $fecha2 = $_POST["textfecha2"];
+                $sucursal = $_POST["textsucursal"];
+                $result4 = $mysqli->query("SELECT * FROM `historial_acceso` WHERE (fecha BETWEEN '$fecha1' AND '$fecha2' ) and indsucursal='$sucursal'");
+            } else {
+                $fecha = datos_clientes::fecha_get_pc_MYSQL();
+                $result4 = $mysqli->query("SELECT * FROM `historial_acceso` WHERE fecha='$fecha' and indsucursal='$indsucursal'");
+            }
+
+            while ($resultado = $result4->fetch_assoc()) {
+                $empleado = datos_clientes::datos_empleado($resultado["indempleado"], $mysqli);
+                ?>
+                <tr>
+                    <td class="center-align"><?php echo $resultado["indacceso"]; ?></td>
+                    <td class="center-align"><?php echo $resultado["descripcion_acceso"]; ?></td>
+                    <td class="center-align"><?php echo $empleado["nombre_empleado"] . " " . $empleado["apellido_empleado"]; ?></td>
+                    <td class="center-align">Factura Faltante</td>
+                    <td class="center-align"><?php echo $resultado["fecha"]; ?></td>
+                    <td class="center-align"><?php echo $resultado["hora"]; ?></td>
+                </tr>
+                <?php
+            } ?>
+            </tbody>
+        </table>
+    </div>
+
+

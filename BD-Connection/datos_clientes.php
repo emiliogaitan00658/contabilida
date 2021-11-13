@@ -186,48 +186,53 @@ VALUES ( '$indusuario', '$nombre', '$apellido', '$direccion1', '$direccion2', '$
     {
 
         $insert1 = "INSERT INTO `credito` (`indcredito`, `indsucursal`, `indcliente`, `producto`, `totalCredito`, `numeroCuotas`, `fechaInicio`, `status`, `prima`, `indtemp`) 
-VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio', '1', '$prima', '$key');";
+VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto','', '$inicio', '1', '', '$key');";
 
+        $result = $mysqli->query("SELECT * FROM `credito` WHERE indtemp='$key'");
+        $row = $result->fetch_array(MYSQLI_ASSOC);
 
         $query = mysqli_query($mysqli, $insert1);
 
 
-        $fecha = $inicio;
-        $bandera = 0;
-
-        $d = date('d', strtotime($fecha));
-        $m = date('m', strtotime($fecha));
-        $y = date('Y', strtotime($fecha));
-        $m + 1;
-
-        $pago_cu = $monto / $cuotas;
-        $pago_cuatos = round($pago_cu, 2);
-
-        for ($i = 1; $i <= $cuotas; $i++) {
-            if ($i == $cuotas) {
-                $bandera = 1;
-            }
-            $bandera;
-            $m = $m + 1;
-            if ($m > 12) {
-                $m = 1;
-                $y = $y + 1;
-            }
-
-            if (checkdate($m, $d, $y)) {
-                $date = $y . "-" . $m . "-" . $d;
-            } else {
-                $date = $y . "-" . $m . "-" . "1";
-            }
-            $result = $mysqli->query("SELECT * FROM `credito` WHERE indtemp='$key'");
-            $row = $result->fetch_array(MYSQLI_ASSOC);
-
-            $indcredito = $row["indcredito"];
-
-            $insert1 = "INSERT INTO `creditos_pago` (`indpago`, `indcredito`, `indfactura`, `pago`, `fechapago`, `status`, `bandera`, `indsucursal`, `indtemp`)
-                   VALUES (NULL, '$indcredito', null, '$pago_cuatos', '$date', 'false', '$bandera', '$indsucursal', '$key');";
-            $query = mysqli_query($mysqli, $insert1);
-        }
+//        $query = mysqli_query($mysqli, $insert1);
+//
+//
+//        $fecha = $inicio;
+//        $bandera = 0;
+//
+//        $d = date('d', strtotime($fecha));
+//        $m = date('m', strtotime($fecha));
+//        $y = date('Y', strtotime($fecha));
+//        $m + 1;
+//
+//        $pago_cu = $monto / $cuotas;
+//        $pago_cuatos = round($pago_cu, 2);
+//
+//        for ($i = 1; $i <= $cuotas; $i++) {
+//            if ($i == $cuotas) {
+//                $bandera = 1;
+//            }
+//            $bandera;
+//            $m = $m + 1;
+//            if ($m > 12) {
+//                $m = 1;
+//                $y = $y + 1;
+//            }
+//
+//            if (checkdate($m, $d, $y)) {
+//                $date = $y . "-" . $m . "-" . $d;
+//            } else {
+//                $date = $y . "-" . $m . "-" . "1";
+//            }
+//            $result = $mysqli->query("SELECT * FROM `credito` WHERE indtemp='$key'");
+//            $row = $result->fetch_array(MYSQLI_ASSOC);
+//
+//            $indcredito = $row["indcredito"];
+//
+//            $insert1 = "INSERT INTO `creditos_pago` (`indpago`, `indcredito`, `indfactura`, `pago`, `fechapago`, `status`, `bandera`, `indsucursal`, `detalles`, `indtemp`)
+//                   VALUES (NULL, '$indcredito', null, '$pago_cuatos', '$date', 'false', '$bandera', '$indsucursal', '00000', '$key');";
+//            $query = mysqli_query($mysqli, $insert1);
+//        }
         return true;
     }
 
@@ -272,6 +277,29 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         $row = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row)) {
             return $row["numero"];
+        } else {
+            return "error";
+        }
+    }
+    public static function total_deuda_faltante($indtemp,$mysqli)
+    {
+        $result = $mysqli->query("SELECT SUM(pago) as total FROM `creditos_pago` WHERE indtemp= '$indtemp'");
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row)) {
+            return $row["total"];
+        } else {
+            return "error";
+        }
+    }
+    public static function total_deuda_faltante22($indtemp,$mysqli)
+    {
+        $result = $mysqli->query("SELECT SUM(pago) as total FROM `creditos_pago` WHERE indcredito= '$indtemp'");
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+
+        $result2 = $mysqli->query("SELECT totalCredito FROM `credito` WHERE indcredito= '$indtemp'");
+        $row2= $result2->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row)) {
+            return $row2["totalCredito"]-$row["total"];
         } else {
             return "error";
         }
@@ -375,6 +403,12 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
         $query = mysqli_query($mysqli, $insert);
         return true;
     }
+    public static function bandera_credito_cancelado($indtemp,$mysqli)
+    {
+        $insert = "UPDATE `credito` SET `status` = '0' WHERE `credito`.`indtemp` = '$indtemp';";
+        $query = mysqli_query($mysqli, $insert);
+        return true;
+    }
 
     public static function cambio_numero_factura($key, $indtalonario, $mysqli)
     {
@@ -417,7 +451,7 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
 
     public static function conteo_cuentas_pagar($indcliente, $mysqli)
     {
-        $result = $mysqli->query("SELECT COUNT(status) as suma FROM `credito` WHERE indcliente='$indcliente' and status=1 ORDER by indcliente");
+        $result = $mysqli->query("SELECT COUNT(credito.status) as suma FROM `credito` LEFT JOIN `creditos_pago` ON `creditos_pago`.`indcredito`= `credito`.`indcredito` WHERE indcliente='$indcliente' and credito.status=1 and credito.producto >1 ORDER BY indcliente");
         $row3 = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row3)) {
             return $row3["suma"];
@@ -489,6 +523,25 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
     public static function buscar_producto($indproducto, $mysqli)
     {
         $result = $mysqli->query("SELECT * FROM `producto` WHERE indproducto='$indproducto'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        }
+        return "";
+    }
+
+    public static function nombre_empleado($indempleado,$mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `empleado` WHERE indempleado='$indempleado'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["nombre_empleado"]." ".$row3["apellido_empleado"];
+        }
+        return "";
+    }
+    public static function datos_empleado($indempleado,$mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `empleado` WHERE indempleado='$indempleado'");
         $row3 = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row3)) {
             return $row3;
@@ -579,6 +632,15 @@ VALUES (NULL, '$indsucursal', '$indcliente', NULL, '$monto', '$cuotas', '$inicio
     public static function ultima_factura_no($indsucursal, $fecha1, $fecha2, $mysqli)
     {
         $result = $mysqli->query("SELECT * FROM `total_factura` WHERE indsucursal='$indsucursal' and bandera='1' and indtalonario IS NOT NULL and (fecha BETWEEN '$fecha1' and '$fecha2') order by indtalonario desc limit 1");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3["indtalonario"];
+        }
+        return "0";
+    }
+    public static function ultima_factura_credito($indsucursal, $fecha1, $fecha2, $mysqli)
+    {
+        //$result = $mysqli->query(" IS NOT NULL and (fecha BETWEEN '$fecha1' and '$fecha2') order by indtalonario desc limit 1");
         $row3 = $result->fetch_array(MYSQLI_ASSOC);
         if (!empty($row3)) {
             return $row3["indtalonario"];
@@ -841,6 +903,9 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
         $insert2 = "UPDATE `total_factura` SET `indtalonario` = '$talonario' WHERE `total_factura`.`indtemp` = '$key'";
         $query = mysqli_query($mysqli, $insert2);
 
+        $insert6 = "UPDATE `credito` SET `producto` = '$talonario' WHERE `credito`.`indtemp` = '$key'";
+        $query = mysqli_query($mysqli, $insert6);
+
         $talonario_nuevo = $talonario + 1;
         $insert3 = "UPDATE `talonario` SET `numero` = '$talonario_nuevo' WHERE `talonario`.`indsucursal` = '$indsucursal'";
         $query = mysqli_query($mysqli, $insert3);
@@ -913,6 +978,15 @@ VALUES (NULL, '$nombre', '$apellido', '$user', '$pas', '$sucursal');";
         $query = mysqli_query($mysqli, $insert1);
         $query = mysqli_query($mysqli, $insert2);
         $query = mysqli_query($mysqli, $insert3);
+
+
+
+        $insert5 = "DELETE FROM `credito` WHERE `credito`.`indtemp`='$key' ";
+        $insert4 = "DELETE FROM `creditos_pago` WHERE `creditos_pago`.`indtemp` ='$key' ";
+
+        $query = mysqli_query($mysqli, $insert4);
+        $query = mysqli_query($mysqli, $insert5);
+
         return true;
     }
 
@@ -920,6 +994,25 @@ VALUES (NULL, '$nombre', '$apellido', '$user', '$pas', '$sucursal');";
     {
         $insert1 = "DELETE FROM `empleado` WHERE `empleado`.`indempleado`='$induser' ";
         $query = mysqli_query($mysqli, $insert1);
+        return true;
+    }
+
+    public static function eliminar_cuenta_cliente($indcliente, $mysqli)
+    {
+        $insert1 = "DELETE FROM `clientes` WHERE `clientes`.`indcliente` = '$indcliente' ";
+        $query = mysqli_query($mysqli, $insert1);
+
+        return true;
+    }
+
+
+    public static function eliminar_credito($temp,$mysqli)
+    {
+        $insert1 = "DELETE FROM `creditos_pago` WHERE `creditos_pago`.`indtemp` ='$temp' ";
+        $query = mysqli_query($mysqli, $insert1);
+
+        $insert2 = "DELETE FROM `credito` WHERE `credito`.`indtemp` ='$temp' ";
+        $query = mysqli_query($mysqli, $insert2);
         return true;
     }
 

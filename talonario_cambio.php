@@ -33,13 +33,13 @@ if ($_POST){
 
 <div class="container z-depth-1 rounded white">
     <div class="modal-header white rounded">
-        <h4 class="modal-title blue-grey-text unoem">Registro de Talonar</h4>
+        <h4 class="modal-title blue-grey-text unoem">Registro de Numero de factura</h4>
     </div>
     <br>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <section class="row">
             <div class="control-pares col-md-5">
-                <label for="" class="control-label">Cambio numero talonario: *</label>
+                <label for="" class="control-label">Cambio numero numero de facturar: *</label>
                 <input type="text" name="texttalonario" class="form-control" value=" <?php
                 try{
                     if(!empty($_SESSION['sucursal'])){
@@ -49,15 +49,15 @@ if ($_POST){
                 }catch (Exception $e){
 
                 }
-                ?>" placeholder="Numero Talonario"  required>
+                ?>" placeholder="Agregar numero de factura"  required>
             </div>
         </section>
         <br>
         <div class="modal-footer">
-            <input type="submit" value="Agregar Talonario" class="btn white-text blue-grey btn-primary"/>
+            <input type="submit" value="Agregar numero de factura" class="btn white-text blue-grey btn-primary"/>
         </div>
     </form>
-    <p> Este Cambio no aplica en las sucursale de Managua, Leon, Esteli</p>
+    <p>De de cambiar el numero de factura es su responsabilidad de cada sucursal.</p>
     <br>
 </div>
 

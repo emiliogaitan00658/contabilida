@@ -38,7 +38,5 @@ if ($verificacion["indtalonario"] == "") {
  });
  </script>';
 }
-
-
 include_once "../header/footer_temporal.php";
 

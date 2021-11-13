@@ -40,8 +40,8 @@ if (!empty($_SESSION)) {
     }
 }
 $dolar = datos_clientes::cambio_dolar($mysqli);
-
-
+$nombre_empleado=datos_clientes::nombre_empleado($_SESSION["indempleado"],$mysqli);
+$indempleado=$_SESSION["indempleado"];
 ?>
 
 <div class="white rounded container-fluid" id="esconder_menu">
@@ -62,12 +62,15 @@ $dolar = datos_clientes::cambio_dolar($mysqli);
             <li class="nav-item">
                 <a class="nav-link" href="../productos">Productos</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../pagos_mora">Credito</a>
-            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="../pagos_mora">Credito</a>-->
+<!--            </li>-->
             <li class="nav-item">
                 <a class="nav-link bg-red" href="#"><i
                         class="icon-coin-dollar"> </i> <?php echo $dolar ?> Cordobas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link bg-red" href="historial_acceso.php" style="padding: 0;margin: 0"><i class="icon-profile indigo-text" style="font-size: 30px"></i></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link bg-red" href="../talonario_cambio"> <?php if (!empty($_SESSION)) {

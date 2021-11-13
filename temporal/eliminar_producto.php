@@ -8,7 +8,7 @@ echo $key=$_GET["indtemp"];
 datos_clientes::eliminar_producto_factura($indproducto, $key, $mysqli);
 
 if(!empty($_GET["indproducto"])) {
-   echo '<script> location.href="../crear_factura" </script>';
+   echo '<script> location.href="../crear_factura.php" </script>';
 }
 
 include_once "../header/footer_temporal.php";
