@@ -6,7 +6,7 @@ if (!$_SESSION) {
 ?>
     <div class="container white rounded z-depth-1">
         <div style="padding: 1em">
-            <h5>Factura </h5>
+            <h5>Factura Generadas</h5>
             <hr>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <section class="row">
@@ -156,6 +156,7 @@ if (!$_SESSION) {
 
             while ($resultado = $result4->fetch_assoc()) {
                 $indcliente = $resultado['indcliente'];
+                $_SESSION["sucursal_acceso"]= $indsucursal = $resultado['indsucursal'];
                 $nombre_apelido = datos_clientes::nombre_apellido_cliente($indcliente, $mysqli);
                 ?>
                 <?php if ($resultado['bandera'] == "1") { ?>

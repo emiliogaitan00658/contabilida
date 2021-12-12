@@ -1,4 +1,3 @@
-
 <!--<div class="container white z-depth-1 rounded">-->
 <!--    <div class="modal-header white rounded">-->
 <!--        <h4 class="modal-title blue-grey-text unoem">Registro Nuevos Credito</h4>-->
@@ -42,7 +41,7 @@
 <!--</div>-->
 <!--<br>-->
 <?php include "header/header.php";
-if (!$_SESSION){
+if (!$_SESSION) {
     echo '<script> location.href="login" </script>';
 }
 if ($_GET) {
@@ -96,38 +95,55 @@ if ($_GET) {
         </thead>
         <tbody>
         <?php
-        $contador=1;
+        $contador = 1;
         if ($_GET) {
             $result4 = $mysqli->query("SELECT * FROM `credito` WHERE indcliente='$nombre' ORDER BY indcredito DESC");
             while ($resultado = $result4->fetch_assoc()) {
-                $total_faltante=datos_clientes::total_deuda_faltante($resultado['indtemp'],$mysqli);
-                $total_faltante_resta=$resultado['totalCredito']-$total_faltante;
-                if ($total_faltante_resta=="0"){datos_clientes::bandera_credito_cancelado($resultado['indtemp'],$mysqli);}
+                $total_faltante = datos_clientes::total_deuda_faltante($resultado['indtemp'], $mysqli);
+                $total_faltante_resta = $resultado['totalCredito'] - $total_faltante;
+                if ($total_faltante_resta == "0") {
+                    datos_clientes::bandera_credito_cancelado($resultado['indtemp'], $mysqli);
+                }
                 ?>
                 <tr class="center-align">
                     <th scope="row"><?php echo $contador; ?></th>
-                    <td><a href="PDF/cotizar_factura_link_credito.php?dolar=1&key=<?php echo $resultado['indtemp']; ?>"  target="_blank"><b>No #<?php echo $resultado['producto']; ?></b></a></td>
+                    <td><a href="PDF/cotizar_factura_link_credito.php?dolar=1&key=<?php echo $resultado['indtemp']; ?>"
+                           target="_blank"><b>No #<?php echo $resultado['producto']; ?></b></a></td>
                     <td class="center-align"><b>$ <?php echo $resultado['totalCredito']; ?></b></td>
                     <td class="center-align red-text"><b>$ <?php echo $total_faltante_resta ?></b></td>
                     <td><?php
                         $fecha_cambio = $resultado['fechaInicio'];
                         $timestamp = strtotime($fecha_cambio);
                         echo date("d/m/Y", $timestamp); ?></td>
-                    <td><a href="temporal/eliminar_credito.php?temp=<?php echo $resultado['indtemp']; ?>&indcliente=<?php echo $nombre; ?>" class="btn btn-danger"><i class="btn-danger icon-bin"></i></a></td>
-                    <td><a href="tabla_pago.php?indcredito=<?php echo $resultado['indcredito']; ?>" class="btn btn-primary green white-text">Pagar Creditos</a></td>
+                    <?php if ($total_faltante_resta == "0") { ?>
+                        <td><a href="#" class="btn btn-danger"><i class="btn-danger icon-bin"></i></a></td>
+                    <?php } else { ?>
+                        <td>
+                            <a href="temporal/eliminar_credito.php?indtemp=<?php echo $resultado['indtemp']; ?>&indcliente=<?php echo $nombre; ?>"
+                               class="btn btn-danger"><i class="btn-danger icon-bin"></i></a></td>
+                    <?php }
+                    if ($resultado['producto']==null) { ?>
+
+                        <td><a href="#" class="btn btn-primary green white-text">Pagar Creditos</a></td>
+                    <?php }else {  ?>
+  <td>
+                            <a href="tabla_pago.php?indcredito=<?php echo $resultado['indcredito']; ?>&indtemp=<?php echo $resultado['indtemp']; ?>"
+                               class="btn btn-primary green white-text">Pagar Creditos</a></td>
+
+                    <?php } ?>
                 </tr>
                 <?php
-                $contador=$contador+1;
+                $contador = $contador + 1;
             }
         } ?>
-<!--        <tr>-->
-<!--            <th scope="row"></th>-->
-<!--            <th scope="row">Total Deuda= $ </th>-->
-<!--            <th scope="row">--><?php //echo $contador; ?><!--</th>-->
-<!--            <th scope="row">--><?php //echo $contador; ?><!--</th>-->
-<!--            <th scope="row">--><?php //echo $contador; ?><!--</th>-->
-<!--            <th scope="row">--><?php //echo $contador; ?><!--</th>-->
-<!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <th scope="row"></th>-->
+        <!--            <th scope="row">Total Deuda= $ </th>-->
+        <!--            <th scope="row">--><?php //echo $contador; ?><!--</th>-->
+        <!--            <th scope="row">--><?php //echo $contador; ?><!--</th>-->
+        <!--            <th scope="row">--><?php //echo $contador; ?><!--</th>-->
+        <!--            <th scope="row">--><?php //echo $contador; ?><!--</th>-->
+        <!--        </tr>-->
         </tbody>
     </table>
 </div>

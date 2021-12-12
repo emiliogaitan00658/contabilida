@@ -38,11 +38,10 @@ if (!empty($_SESSION)) {
     } catch (Exception $e) {
 
     }
+    $nombre_empleado=datos_clientes::nombre_empleado($_SESSION["indempleado"],$mysqli);
+    $dolar = datos_clientes::cambio_dolar($mysqli);
+    $indempleado=$_SESSION["indempleado"];
 }
-$nombre_empleado=datos_clientes::nombre_empleado($_SESSION["indempleado"],$mysqli);
-$dolar = datos_clientes::cambio_dolar($mysqli);
-$indempleado=$_SESSION["indempleado"];
-
 
 ?>
 <div class="white rounded container-fluid" id="esconder_menu">

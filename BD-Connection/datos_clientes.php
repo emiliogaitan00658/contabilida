@@ -934,6 +934,27 @@ VALUES (NULL, NULL, '$indproducto', '$producto','1','$precio_cordobas','$precio_
         }
     }
 
+    public static function datos_credito_generale($key,$mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `credito` WHERE indtemp='$key'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        } else {
+            return "false";
+        }
+    }
+    public static function datos_credito_generale_pago($indpago,$mysqli)
+    {
+        $result = $mysqli->query("SELECT * FROM `creditos_pago` WHERE indpago='$indpago'");
+        $row3 = $result->fetch_array(MYSQLI_ASSOC);
+        if (!empty($row3)) {
+            return $row3;
+        } else {
+            return "false";
+        }
+    }
+
     public static function entregar_matariales_bandera($indfactura, $bandera, $mysqli)
     {
         $insert = "UPDATE `factura` SET `bandera` = '$bandera' WHERE `factura`.`indfactura` = '$indfactura'";
@@ -993,6 +1014,14 @@ VALUES (NULL, '$nombre', '$apellido', '$user', '$pas', '$sucursal');";
     public static function eliminar_user_acceso($induser, $mysqli)
     {
         $insert1 = "DELETE FROM `empleado` WHERE `empleado`.`indempleado`='$induser' ";
+        $query = mysqli_query($mysqli, $insert1);
+        return true;
+    }
+    public static function ingresar_credito_pago($indcredito,$indtemp,$indsucursal,$recibo,$detalle,$total,$fecha,$mysqli)
+    {
+        $fecha=self::fecha_get_pc_MYSQL();
+        $insert1 = "INSERT INTO `creditos_pago` (`indpago`, `indcredito`, `indrecibo`, `pago`, `fechapago`, `status`, `bandera`, `indsucursal`, `detalles_factura`, `indtemp`) 
+VALUES (NULL, '$indcredito', '$recibo', '$total', '$fecha', 'true', '1', '$indsucursal', '$detalle', '$indtemp') ";
         $query = mysqli_query($mysqli, $insert1);
         return true;
     }

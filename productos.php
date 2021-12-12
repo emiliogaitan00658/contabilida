@@ -6,7 +6,9 @@ if (!$_SESSION) {
 ?>
 <div class="container white rounded z-depth-2" style="border-radius: 6px;">
     <div style="padding: 1em">
+        <br>
         <h5>Buscar producto</h5>
+        <hr>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <section class="row">
                 <div class="control-pares col-md-4">
@@ -17,25 +19,27 @@ if (!$_SESSION) {
                 </div>
             </section>
         </form>
-        <div class="modal-footer">
-
-            <a class="btn white-text btn-dark" href="faltantes">Faltantes</a>
-            <a class="btn white-text btn-dark" href="entregado_materiales">Entregado Materiales</a>
-            <?php
-            if (empty($_SESSION["root"])) {
-                ?>
-                <a class="btn white-text blue-grey btn-primary" href="entregar_materiales">Entregar
-                    Materiales</a>
-                <?php
-            }
-            ?>
-
-        </div>
+        <br>
+        <hr>
+<!--        <div class="modal-footer">-->
+<!---->
+<!--            <a class="btn white-text btn-dark" href="faltantes">Faltantes</a>-->
+<!--            <a class="btn white-text btn-dark" href="entregado_materiales">Entregado Materiales</a>-->
+<!--            --><?php
+//            if (empty($_SESSION["root"])) {
+//                ?>
+<!--                <a class="btn white-text blue-grey btn-primary" href="entregar_materiales">Entregar-->
+<!--                    Materiales</a>-->
+<!--                --><?php
+//            }
+//            ?>
+<!---->
+<!--        </div>-->
     </div>
 </div>
 <hr>
 <div class="container z-depth-1 rounded white">
-    <table class="table table-striped" style="padding: 1em;">
+    <table class="table table-striped table-bordered" style="padding: 1em;">
         <thead>
         <tr style="border-bottom: 1px solid black">
             <th scope="col">#Codigo</th>
@@ -51,7 +55,7 @@ if (!$_SESSION) {
             echo $producto = $_POST["textproducto"];
             $result4 = $mysqli->query("SELECT * FROM `producto` WHERE `nombre_producto` LIKE '%%$producto%%' OR `codigo_producto` LIKE '%%$producto%%' ORDER by nombre_producto ASC");
         } else {
-            $result4 = $mysqli->query("SELECT * FROM `producto` ORDER by nombre_producto ASC limit 30");
+            $result4 = $mysqli->query("SELECT * FROM `producto` ORDER by nombre_producto ASC limit 10");
         }
         while ($resultado = $result4->fetch_assoc()) {
             ?>

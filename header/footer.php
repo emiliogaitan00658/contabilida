@@ -3,7 +3,7 @@
 
 <div class="footer-basic" id="footer">
     <footer class="center-block center">
-        <p class="copyright"><p>Derechos Reservado ORTHODENTAL S.A </p>
+        <p class="copyright"><p>Derechos Reservado</p>
         <p class="copyright"><p>Creado por Ing. Emilio Gaitan <i class="green-text"><a href="https://contabilidad.orthodentalnic.com/derechos_resevado/propieedad_intelectual.pdf">end-user license agreement (EULA)</a></i> </p>
             <script>
                 var fecha = new Date();

@@ -1,4 +1,4 @@
-<div style='background-image: url("assets/img/img2.png");
+<div style='background-image: url("assets/img/img23.png");
 background-size: cover;
 background-position: center;
 height: 100vh;
@@ -183,6 +183,7 @@ if ($_POST) {
                                 <input type="submit" value="INGRESAR" class="btn">
                             </div>
                         </form>
+                        <p class="center-align">Este sistema es creado Ing. Emilio Gaitán</p>
                     </div>
                 </div>
             </div>
