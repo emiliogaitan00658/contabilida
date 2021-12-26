@@ -11,6 +11,8 @@
 <div style="border: 1px solid sienna;text-align: center">
     <h1 style="color: #8b1014">No estas Autorizado</h1>
     <p>* Registramos todo lo que hace... </p>
+    <h5>Sucursal de Altamira No autorizado</h5>
+    <p>Solo la encargada de caja puede imprimir</p>
 </div>
 </body>
 </html>

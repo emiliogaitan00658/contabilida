@@ -1,4 +1,3 @@
-
 <style type="text/css">
     @font-face {
         font-family: "source_sans_proregular";
@@ -38,12 +37,14 @@
         font-size: 13px;
         font-family: 'lucida grande', helvetica, verdana, arial, sans-serif !important;
     }
+
     html {
         font-family: sans-serif;
         line-height: 1.15;
         -webkit-text-size-adjust: 100%;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
     }
+
     body {
         margin: 0;
         font-family: Nunito, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
@@ -54,17 +55,20 @@
         text-align: left;
         background-color: #fff
     }
+
     .text-center {
         text-align: center !important;
     }
+
     .center-blocks {
         display: block;
         margin-left: auto;
         margin-right: auto;
     }
+
     .left-align {
-         text-align: left;
-     }
+        text-align: left;
+    }
 
     .right-align {
         text-align: right;
@@ -104,11 +108,11 @@
 <?php
 include_once '../BD-Connection/conection.php';
 include_once '../BD-Connection/datos_clientes.php';
-session_start();
-$indsucursal = $_SESSION["sucursal"];
-$dolar=datos_clientes::cambio_dolar($mysqli);
-$talonario = datos_clientes::cambio_do($indsucursal, $mysqli);
 
+$indsucursal = $_SESSION["sucursal"];
+$dolar = datos_clientes::cambio_dolar($mysqli);
+$talonario = datos_clientes::cambio_do($indsucursal, $mysqli);
+$pregunta=0;
 $booos = datos_clientes::verficiar_talonario($key, $mysqli);
 if ($booos["indtalonario"] == null) {
     //datos_clientes::Factura_genera_codigo($key, $talonario, $indsucursal, $mysqli);
@@ -120,9 +124,10 @@ $cliente = datos_clientes::datos_clientes_generales($booos["indcliente"], $mysql
 ?>
 <div class="container">
     <div class="text-center" style="width: 100%!important;">
-        <br>
-        <img src="../imgbanco.png" width="15%" alt=""><h2 class="text-center" style="position: center!important;margin-bottom: 0!important;">ORTHODENTAL S.A</h2>
-        <p class="red-text text-center " style="font-style: normal;margin-top: 0!important;">COTIZACION PRODUCTO</p>
+        <img src="../imgbanco.png" width="15%" alt="">
+        <h2 class="text-center" style="position: center!important;margin-bottom: 0!important;">ORTHODENTAL S.A</h2>
+        <p class="red-text text-center " style="font-style: normal;margin-top: 0!important;">Visualizacion Factura Generada</p>
+        <h5 style="border: 1px solid red;color: red"> *Esta Factura no se puede imprimir.</h5>
     </div>
 </div>
 <div style="margin-left: 1em;">
@@ -159,9 +164,15 @@ $cliente = datos_clientes::datos_clientes_generales($booos["indcliente"], $mysql
             <td style="width: 400px; height: 20px;margin-left: 6px"><b><?php echo $resultado['nombre_producto']; ?></b>
             </td>
             <td style="width: 68px; height: 20px;padding-left: 2em"
-                class="right-align"><b><?php echo number_format((($pregunta == 1 ? $resultado['precio_unidad']/$dolar: $resultado['precio_unidad'])), 2, '.', ','); ?></b></td>
+                class="right-align">
+                <b><?php echo number_format((($pregunta == 1 ? $resultado['precio_unidad'] / $dolar
+                        : $resultado['precio_unidad'])), 2, '.', ','); ?></b>
+            </td>
             <td style="width: 68px; height: 20px;padding-left: 1em"
-                class="right-align"><b><?php echo number_format((($pregunta == 1 ?$resultado['precio_total']/$dolar:$resultado['precio_total'])), 2, '.', ','); ?></b></td>
+                class="right-align">
+                <b><?php echo number_format((($pregunta == 1 ? $resultado['precio_total'] / $dolar : $resultado['precio_total'])),
+                        2, '.', ','); ?></b>
+            </td>
         </tr>
         <?php
     }
@@ -183,25 +194,26 @@ $cliente = datos_clientes::datos_clientes_generales($booos["indcliente"], $mysql
         <td style="width: 100px; height:20px;">&nbsp;</td>
         <td style="width: 40px; height:20px;">&nbsp;</td>
         <td style="width: 400px; height:20px;">&nbsp;</td>
-        <td style="width: 68px; height:20px;"><b>Subtotal <?php echo $pregunta == 1 ?"$":"C$"; ?></b></td>
+        <td style="width: 68px; height:20px;"><b>Subtotal <?php echo $pregunta == 1 ? "$" : "C$"; ?></b></td>
         <td style="width: 68px; height:20px;font-size: 15px!important;">
-            <b><?php echo number_format((($pregunta == 1 ?$subtotal/$dolar:$subtotal)), 2, '.', ','); ?></b></td>
+            <b><?php echo number_format((($pregunta == 1 ? $subtotal / $dolar : $subtotal)), 2, '.', ','); ?></b></td>
     </tr>
     <tr style="height: 5px;">
         <td style="width: 100px; height:20px;">&nbsp;</td>
         <td style="width: 40px; height:20px;">&nbsp;</td>
         <td style="width: 400px; height:20px;">&nbsp;</td>
-        <td style="width: 68px; height:20px;"><b>Total: <?php echo $pregunta == 1 ?"$":"C$"; ?></b></td>
-        <td style="width: 68px; height:20px;font-size: 15px!important;"><b><?php echo number_format((($pregunta == 1 ?$total/$dolar:$total)), 2, '.', ','); ?></b></td>
+        <td style="width: 68px; height:20px;"><b>Total: <?php echo $pregunta == 1 ? "$" : "C$"; ?></b></td>
+        <td style="width: 68px; height:20px;font-size: 15px!important;">
+            <b><?php echo number_format((($pregunta == 1 ? $total / $dolar : $total)), 2, '.', ','); ?></b></td>
     </tr>
     </tbody>
 </table>
 <p style="font-size: 16px">*Nota= Los precios de producto cotizados tiene una validez de 30 dìa.</p>
 <?php
-if ($pregunta==1)
-{
+if ($pregunta == 1) {
 
-}else{?>
+} else {
+    ?>
     <p style="font-size: 16px">Taza de cambio de dolar= C$ <?php echo $dolar ?></p>
 <?php }
 ?>
@@ -209,4 +221,5 @@ if ($pregunta==1)
 <div class="container">
     <img src="../assets/img/sello.jpg" width="20%" alt="" style="margin-left: 30em;margin-top: 3em;">
 </div>
+
 

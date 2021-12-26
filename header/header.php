@@ -102,4 +102,7 @@ if (!empty($_SESSION)) {
         </ul>
     </div>
 </div>
-<br>
+<div class="alert alert-primary center-align" role="alert">
+   Mensaje: A partir del 1 de enero todas las facturas  deben registrarse  en el sistema  ,
+    ( SI LA FACTURA ES GENERADA MANUAL DEBE DE INGRESARLA)
+</div>

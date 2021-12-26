@@ -143,6 +143,8 @@ if ($_POST) {
                        } ?>">
             </div>
         </section>
+        <hr>
+        <p class="red-text">No duplicar cliente el sistema no puede crear o generarlas.</p>
         <br>
         <div class="modal-footer">
             <input type="submit" value="Nuevo Cliente" class="btn white-text blue-grey btn-primary"/>
